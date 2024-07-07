@@ -6,7 +6,7 @@ type MainProps = {
   places: Place[];
 };
 
-export default function MainScreen({ places, offersCount }: MainProps) {
+export default function Main({ places, offersCount }: MainProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
