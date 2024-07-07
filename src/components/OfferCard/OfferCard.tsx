@@ -1,15 +1,22 @@
 import { Place } from '../../const';
 
-export default function PlaceCard({
-  name,
+type WithKeyProps = {
+  key: React.Key;
+};
+type PlaceProps = Omit<Place, 'id'>;
+type OfferCardProps = PlaceProps & WithKeyProps;
+
+export default function OfferCard({
+  title,
   price,
   type,
-  premium,
-  bookmarked,
-}: Place) {
+  isPremium,
+  isFavorite,
+  key
+}: OfferCardProps) {
   return (
-    <article className="cities__card place-card">
-      {premium && (
+    <article key={key} className="cities__card place-card">
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -28,12 +35,12 @@ export default function PlaceCard({
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{price}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
             className={`place-card__bookmark-button button ${
-              bookmarked && 'place-card__bookmark-button--active button'
+              isFavorite && 'place-card__bookmark-button--active button'
             }`}
             type="button"
           >
@@ -50,7 +57,7 @@ export default function PlaceCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
