@@ -1,10 +1,6 @@
 import { Place } from '../../const';
 
-type WithKeyProps = {
-  key: React.Key;
-};
-type PlaceProps = Omit<Place, 'id'>;
-type OfferCardProps = PlaceProps & WithKeyProps;
+type OfferCardProps = Omit<Place, 'id'>;
 
 export default function OfferCard({
   title,
@@ -12,10 +8,9 @@ export default function OfferCard({
   type,
   isPremium,
   isFavorite,
-  key
 }: OfferCardProps) {
   return (
-    <article key={key} className="cities__card place-card">
+    <article className="cities__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
