@@ -1,14 +1,18 @@
 import OfferCard from '../OfferCard/OfferCard';
-import { Place } from '../../const';
+import { Offer } from '../../const';
 
 type OffersListProps = {
-  places: Place[];
+  places: Offer[];
 };
 
 export default function OffersList({ places }: OffersListProps) {
+  //TODO replace with actual logic
+  const tempOffersList = places.filter(
+    (place) => place.city.name === 'Amsterdam'
+  );
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => (
+      {tempOffersList.map((place) => (
         <OfferCard
           key={place.id}
           id={place.id}
@@ -17,6 +21,8 @@ export default function OffersList({ places }: OffersListProps) {
           type={place.type}
           isPremium={place.isPremium}
           isFavorite={place.isFavorite}
+          previewImage={place.previewImage}
+          rating={place.rating}
         />
       ))}
     </div>

@@ -1,10 +1,10 @@
 import OffersFilter from '../../components/OffersFilter/OffersFilter';
 import OffersList from '../../components/OffersList/OffersList';
-import { Place } from '../../const';
+import { Offer } from '../../const';
 
 type MainProps = {
   offersCount: number;
-  places: Place[];
+  places: Offer[];
 };
 
 export default function Main({ places, offersCount }: MainProps) {

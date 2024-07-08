@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
-import { Place } from '../../const';
+import { Link } from 'react-router-dom';
+import { Offer } from '../../const';
+import { capitalize } from '../../helpers/capitalize';
 
-type OfferCardProps = Place;
+type OfferCardProps = Omit<Offer, 'city' | 'location'>;
 
 export default function OfferCard({
   id,
@@ -11,18 +12,17 @@ export default function OfferCard({
   type,
   isPremium,
   isFavorite,
+  previewImage,
+  rating,
 }: OfferCardProps) {
   const [isActiveCard, setIsActiveCard] = useState('');
 
-  function handleMouseOver(id: string): void {
+  function handleMouseOver() {
     setIsActiveCard(id);
     console.log(isActiveCard);
   }
   return (
-    <article
-      onMouseOver={() => handleMouseOver(id)}
-      className="cities__card place-card"
-    >
+    <article onMouseOver={handleMouseOver} className="cities__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -32,7 +32,7 @@ export default function OfferCard({
         <a href="#">
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -60,13 +60,13 @@ export default function OfferCard({
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span style={{ width: '80%' }} />
-            <span className="visually-hidden">Rating</span>
+            <span className="visually-hidden">Rating {rating}</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );
