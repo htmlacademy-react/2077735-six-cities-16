@@ -1,4 +1,4 @@
-import Logo from '../Logo/Logo';
+import Logo from '../logo/logo';
 import { useLocation, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 

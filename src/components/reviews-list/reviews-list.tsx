@@ -1,4 +1,4 @@
-import Review from '../Review/Review';
+import Review from '../review/review';
 import { Comment } from '../../const';
 
 type ReviewsListProps = {

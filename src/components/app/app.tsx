@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from '../Layout/Layout';
-import Main from '../../pages/Main/Main';
-import Favorites from '../../pages/Favorites/Favorites';
-import Login from '../../pages/Login/Login';
-import Offer from '../../pages/Offer/Offer';
-import NotFound from '../../pages/NotFound/NotFound';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import Layout from '../layout/layout';
+import Main from '../../pages/main/main';
+import Favorites from '../../pages/favorites/favorites';
+import Login from '../../pages/login/login';
+import Offer from '../../pages/offer/offer';
+import NotFound from '../../pages/not-found/not-found';
+import PrivateRoute from '../private-route/private-route';
 import {Offer as Place, Comment, AppRoute } from '../../const';
 
 type AppProps = {

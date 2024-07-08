@@ -1,5 +1,5 @@
-import ReviewForm from '../../components/ReviewForm/ReviewForm';
-import ReviewsList from '../../components/ReviewsList/ReviewsList';
+import ReviewForm from '../../components/review-form/review-form';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 import { Comment } from '../../const';
 
 type OfferProps = {
