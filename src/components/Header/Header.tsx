@@ -1,10 +1,10 @@
 import Logo from '../logo/logo';
 import { useLocation, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { APP_ROUTE } from '../../const';
 
 export default function Header() {
   const location = useLocation();
-  const isGrey = location.pathname === AppRoute.Root;
+  const isGrey = location.pathname === APP_ROUTE.ROOT;
   const headerColor = isGrey
     ? { backgroundColor: '#f5f5f5' }
     : { backgroundColor: '#fff' };
@@ -21,7 +21,7 @@ export default function Header() {
               <li className="header__nav-item user">
                 <Link
                   className="header__nav-link header__nav-link--profile"
-                  to={AppRoute.Favorites}
+                  to={APP_ROUTE.FAVORITES}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">

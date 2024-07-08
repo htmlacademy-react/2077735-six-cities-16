@@ -1,6 +1,6 @@
 import OffersFilter from '../../components/offers-filter/offers-filter';
 import OffersList from '../../components/offers-list/offers-list';
-import { Offer } from '../../const';
+import { Offer } from '../../types';
 
 type MainProps = {
   offersCount: number;

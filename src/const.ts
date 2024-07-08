@@ -1,41 +1,7 @@
-type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
-
-export type Offer = {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  previewImage: string;
-  city: {
-    name: string;
-    location: Location;
-  };
-  location: Location;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-};
-
-export type Comment = {
-  id: string;
-  date: string;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-  comment: string;
-  rating: number;
-};
-
-export const AppRoute = {
-  Root: '/',
-  Login: '/login',
-  Favorites: '/favorites',
-  Offer: '/offer/:id',
-  NotFound: '*',
+export const APP_ROUTE = {
+  ROOT: '/',
+  LOGIN: '/login',
+  FAVORITES: '/favorites',
+  OFFER: '/offer/:id',
+  NOT_FOUND: '*',
 } as const;

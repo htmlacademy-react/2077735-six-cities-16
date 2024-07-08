@@ -1,4 +1,4 @@
-import { Comment } from '../../const';
+import { Comment } from '../../types';
 
 type ReviewProps = Pick<Comment, 'comment'>;
 

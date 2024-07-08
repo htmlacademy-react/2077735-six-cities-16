@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../const';
+import { Offer } from '../../types';
 import { capitalize } from '../../helpers/capitalize';
 
 type OfferCardProps = Omit<Offer, 'city' | 'location'>;

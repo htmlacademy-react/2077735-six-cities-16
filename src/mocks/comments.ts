@@ -1,4 +1,4 @@
-export const comments = [
+export const COMMENTS = [
   {
     id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
     date: '2019-05-08T14:13:56.569Z',

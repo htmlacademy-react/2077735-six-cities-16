@@ -1,4 +1,4 @@
-export const Offers = [
+export const OFFERS = [
   {
     id: 'd2afa623-51ca-443c-9ac7-4942725c3970',
     title: 'Nice, cozy, warm big bed apartment',
