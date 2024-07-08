@@ -17,7 +17,7 @@ export default function App({ places, offersCount }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path={AppRoute.Root} element={<Layout />}>
           <Route
             index
             element={<Main offersCount={offersCount} places={places} />}
