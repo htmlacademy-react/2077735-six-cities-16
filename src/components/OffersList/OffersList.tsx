@@ -11,6 +11,7 @@ export default function OffersList({ places }: OffersListProps) {
       {places.map((place) => (
         <OfferCard
           key={place.id}
+          id={place.id}
           title={place.title}
           price={place.price}
           type={place.type}

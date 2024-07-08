@@ -1,16 +1,27 @@
+import { useState } from 'react';
 import { Place } from '../../const';
 
-type OfferCardProps = Omit<Place, 'id'>;
+type OfferCardProps = Place;
 
 export default function OfferCard({
+  id,
   title,
   price,
   type,
   isPremium,
   isFavorite,
 }: OfferCardProps) {
+  const [isActiveCard, setIsActiveCard] = useState('');
+
+  function handleMouseOver(id: string): void {
+    setIsActiveCard(id);
+    console.log(isActiveCard);
+  }
   return (
-    <article className="cities__card place-card">
+    <article
+      onMouseOver={() => handleMouseOver(id)}
+      className="cities__card place-card"
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
