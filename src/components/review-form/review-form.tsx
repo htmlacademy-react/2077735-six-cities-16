@@ -25,6 +25,7 @@ export default function ReviewForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
         onChange={handleFieldChange}
+        value={userReview.text}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

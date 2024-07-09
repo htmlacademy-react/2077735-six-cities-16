@@ -1,4 +1,4 @@
-import FavLocationList from '../../components/favorites-location-list/favorites-location-list';
+import FavLocationList from '../../components/favorites-locations-list/favorites-locations-list';
 import { Offer } from '../../types';
 
 type FavoritesProps = {

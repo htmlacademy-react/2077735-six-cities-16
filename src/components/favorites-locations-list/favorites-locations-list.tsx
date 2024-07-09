@@ -1,6 +1,7 @@
 import FavLocation from '../favorites-location/favorites-location';
 import { Offer } from '../../types';
 
+//TODO: replace with actual logic
 const locations = ['Amsterdam', 'Paris'];
 
 type FavLocationListProps = {
