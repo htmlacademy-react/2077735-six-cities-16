@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalize } from '../../helpers/capitalize';
+import { IMG_SIZE } from '../../const';
 
-type OfferCardProps = Omit<Offer, 'city' | 'location'>;
+type ReducedOffer = Omit<Offer, 'city' | 'location'>;
+type isFavorites = { isFavorites?: boolean };
+type OfferCardProps = ReducedOffer & isFavorites;
 
 export default function OfferCard({
   id,
@@ -14,6 +17,7 @@ export default function OfferCard({
   isFavorite,
   previewImage,
   rating,
+  isFavorites,
 }: OfferCardProps) {
   const [isActiveCard, setIsActiveCard] = useState('');
 
@@ -22,24 +26,37 @@ export default function OfferCard({
     console.log(isActiveCard);
   }
   return (
-    <article onMouseOver={handleMouseOver} className="cities__card place-card">
+    <article
+      onMouseOver={handleMouseOver}
+      className={`${
+        isFavorites ? 'favorites__card' : 'cities__card'
+      } place-card`}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div
+        className={`${
+          isFavorites ? 'favorites__image-wrapper' : 'cities__image-wrapper'
+        } place-card__image-wrapper`}
+      >
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            width={isFavorites ? IMG_SIZE.WIDTH.FAVORITES : IMG_SIZE.WIDTH.MAIN}
+            height={
+              isFavorites ? IMG_SIZE.HEIGHT.FAVORITES : IMG_SIZE.HEIGHT.MAIN
+            }
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div
+        className={`${isFavorites && 'favorites__card-info'} place-card__info`}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

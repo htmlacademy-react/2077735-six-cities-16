@@ -56,7 +56,9 @@ export default function Main({ places, offersCount }: MainProps) {
                 {offersCount} places to stay in Amsterdam
               </b>
               <OffersFilter />
-              <OffersList places={places} />
+              <div className="cities__places-list places__list tabs__content">
+                <OffersList places={places} />
+              </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />

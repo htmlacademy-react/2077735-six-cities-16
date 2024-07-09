@@ -32,7 +32,7 @@ export default function App({
             path={APP_ROUTE.FAVORITES}
             element={
               <PrivateRoute>
-                <Favorites />
+                <Favorites places={places} />
               </PrivateRoute>
             }
           />

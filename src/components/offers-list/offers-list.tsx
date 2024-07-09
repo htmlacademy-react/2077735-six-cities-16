@@ -1,17 +1,29 @@
 import OfferCard from '../offer-card/offer-card';
 import { Offer } from '../../types';
+import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
+import { filterOffersByFav } from '../../helpers/filter-offers-by-fav';
 
 type OffersListProps = {
   places: Offer[];
+  isFavorites?: boolean;
+  city?: string;
 };
 
-export default function OffersList({ places }: OffersListProps) {
+export default function OffersList({
+  places,
+  isFavorites,
+  city,
+}: OffersListProps) {
   //TODO replace with actual logic
-  const tempOffersList = places.filter(
-    (place) => place.city.name === 'Amsterdam'
-  );
+  let tempOffersList = [];
+  if (isFavorites && city) {
+    tempOffersList = filterOffersByCity(filterOffersByFav(places), city);
+  } else {
+    tempOffersList = filterOffersByCity(places, 'Paris');
+  }
+
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <>
       {tempOffersList.map((place) => (
         <OfferCard
           key={place.id}
@@ -23,8 +35,9 @@ export default function OffersList({ places }: OffersListProps) {
           isFavorite={place.isFavorite}
           previewImage={place.previewImage}
           rating={place.rating}
+          isFavorites={isFavorites}
         />
       ))}
-    </div>
+    </>
   );
 }
