@@ -19,11 +19,10 @@ export default function OfferCard({
   rating,
   isFavorites,
 }: OfferCardProps) {
-  const [isActiveCard, setIsActiveCard] = useState('');
+  const [, setIsActiveCard] = useState('');
 
   function handleMouseOver() {
     setIsActiveCard(id);
-    console.log(isActiveCard);
   }
   return (
     <article
