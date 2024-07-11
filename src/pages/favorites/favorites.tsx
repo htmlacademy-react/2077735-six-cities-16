@@ -1,4 +1,4 @@
-import FavLocationList from '../../components/favorites-locations-list/favorites-locations-list';
+import FavLocationsList from '../../components/favorites-locations-list/favorites-locations-list';
 import { Offer } from '../../types';
 
 type FavoritesProps = {
@@ -12,7 +12,7 @@ export default function Favorites({ favorites }: FavoritesProps) {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavLocationList favorites={favorites} />
+            <FavLocationsList favorites={favorites} />
           </section>
         </div>
       </main>

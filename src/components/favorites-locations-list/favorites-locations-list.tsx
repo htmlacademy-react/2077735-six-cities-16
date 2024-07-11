@@ -5,7 +5,7 @@ type FavLocationListProps = {
   favorites: Offer[];
 };
 
-export default function FavLocationList({ favorites }: FavLocationListProps) {
+export default function FavLocationsList({ favorites }: FavLocationListProps) {
   //TODO replace with actual logic
   const sortedByCity = favorites.reduce(
     (result: { [key: string]: Offer[] }, offer) => {
