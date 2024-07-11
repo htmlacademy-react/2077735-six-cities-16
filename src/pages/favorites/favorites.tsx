@@ -2,17 +2,17 @@ import FavLocationList from '../../components/favorites-locations-list/favorites
 import { Offer } from '../../types';
 
 type FavoritesProps = {
-  places: Offer[];
+  favorites: Offer[];
 };
 
-export default function Favorites({ places }: FavoritesProps) {
+export default function Favorites({ favorites }: FavoritesProps) {
   return (
     <div className="page">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavLocationList places={places} />
+            <FavLocationList favorites={favorites} />
           </section>
         </div>
       </main>

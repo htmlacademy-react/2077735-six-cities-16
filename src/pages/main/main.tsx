@@ -5,10 +5,10 @@ import { Offer } from '../../types';
 
 type MainProps = {
   offersCount: number;
-  places: Offer[];
+  offers: Offer[];
 };
 
-export default function Main({ places, offersCount }: MainProps) {
+export default function Main({ offers, offersCount }: MainProps) {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -25,7 +25,7 @@ export default function Main({ places, offersCount }: MainProps) {
               </b>
               <OffersFilter />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList places={places} />
+                <OffersList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">

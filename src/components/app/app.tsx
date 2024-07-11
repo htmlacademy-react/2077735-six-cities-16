@@ -11,12 +11,14 @@ import { APP_ROUTE } from '../../const';
 
 type AppProps = {
   offersCount: number;
-  places: Place[];
+  offers: Place[];
+  favorites: Place[];
   comments: Comment[];
 };
 
 export default function App({
-  places,
+  offers,
+  favorites,
   comments,
   offersCount,
 }: AppProps): JSX.Element {
@@ -26,13 +28,13 @@ export default function App({
         <Route path={APP_ROUTE.ROOT} element={<Layout />}>
           <Route
             index
-            element={<Main offersCount={offersCount} places={places} />}
+            element={<Main offersCount={offersCount} offers={offers} />}
           />
           <Route
             path={APP_ROUTE.FAVORITES}
             element={
               <PrivateRoute>
-                <Favorites places={places} />
+                <Favorites favorites={favorites} />
               </PrivateRoute>
             }
           />

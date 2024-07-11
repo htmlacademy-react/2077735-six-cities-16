@@ -3,10 +3,10 @@ import { Offer } from '../../types';
 
 type FavLocationProps = {
   city: string;
-  places: Offer[];
+  favorites: Offer[];
 };
 
-export default function FavLocation({ city, places }: FavLocationProps) {
+export default function FavLocation({ city, favorites }: FavLocationProps) {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -17,7 +17,7 @@ export default function FavLocation({ city, places }: FavLocationProps) {
         </div>
       </div>
       <div className="favorites__places">
-        <OffersList places={places} isFavorites city={city} />
+        <OffersList offers={favorites} isFavorites city={city} />
       </div>
     </li>
   );

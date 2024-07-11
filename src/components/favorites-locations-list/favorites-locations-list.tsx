@@ -1,18 +1,35 @@
 import FavLocation from '../favorites-location/favorites-location';
 import { Offer } from '../../types';
 
-//TODO: replace with actual logic
-const locations = ['Amsterdam', 'Paris'];
-
 type FavLocationListProps = {
-  places: Offer[];
+  favorites: Offer[];
 };
 
-export default function FavLocationList({ places }: FavLocationListProps) {
+export default function FavLocationList({ favorites }: FavLocationListProps) {
+  //TODO replace with actual logic
+  const sortedByCity = favorites.reduce(
+    (result: { [key: string]: Offer[] }, offer) => {
+      if (!result[offer.city.name]) {
+        result[offer.city.name] = [offer];
+      } else {
+        result[offer.city.name].push(offer);
+      }
+
+      return result;
+    },
+    {}
+  );
+
+  const locations = Object.keys(sortedByCity);
+
   return (
     <ul className="favorites__list">
       {locations.map((_location, index) => (
-        <FavLocation key={locations[index]} city={locations[index]} places={places} />
+        <FavLocation
+          key={locations[index]}
+          city={locations[index]}
+          favorites={sortedByCity[locations[index]]}
+        />
       ))}
     </ul>
   );
