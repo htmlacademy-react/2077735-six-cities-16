@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalize } from '../../helpers/capitalize';
 import { IMG_SIZE } from '../../const';
+import OfferRating from '../offer-rating/offer-rating';
 
 type ReducedOffer = Omit<Offer, 'city' | 'location'>;
 type isFavorites = { isFavorites?: boolean };
@@ -73,12 +74,7 @@ export default function OfferCard({
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
-            <span className="visually-hidden">Rating {rating}</span>
-          </div>
-        </div>
+        <OfferRating rating={rating} />
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
