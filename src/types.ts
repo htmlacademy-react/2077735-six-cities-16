@@ -31,3 +31,5 @@ export type Comment = {
   comment: string;
   rating: number;
 };
+
+export type AuthStatus = 'AUTH' | 'NOT_AUTH' | 'UNKNOWN';

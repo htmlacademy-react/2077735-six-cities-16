@@ -5,9 +5,11 @@ import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
 import NotFound from '../../pages/not-found/not-found';
-import PrivateRoute from '../private-route/private-route';
-import { Offer as Place, Comment } from '../../types';
+import { PrivateRoute, PublicRoute } from '../private-route/private-route';
+import { Offer as Place, Comment, AuthStatus } from '../../types';
 import { APP_ROUTE } from '../../const';
+
+const currentStatus: AuthStatus = 'AUTH';
 
 type AppProps = {
   offersCount: number;
@@ -33,7 +35,7 @@ export default function App({
           <Route
             path={APP_ROUTE.FAVORITES}
             element={
-              <PrivateRoute>
+              <PrivateRoute status={currentStatus}>
                 <Favorites favorites={favorites} />
               </PrivateRoute>
             }
@@ -43,7 +45,14 @@ export default function App({
             element={<Offer comments={comments} />}
           />
         </Route>
-        <Route path={APP_ROUTE.LOGIN} element={<Login />} />
+        <Route
+          path={APP_ROUTE.LOGIN}
+          element={
+            <PublicRoute status={currentStatus}>
+              <Login />
+            </PublicRoute>
+          }
+        />
         <Route path={APP_ROUTE.NOT_FOUND} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
