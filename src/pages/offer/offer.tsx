@@ -1,3 +1,4 @@
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { Comment } from '../../types';
@@ -6,7 +7,7 @@ type OfferProps = {
   comments: Comment[];
 };
 
-export default function Offer({comments}: OfferProps) {
+export default function Offer({ comments }: OfferProps) {
   return (
     <div className="page">
       <main className="page__main page__main--offer">
@@ -66,12 +67,8 @@ export default function Offer({comments}: OfferProps) {
                 <h1 className="offer__name">
                   Beautiful &amp; luxurious studio at great location
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {/* TODO: pass isFavorite */}
+                <FavoriteButton className="offer" isFavorite={true} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

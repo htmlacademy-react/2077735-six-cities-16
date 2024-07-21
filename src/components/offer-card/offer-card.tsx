@@ -4,6 +4,7 @@ import { Offer } from '../../types';
 import { capitalize } from '../../helpers/capitalize';
 import { IMG_SIZE } from '../../const';
 import OfferRating from '../offer-rating/offer-rating';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type ReducedOffer = Omit<Offer, 'city' | 'location'>;
 type isFavorites = { isFavorites?: boolean };
@@ -62,17 +63,7 @@ export default function OfferCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${
-              isFavorite && 'place-card__bookmark-button--active button'
-            }`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButton className="place-card" isFavorite={isFavorite} />
         </div>
         <OfferRating rating={rating} />
         <h2 className="place-card__name">
