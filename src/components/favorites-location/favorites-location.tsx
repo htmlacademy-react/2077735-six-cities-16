@@ -1,19 +1,21 @@
 import OffersList from '../offers-list/offers-list';
 import { Offer } from '../../types';
+import { Link } from 'react-router-dom';
+import { APP_ROUTE } from '../../const';
 
 type FavLocationProps = {
-  city: string;
+  cityName: string;
   favorites: Offer[];
 };
 
-export default function FavLocation({ city, favorites }: FavLocationProps) {
+export default function FavLocation({ cityName, favorites }: FavLocationProps) {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
-            <span>{city}</span>
-          </a>
+          <Link className="locations__item-link" to={APP_ROUTE.ROOT}>
+            <span>{cityName}</span>
+          </Link>
         </div>
       </div>
       <div className="favorites__places">

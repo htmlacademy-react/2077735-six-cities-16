@@ -7,7 +7,7 @@ type FavLocationListProps = {
 
 export default function FavLocationsList({ favorites }: FavLocationListProps) {
   //TODO replace with actual logic
-  const sortedByCity = favorites.reduce(
+  const groupedByCity = favorites.reduce(
     (result: { [key: string]: Offer[] }, offer) => {
       if (!result[offer.city.name]) {
         result[offer.city.name] = [offer];
@@ -20,17 +20,20 @@ export default function FavLocationsList({ favorites }: FavLocationListProps) {
     {}
   );
 
-  const locations = Object.keys(sortedByCity);
+  const locations = Object.keys(groupedByCity);
 
   return (
-    <ul className="favorites__list">
-      {locations.map((_location, index) => (
-        <FavLocation
-          key={locations[index]}
-          city={locations[index]}
-          favorites={sortedByCity[locations[index]]}
-        />
-      ))}
-    </ul>
+    <>
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {locations.map((cityName) => (
+          <FavLocation
+            key={cityName}
+            cityName={cityName}
+            favorites={groupedByCity[cityName]}
+          />
+        ))}
+      </ul>
+    </>
   );
 }

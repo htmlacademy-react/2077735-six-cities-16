@@ -12,7 +12,7 @@ export default function Layout({ favoritesCount }: LayoutProps) {
   const { rootClassName, linkClassName, shouldRenderFooter, shouldRenderUser } =
     getLayoutState(pathname, favoritesCount);
   return (
-    <div className={`page ${rootClassName}`}>
+    <div className={`page${rootClassName}`}>
       <Header
         favoritesCount={favoritesCount}
         linkClassName={linkClassName}
