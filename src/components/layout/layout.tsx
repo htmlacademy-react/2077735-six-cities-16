@@ -1,11 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../header/header';
 
+type LayoutProps = {
+  favoritesCount: number;
+};
 
-export default function Layout() {
+export default function Layout({ favoritesCount }: LayoutProps) {
   return (
     <>
-      <Header />
+      <Header favoritesCount={favoritesCount} />
       <Outlet />
     </>
   );

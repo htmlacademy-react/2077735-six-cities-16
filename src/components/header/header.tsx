@@ -2,7 +2,11 @@ import Logo from '../logo/logo';
 import { useLocation, Link } from 'react-router-dom';
 import { APP_ROUTE } from '../../const';
 
-export default function Header() {
+type HeaderProps = {
+  favoritesCount: number;
+};
+
+export default function Header({ favoritesCount }: HeaderProps) {
   const location = useLocation();
   const isGrey = location.pathname === APP_ROUTE.ROOT;
   const headerColor = isGrey
@@ -27,7 +31,9 @@ export default function Header() {
                   <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                   </span>
-                  <span className="header__favorite-count">3</span>
+                  <span className="header__favorite-count">
+                    {favoritesCount}
+                  </span>
                 </Link>
               </li>
               <li className="header__nav-item">

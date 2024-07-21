@@ -27,7 +27,7 @@ export default function App({
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,
-      element: <Layout />,
+      element: <Layout favoritesCount={favorites.length} />,
       children: [
         {
           index: true,
