@@ -10,30 +10,28 @@ type MainProps = {
 
 export default function Main({ offers, offersCount }: MainProps) {
   return (
-    <div className="page page--gray page--main">
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <MainLocationsList />
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offersCount} places to stay in Amsterdam
-              </b>
-              <OffersFilter />
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map" />
+    <main className="page__main page__main--index">
+      <h1 className="visually-hidden">Cities</h1>
+      <div className="tabs">
+        <MainLocationsList />
+      </div>
+      <div className="cities">
+        <div className="cities__places-container container">
+          <section className="cities__places places">
+            <h2 className="visually-hidden">Places</h2>
+            <b className="places__found">
+              {offersCount} places to stay in Amsterdam
+            </b>
+            <OffersFilter />
+            <div className="cities__places-list places__list tabs__content">
+              <OffersList offers={offers} />
             </div>
+          </section>
+          <div className="cities__right-section">
+            <section className="cities__map map" />
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

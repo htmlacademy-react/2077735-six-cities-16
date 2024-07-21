@@ -1,48 +1,25 @@
 import Logo from '../logo/logo';
-import { useLocation, Link } from 'react-router-dom';
-import { APP_ROUTE } from '../../const';
+import UserNav from '../userNav/userNav';
 
 type HeaderProps = {
   favoritesCount: number;
+  linkClassName: string;
+  shouldRenderUser: boolean;
 };
 
-export default function Header({ favoritesCount }: HeaderProps) {
-  const location = useLocation();
-  const isGrey = location.pathname === APP_ROUTE.ROOT;
-  const headerColor = isGrey
-    ? { backgroundColor: '#f5f5f5' }
-    : { backgroundColor: '#fff' };
-
+export default function Header({
+  favoritesCount,
+  linkClassName,
+  shouldRenderUser,
+}: HeaderProps) {
   return (
-    <header style={headerColor} className="header">
+    <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo />
+            <Logo linkClassName={linkClassName} />
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link
-                  className="header__nav-link header__nav-link--profile"
-                  to={APP_ROUTE.FAVORITES}
-                >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
-                  </span>
-                  <span className="header__favorite-count">
-                    {favoritesCount}
-                  </span>
-                </Link>
-              </li>
-              <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
-                  <span className="header__signout">Sign out</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          {shouldRenderUser && <UserNav favoritesCount={favoritesCount} />}
         </div>
       </div>
     </header>
