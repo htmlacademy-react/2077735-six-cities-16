@@ -1,14 +1,17 @@
-import { Comment } from '../../types';
+import { getAttributeDate, getMarkupDate } from '../../helpers/getReviewDate';
+import { Review } from '../../types';
 import Avatar from '../avatar/avatar';
 
-type ReviewProps = Pick<Comment, 'comment'>;
+type ReviewProps = {
+  review: Review;
+};
 
-export default function Review({ comment }: ReviewProps) {
+export default function OfferReview({ review }: ReviewProps) {
+  const { user, comment, date } = review;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
-        <Avatar />
-        <span className="reviews__user-name">Max</span>
+        <Avatar user={user} classNamePrefix={'reviews'} />
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -18,8 +21,8 @@ export default function Review({ comment }: ReviewProps) {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          April 2019
+        <time className="reviews__time" dateTime={getAttributeDate(date)}>
+          {getMarkupDate(date)}
         </time>
       </div>
     </li>

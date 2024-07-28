@@ -15,7 +15,7 @@ root.render(
       offersCount={OFFERS.length}
       offers={OFFERS}
       favorites={FAV_OFFERS}
-      comments={COMMENTS}
+      reviews={COMMENTS}
     />
   </React.StrictMode>
 );

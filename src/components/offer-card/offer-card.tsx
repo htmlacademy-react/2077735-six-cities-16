@@ -2,13 +2,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalize } from '../../helpers/capitalize';
-import { IMG_SIZE } from '../../const';
+import { APP_ROUTE } from '../../const';
 import OfferRating from '../offer-rating/offer-rating';
 import FavoriteButton from '../favorite-button/favorite-button';
+import PremiumBadge from '../premium-badge/premium-badge';
 
 type ReducedOffer = Omit<Offer, 'city' | 'location'>;
-type isFavorites = { isFavorites?: boolean };
+type isFavorites = { className: string };
 type OfferCardProps = ReducedOffer & isFavorites;
+
+const FAVORITES_CLASS_NAME = 'favorites';
 
 export default function OfferCard({
   id,
@@ -19,9 +22,12 @@ export default function OfferCard({
   isFavorite,
   previewImage,
   rating,
-  isFavorites,
+  className,
 }: OfferCardProps) {
   const [, setIsActiveCard] = useState('');
+
+  const imgWidth = className === FAVORITES_CLASS_NAME ? 150 : 260;
+  const imgHeight = className === FAVORITES_CLASS_NAME ? 110 : 200;
 
   function handleMouseOver() {
     setIsActiveCard(id);
@@ -29,34 +35,24 @@ export default function OfferCard({
   return (
     <article
       onMouseOver={handleMouseOver}
-      className={`${
-        isFavorites ? 'favorites__card' : 'cities__card'
-      } place-card`}
+      className={`${className}__card place-card`}
     >
-      {isPremium && (
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      )}
-      <div
-        className={`${
-          isFavorites ? 'favorites__image-wrapper' : 'cities__image-wrapper'
-        } place-card__image-wrapper`}
-      >
-        <a href="#">
+      {isPremium && <PremiumBadge />}
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+        <Link to={APP_ROUTE.OFFER.replace(':id', id)}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={isFavorites ? IMG_SIZE.WIDTH.FAVORITES : IMG_SIZE.WIDTH.MAIN}
-            height={
-              isFavorites ? IMG_SIZE.HEIGHT.FAVORITES : IMG_SIZE.HEIGHT.MAIN
-            }
+            width={imgWidth}
+            height={imgHeight}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div
-        className={`${isFavorites && 'favorites__card-info'} place-card__info`}
+        className={`${
+          className === FAVORITES_CLASS_NAME ? 'favorites__card-info' : ''
+        } place-card__info`}
       >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
@@ -67,7 +63,7 @@ export default function OfferCard({
         </div>
         <OfferRating rating={rating} />
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={APP_ROUTE.OFFER.replace(':id', id)}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>

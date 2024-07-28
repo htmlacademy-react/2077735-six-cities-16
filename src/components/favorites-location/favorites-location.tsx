@@ -19,7 +19,7 @@ export default function FavLocation({ cityName, favorites }: FavLocationProps) {
         </div>
       </div>
       <div className="favorites__places">
-        <OffersList offers={favorites} isFavorites />
+        <OffersList offers={favorites} className='favorites' />
       </div>
     </li>
   );

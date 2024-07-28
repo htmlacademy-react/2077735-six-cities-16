@@ -3,28 +3,33 @@ import FormRating from '../form-rating/form-rating';
 import { useState, ChangeEvent } from 'react';
 
 export default function ReviewForm() {
-  const [userReview, setUserReview] = useState({
-    text: '',
-  });
+  const [reviewText, setReviewText] = useState('');
+  const [userRating, setUserRating] = useState(0);
 
-  const handleFieldChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = evt.target;
-    setUserReview({ ...userReview, [name]: value });
+  const handleRatingChange = (rating: number) => {
+    setUserRating(rating);
   };
+
+  const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setReviewText(event.target.value);
+  };
+
+  console.log('rating', userRating);
+  console.log('reviewText', reviewText);
 
   return (
     <form className="reviews__form form">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <FormRating />
+      <FormRating handleRatingChange={handleRatingChange} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}
-        value={userReview.text}
+        onChange={handleTextChange}
+        value={reviewText}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

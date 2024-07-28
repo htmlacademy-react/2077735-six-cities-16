@@ -2760,3 +2760,59 @@ export const OFFERS = [
     rating: 4.4,
   },
 ];
+
+export const CURRENT_OFFER = {
+  id: '6f6becc6-b05b-4954-a165-6383747770b7',
+  title: 'Nice, cozy, warm big bed apartment',
+  description:
+    'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
+  type: 'house',
+  price: 791,
+  images: [
+    'https://16.design.htmlacademy.pro/static/hotel/8.jpg',
+    'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    'https://16.design.htmlacademy.pro/static/hotel/7.jpg',
+    'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+    'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
+    'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
+  ],
+  city: {
+    name: 'Paris',
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13,
+    },
+  },
+  location: {
+    latitude: 48.868610000000004,
+    longitude: 2.342499,
+    zoom: 16,
+  },
+  goods: [
+    'Washer',
+    'Cable TV',
+    'Air conditioning',
+    'Wi-Fi',
+    'Coffee machine',
+    'Laptop friendly',
+    'Towels',
+    'Washing machine',
+    'Heating',
+  ],
+  host: {
+    isPro: true,
+    name: 'Angelina',
+    avatarUrl:
+      'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg',
+  },
+  isPremium: true,
+  isFavorite: false,
+  rating: 2.3,
+  bedrooms: 5,
+  maxAdults: 3,
+};
+
+export const getMockNearOfferCardsById = (offerId: string | undefined) =>
+  OFFERS.filter((offer) => offer.id !== offerId).slice(0, 3);
+export const getMockOffer = () => CURRENT_OFFER;

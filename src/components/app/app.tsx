@@ -3,25 +3,25 @@ import Layout from '../layout/layout';
 import Main from '../../pages/main/main';
 import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
-import Offer from '../../pages/offer/offer';
+import OfferPage from '../../pages/offer-page/offer-page';
 import NotFound from '../../pages/not-found/not-found';
 import { PrivateRoute, PublicRoute } from '../private-route/private-route';
-import { Offer as Place, Comment, AuthStatus } from '../../types';
+import { Offer, Review, AuthStatus } from '../../types';
 import { APP_ROUTE } from '../../const';
 
 const currentStatus: AuthStatus = 'AUTH';
 
 type AppProps = {
   offersCount: number;
-  offers: Place[];
-  favorites: Place[];
-  comments: Comment[];
+  offers: Offer[];
+  favorites: Offer[];
+  reviews: Review[];
 };
 
 export default function App({
   offers,
   favorites,
-  comments,
+  reviews,
   offersCount,
 }: AppProps): JSX.Element {
   const router = createBrowserRouter([
@@ -43,7 +43,7 @@ export default function App({
         },
         {
           path: APP_ROUTE.OFFER,
-          element: <Offer comments={comments} />,
+          element: <OfferPage reviews={reviews} />,
         },
         {
           path: APP_ROUTE.LOGIN,
