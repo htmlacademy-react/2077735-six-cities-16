@@ -24,7 +24,7 @@ export default function OfferContainer({
   currentOffer,
 }: OfferContainerProps) {
   const {
-    id,
+    // id,
     isFavorite,
     isPremium,
     title,
