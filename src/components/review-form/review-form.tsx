@@ -4,7 +4,7 @@ import { useState, ChangeEvent } from 'react';
 
 export default function ReviewForm() {
   const [reviewText, setReviewText] = useState('');
-  const [userRating, setUserRating] = useState(0);
+  const [, setUserRating] = useState(0);
 
   const handleRatingChange = (rating: number) => {
     setUserRating(rating);
@@ -14,8 +14,8 @@ export default function ReviewForm() {
     setReviewText(event.target.value);
   };
 
-  console.log('rating', userRating);
-  console.log('reviewText', reviewText);
+  // console.log('rating', userRating);
+  // console.log('reviewText', reviewText);
 
   return (
     <form className="reviews__form form">
