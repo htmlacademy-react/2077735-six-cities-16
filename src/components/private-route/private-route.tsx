@@ -1,13 +1,27 @@
 import { Navigate } from 'react-router-dom';
+import { APP_ROUTE } from '../../const';
 
-type PrivateRouteProps = {
-  children: JSX.Element;
+import type { AuthStatus } from '../../types';
+import { ReactNode } from 'react';
+
+type AccessRouteProps = {
+  children: ReactNode;
+  status: AuthStatus;
 };
 
-export default function PrivateRoute({
-  children,
-}: PrivateRouteProps): JSX.Element {
-  const hasAccess = false;
+const createAccessRoute = (statusToCheck: AuthStatus, fallbackPath: string) =>
+  function AccessRoute({ children, status }: AccessRouteProps) {
+    switch (status) {
+      case statusToCheck:
+        return children;
+      case 'UNKNOWN':
+        return 'Loading...';
+      default:
+        return <Navigate to={fallbackPath} />;
+    }
+  };
 
-  return hasAccess ? children : <Navigate to={'/login'} />;
-}
+const PrivateRoute = createAccessRoute('AUTH', APP_ROUTE.LOGIN);
+const PublicRoute = createAccessRoute('NOT_AUTH', APP_ROUTE.ROOT);
+
+export { PrivateRoute, PublicRoute };
