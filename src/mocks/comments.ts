@@ -36,7 +36,7 @@ export const COMMENTS = [
     rating: 4,
   },
   {
-    id: '6f6becc6-b05b-4954-a165-6383747770b7',
+    id: '6f6becc6-b05b-4954-a165-6383747770b8',
     date: '2016-05-08T14:13:56.569Z',
     user: {
       name: 'Oliver Conner',
@@ -48,4 +48,3 @@ export const COMMENTS = [
     rating: 4,
   },
 ];
-

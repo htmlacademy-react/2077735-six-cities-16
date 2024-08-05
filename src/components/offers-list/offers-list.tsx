@@ -4,10 +4,14 @@ import { Offer } from '../../types';
 type OffersListProps = {
   offers: Offer[];
   className: string;
+  onCardHover?: (offerId: string) => void;
 };
 
-export default function OffersList({ offers, className }: OffersListProps) {
-
+export default function OffersList({
+  offers,
+  className,
+  onCardHover,
+}: OffersListProps) {
   return (
     <>
       {offers.map((offer) => (
@@ -22,6 +26,7 @@ export default function OffersList({ offers, className }: OffersListProps) {
           previewImage={offer.previewImage}
           rating={offer.rating}
           className={className}
+          onCardHover={onCardHover}
         />
       ))}
     </>
