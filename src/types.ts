@@ -1,3 +1,5 @@
+import { LOCATIONS_NAMES } from './const';
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -8,6 +10,8 @@ export type City = {
   name: string;
   location: Location;
 };
+
+export type LocationName = (typeof LOCATIONS_NAMES)[number];
 
 export type Host = {
   name: string;

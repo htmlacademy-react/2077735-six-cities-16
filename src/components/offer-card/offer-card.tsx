@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalize } from '../../helpers/capitalize';
@@ -9,7 +8,8 @@ import PremiumBadge from '../premium-badge/premium-badge';
 
 type ReducedOffer = Omit<Offer, 'city' | 'location'>;
 type isFavorites = { className: string };
-type OfferCardProps = ReducedOffer & isFavorites;
+type onCardHover = { onCardHover?: (offerId: string) => void };
+type OfferCardProps = ReducedOffer & isFavorites & onCardHover;
 
 const FAVORITES_CLASS_NAME = 'favorites';
 
@@ -23,18 +23,27 @@ export default function OfferCard({
   previewImage,
   rating,
   className,
+  onCardHover,
 }: OfferCardProps) {
-  const [, setIsActiveCard] = useState('');
-
   const imgWidth = className === FAVORITES_CLASS_NAME ? 150 : 260;
   const imgHeight = className === FAVORITES_CLASS_NAME ? 110 : 200;
 
-  function handleMouseOver() {
-    setIsActiveCard(id);
-  }
+  const handleMouseEnter = () => {
+    if (onCardHover) {
+      onCardHover(id);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (onCardHover) {
+      onCardHover('');
+    }
+  };
+
   return (
     <article
-      onMouseOver={handleMouseOver}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className={`${className}__card place-card`}
     >
       {isPremium && <PremiumBadge />}

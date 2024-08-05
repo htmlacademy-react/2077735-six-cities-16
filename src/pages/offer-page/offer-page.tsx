@@ -1,9 +1,11 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { Review } from '../../types';
 import { getMockNearOfferCardsById, getMockOffer } from '../../mocks/offers';
-import { APP_ROUTE } from '../../const';
+import { APP_ROUTE, LOCATIONS } from '../../const';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OffersList from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
+
+import type { LocationName, Review } from '../../types';
 
 type OfferProps = {
   reviews: Review[];
@@ -12,8 +14,9 @@ type OfferProps = {
 export default function OfferPage({ reviews }: OfferProps) {
   const { id: offerId } = useParams();
 
-  const nearOfferCards = getMockNearOfferCardsById(offerId);
+  const nearbyOffersCards = getMockNearOfferCardsById(offerId);
   const currentOffer = getMockOffer();
+  const currentCity = currentOffer.city.name as LocationName;
 
   if (!currentOffer) {
     return <Navigate to={APP_ROUTE.NOT_FOUND} replace />;
@@ -32,7 +35,13 @@ export default function OfferPage({ reviews }: OfferProps) {
           </div>
         </div>
         <OfferContainer reviews={reviews} currentOffer={currentOffer} />
-        <section className="offer__map map" />
+        {/* <section className="offer__map map" /> */}
+        <Map
+          city={LOCATIONS[currentCity]}
+          offers={nearbyOffersCards}
+          activeOffer={currentOffer.id}
+          activeOfferLocation={currentOffer.location}
+        />
       </section>
       <div className="container">
         <section className="near-places places">
@@ -40,7 +49,7 @@ export default function OfferPage({ reviews }: OfferProps) {
             Other places in the neighbourhood
           </h2>
           <div className="near-places__list places__list">
-            <OffersList offers={nearOfferCards} className={'near-places'} />
+            <OffersList offers={nearbyOffersCards} className={'near-places'} />
           </div>
         </section>
       </div>
