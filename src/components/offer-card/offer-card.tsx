@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
-import { capitalize } from '../../helpers/capitalize';
+import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { APP_ROUTE } from '../../const';
 import OfferRating from '../offer-rating/offer-rating';
 import FavoriteButton from '../favorite-button/favorite-button';
@@ -74,7 +74,7 @@ export default function OfferCard({
         <h2 className="place-card__name">
           <Link to={APP_ROUTE.OFFER.replace(':id', id)}>{title}</Link>
         </h2>
-        <p className="place-card__type">{capitalize(type)}</p>
+        <p className="place-card__type">{capitalizeFirstChar(type)}</p>
       </div>
     </article>
   );

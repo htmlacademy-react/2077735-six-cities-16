@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Offer } from '../../types';
+import { SortingOption, Offer } from '../../types';
 import { RootState } from '../store';
 import { OFFERS } from '../../mocks/offers';
 import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
+import { SORTING_OPTION } from '../../const';
 
 export interface OffersState {
   offers: Offer[];
+  currentSortingOption: SortingOption;
 }
 
 const initialState: OffersState = {
   offers: OFFERS,
+  currentSortingOption: SORTING_OPTION.DEFAULT,
 };
 
 export const offersSlice = createSlice({
@@ -20,10 +23,18 @@ export const offersSlice = createSlice({
     offersSet: (state, action: PayloadAction<Offer[]>) => {
       state.offers = action.payload;
     },
+    offersSortingOptionChanged: (
+      state,
+      action: PayloadAction<SortingOption>
+    ) => {
+      state.currentSortingOption = action.payload;
+    },
   },
 });
 
 export const selectOffers = (state: RootState) => state.offers.offers;
+export const selectCurrentSortOption = (state: RootState) =>
+  state.offers.currentSortingOption;
 
 export const selectOffersByCityName = (state: RootState, cityName: string) => {
   const offersList = state.offers.offers;
@@ -45,5 +56,5 @@ export const selectOffersGroupedByCity = (state: RootState) => {
   }, {});
 };
 
-export const { offersSet } = offersSlice.actions;
+export const { offersSet, offersSortingOptionChanged } = offersSlice.actions;
 export default offersSlice.reducer;

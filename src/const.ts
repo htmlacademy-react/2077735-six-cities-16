@@ -86,3 +86,10 @@ export const MAP_LAYER = {
   ATTRIBUTION:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 } as const;
+
+export const SORTING_OPTION = {
+  DEFAULT: 'popular',
+  LOW_PRICE_FIRST: 'price: low to high',
+  HIGH_PRICE_FIRST: 'price: high to low',
+  TOP_RATED_FIRST: 'top rated first',
+} as const;
