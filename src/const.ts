@@ -93,3 +93,20 @@ export const SORTING_OPTION = {
   HIGH_PRICE_FIRST: 'price: high to low',
   TOP_RATED_FIRST: 'top rated first',
 } as const;
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NotAuth = 'NOT_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  getOffers = '/six-cities/offers',
+  getOffer = '/six-cities/offers/{offerId}',
+  getOffersNearby = '/six-cities/offers/{offerId}/nearby',
+  getFavorites = '/six-cities/favorite',
+  toggleFavorite = '/six-cities/favorite/{offerId}/{status}',
+  reviews = '/six-cities/comments/{offerId}',
+  login = '/six-cities/login',
+  logout = '/six-cities/logout',
+}
