@@ -12,18 +12,11 @@ import { APP_ROUTE } from '../../const';
 const currentStatus: AuthStatus = 'AUTH';
 
 type AppProps = {
-  offersCount: number;
-  offers: Offer[];
   favorites: Offer[];
   reviews: Review[];
 };
 
-export default function App({
-  offers,
-  favorites,
-  reviews,
-  offersCount,
-}: AppProps): JSX.Element {
+export default function App({ favorites, reviews }: AppProps): JSX.Element {
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,
@@ -31,7 +24,7 @@ export default function App({
       children: [
         {
           index: true,
-          element: <Main offersCount={offersCount} offers={offers} />,
+          element: <Main />,
         },
         {
           path: APP_ROUTE.FAVORITES,
