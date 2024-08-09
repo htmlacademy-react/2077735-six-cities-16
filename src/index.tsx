@@ -6,6 +6,9 @@ import App from './components/app/app';
 
 import { FAV_OFFERS } from './mocks/favorites';
 import { COMMENTS } from './mocks/comments';
+import { fetchOffersAction } from './store/slices/offers-slice';
+
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

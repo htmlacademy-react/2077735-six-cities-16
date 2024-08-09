@@ -2,17 +2,47 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { SortingOption, Offer } from '../../types';
 import { RootState } from '../store';
-import { OFFERS } from '../../mocks/offers';
 import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
-import { SORTING_OPTION } from '../../const';
+import { APIRoute, SORTING_OPTION } from '../../const';
+
+import { api } from '../store';
+// import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAppAsyncThunk } from '../with-types';
+// import { AxiosInstance } from 'axios';
 
 export interface OffersState {
   offers: Offer[];
+  isOffersDataLoading: boolean;
+  hasError: boolean;
   currentSortingOption: SortingOption;
 }
 
+export const fetchOffersAction = createAppAsyncThunk(
+  'offers/fetchOffers',
+  async () => {
+    const { data } = await api.get<Offer[]>(APIRoute.getOffers);
+    return data;
+  }
+);
+
+//TODO: зачем мы передаем инстанс аксиоса, если работает без него?
+// export const fetchOffersAction = createAsyncThunk<
+//   Offer[],
+//   undefined,
+//   {
+//     dispatch: AppDispatch;
+//     state: RootState;
+//     extra: AxiosInstance;
+//   }
+// >('data/fetchQuestions', async (_arg, { extra: api }) => {
+//   const { data } = await api.get<Offer[]>(APIRoute.getOffers);
+//   return data;
+// });
+
 const initialState: OffersState = {
-  offers: OFFERS,
+  offers: [],
+  isOffersDataLoading: false,
+  hasError: false,
   currentSortingOption: SORTING_OPTION.DEFAULT,
 };
 
@@ -29,6 +59,21 @@ export const offersSlice = createSlice({
     ) => {
       state.currentSortingOption = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchOffersAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchOffersAction.fulfilled, (state, action) => {
+        state.offers = action.payload;
+        state.isOffersDataLoading = false;
+      })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      });
   },
 });
 
