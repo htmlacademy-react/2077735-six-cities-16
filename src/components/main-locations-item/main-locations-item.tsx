@@ -1,33 +1,37 @@
 import { APP_ROUTE } from '../../const';
-import type { LocationName } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  currentCityChanged,
+  selectCurrentCity,
+} from '../../store/slices/current-city-slice';
 import { Link } from 'react-router-dom';
 
+import type { City } from '../../types';
+
 type MainLocationsItemProps = {
-  city: LocationName;
-  selectedCity: LocationName;
-  onLocationChange: (cityName: LocationName) => void;
+  locationsItem: City;
 };
 
 export default function MainLocationsItem({
-  city,
-  selectedCity,
-  onLocationChange,
+  locationsItem,
 }: MainLocationsItemProps) {
-  const activeTab = city === selectedCity;
+  const dispatch = useAppDispatch();
+  const selectedCity = useAppSelector(selectCurrentCity);
+  const activeTab = locationsItem.name === selectedCity.name;
 
-  const handleLocationsItemClick = () => {
-    onLocationChange(city);
+  const handleLocationChange = () => {
+    dispatch(currentCityChanged(locationsItem));
   };
 
   return (
-    <li className="locations__item" onClick={handleLocationsItemClick}>
+    <li className="locations__item" onClick={handleLocationChange}>
       <Link
         className={`${
           activeTab && 'tabs__item--active'
         } locations__item-link tabs__item`}
         to={APP_ROUTE.ROOT}
       >
-        <span>{city}</span>
+        <span>{locationsItem.name}</span>
       </Link>
     </li>
   );

@@ -54,3 +54,8 @@ export type Review = {
 };
 
 export type AuthStatus = 'AUTH' | 'NOT_AUTH' | 'UNKNOWN';
+export type SortingOption =
+  | 'popular'
+  | 'price: low to high'
+  | 'price: high to low'
+  | 'top rated first';

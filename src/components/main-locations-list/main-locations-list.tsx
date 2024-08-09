@@ -1,27 +1,14 @@
 import MainLocationsItem from '../main-locations-item/main-locations-item';
-import { LOCATIONS_NAMES } from '../../const';
+import { useLocationsList } from '../../hooks/use-locations-list';
 
-import type { LocationName } from '../../types';
-
-type MainLocationsListProps = {
-  selectedCity: LocationName;
-  onLocationChange: (cityName: LocationName) => void;
-};
-
-export default function MainLocationsList({
-  selectedCity,
-  onLocationChange,
-}: MainLocationsListProps) {
+export default function MainLocationsList() {
+  //TODO: can I use it, or should it be a constant?
+  const locationsList = useLocationsList();
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {LOCATIONS_NAMES.map((_location, index) => (
-          <MainLocationsItem
-            key={LOCATIONS_NAMES[index]}
-            city={LOCATIONS_NAMES[index]}
-            selectedCity={selectedCity}
-            onLocationChange={onLocationChange}
-          />
+        {locationsList.map((location) => (
+          <MainLocationsItem key={location.name} locationsItem={location} />
         ))}
       </ul>
     </section>

@@ -8,7 +8,7 @@ import { MARKER_URL } from '../../const';
 import type { Offer, Location } from '../../types';
 
 type MapProps = {
-  city: Location;
+  cityLocation: Location;
   offers?: Offer[];
   activeOffer?: string | null;
   activeOfferLocation?: Location;
@@ -27,19 +27,22 @@ const currentCustomIcon = leaflet.icon({
 });
 
 export default function Map(props: MapProps): JSX.Element {
-  const { city, offers, activeOffer, activeOfferLocation } = props;
+  const { cityLocation, offers, activeOffer, activeOfferLocation } = props;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, cityLocation);
   const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
 
   useEffect(() => {
     if (map) {
-      map.setView([city.latitude, city.longitude], city.zoom);
+      map.setView(
+        [cityLocation.latitude, cityLocation.longitude],
+        cityLocation.zoom
+      );
       markerLayer.current.addTo(map);
       markerLayer.current.clearLayers();
     }
-  }, [city, map]);
+  }, [cityLocation, map]);
 
   useEffect(() => {
     if (map && offers) {

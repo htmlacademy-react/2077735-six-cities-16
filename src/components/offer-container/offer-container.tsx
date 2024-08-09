@@ -1,4 +1,4 @@
-import { capitalize } from '../../helpers/capitalize';
+import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import {
   getBadroomsString,
   getAdultsString,
@@ -48,7 +48,7 @@ export default function OfferContainer({
         <OfferRating rating={rating} isOfferDetail />
         <ul className="offer__features">
           <li className="offer__feature offer__feature--entire">
-            {capitalize(type)}
+            {capitalizeFirstChar(type)}
           </li>
           <li className="offer__feature offer__feature--bedrooms">
             {getBadroomsString(bedrooms)}

@@ -20,18 +20,58 @@ export const LOCATIONS_NAMES = [
   'Dusseldorf',
 ] as const;
 
-export const LOCATIONS = {
-  Paris: { latitude: 48.85661, longitude: 2.351499, zoom: 13 },
-  Cologne: { latitude: 50.938361, longitude: 6.959974, zoom: 13 },
-  Brussels: { latitude: 50.846557, longitude: 4.351697, zoom: 13 },
-  Amsterdam: {
-    latitude: 52.36554,
-    longitude: 4.911976,
-    zoom: 13,
+export const DEFAULT_CITY_NAME = 'Paris';
+
+export const LOCATIONS = [
+  {
+    name: 'Paris',
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13,
+    },
   },
-  Hamburg: { latitude: 53.550341, longitude: 10.000654, zoom: 13 },
-  Dusseldorf: { latitude: 51.225402, longitude: 6.776314, zoom: 13 },
-} as const;
+  {
+    name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Brussels',
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Hamburg',
+    location: {
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 13,
+    },
+  },
+  {
+    name: 'Dusseldorf',
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13,
+    },
+  },
+];
 
 export const MARKER_URL = {
   DEFAULT:
@@ -45,4 +85,11 @@ export const MAP_LAYER = {
     'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   ATTRIBUTION:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+} as const;
+
+export const SORTING_OPTION = {
+  DEFAULT: 'popular',
+  LOW_PRICE_FIRST: 'price: low to high',
+  HIGH_PRICE_FIRST: 'price: high to low',
+  TOP_RATED_FIRST: 'top rated first',
 } as const;
