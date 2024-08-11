@@ -5,10 +5,7 @@ import { RootState } from '../store';
 import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
 import { APIRoute, SORTING_OPTION } from '../../const';
 
-import { api } from '../store';
-// import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '../with-types';
-// import { AxiosInstance } from 'axios';
 
 export interface OffersState {
   offers: Offer[];
@@ -19,25 +16,11 @@ export interface OffersState {
 
 export const fetchOffersAction = createAppAsyncThunk(
   'offers/fetchOffers',
-  async () => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Offer[]>(APIRoute.getOffers);
     return data;
   }
 );
-
-//TODO: зачем мы передаем инстанс аксиоса, если работает без него?
-// export const fetchOffersAction = createAsyncThunk<
-//   Offer[],
-//   undefined,
-//   {
-//     dispatch: AppDispatch;
-//     state: RootState;
-//     extra: AxiosInstance;
-//   }
-// >('data/fetchQuestions', async (_arg, { extra: api }) => {
-//   const { data } = await api.get<Offer[]>(APIRoute.getOffers);
-//   return data;
-// });
 
 const initialState: OffersState = {
   offers: [],
