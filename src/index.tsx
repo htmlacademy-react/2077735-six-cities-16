@@ -8,6 +8,8 @@ import { FAV_OFFERS } from './mocks/favorites';
 import { COMMENTS } from './mocks/comments';
 import { fetchOffers } from './store/slices/offers-slice';
 
+import type { Offer } from './types';
+
 store.dispatch(fetchOffers());
 
 const root = ReactDOM.createRoot(
@@ -17,7 +19,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App favorites={FAV_OFFERS} reviews={COMMENTS} />
+      <App favorites={FAV_OFFERS as Offer[]} reviews={COMMENTS} />
     </Provider>
   </React.StrictMode>
 );

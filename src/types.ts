@@ -7,7 +7,7 @@ export type Location = {
 };
 
 export type City = {
-  name: string;
+  name: LocationName;
   location: Location;
 };
 
