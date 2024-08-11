@@ -3,14 +3,15 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { SortingOption, Offer } from '../../types';
 import { RootState } from '../store';
 import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
-import { APIRoute, SORTING_OPTION } from '../../const';
+import { APIRoute, RequestStatus, SORTING_OPTION } from '../../const';
 
 import { createAppAsyncThunk } from '../with-types';
 
 export interface OffersState {
   offers: Offer[];
-  isOffersDataLoading: boolean;
-  hasError: boolean;
+  // isOffersDataLoading: boolean;
+  // hasError: boolean;
+  requestStatus: RequestStatus;
   currentSortingOption: SortingOption;
 }
 
@@ -24,8 +25,9 @@ export const fetchOffers = createAppAsyncThunk(
 
 const initialState: OffersState = {
   offers: [],
-  isOffersDataLoading: false,
-  hasError: false,
+  // isOffersDataLoading: false,
+  // hasError: false,
+  requestStatus: RequestStatus.Idle,
   currentSortingOption: SORTING_OPTION.DEFAULT,
 };
 
@@ -46,21 +48,26 @@ export const offersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOffers.pending, (state) => {
-        state.isOffersDataLoading = true;
-        state.hasError = false;
+        // state.isOffersDataLoading = true;
+        // state.hasError = false;
+        state.requestStatus = RequestStatus.Loading;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.isOffersDataLoading = false;
+        // state.isOffersDataLoading = false;
+        state.requestStatus = RequestStatus.Success;
       })
       .addCase(fetchOffers.rejected, (state) => {
-        state.isOffersDataLoading = false;
-        state.hasError = true;
+        // state.isOffersDataLoading = false;
+        // state.hasError = true;
+        state.requestStatus = RequestStatus.Failed;
       });
   },
 });
 
 export const selectOffers = (state: RootState) => state.offers.offers;
+export const selectRequestStatus = (state: RootState) =>
+  state.offers.requestStatus;
 export const selectCurrentSortOption = (state: RootState) =>
   state.offers.currentSortingOption;
 

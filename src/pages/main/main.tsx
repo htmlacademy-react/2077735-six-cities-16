@@ -2,32 +2,25 @@ import cn from 'classnames';
 import { useAppSelector } from '../../store/hooks';
 import { selectCurrentCity } from '../../store/slices/current-city-slice';
 import {
-  selectCurrentSortOption,
   selectOffersByCityName,
+  selectRequestStatus,
 } from '../../store/slices/offers-slice';
-
-import { useState } from 'react';
 import MainLocationsList from '../../components/main-locations-list/main-locations-list';
-import SortOffersMenu from '../../components/sort-offers-menu/sort-offers-menu';
-import OffersList from '../../components/offers-list/offers-list';
-import Map from '../../components/map/map';
-import { getSortedOffers } from '../../helpers/get-sorted-offers';
 import NoOffers from '../../components/no-offers/no-offers';
+import OffersListContainer from '../../components/offers-list-container/offers-list-container';
+import { RequestStatus } from '../../const';
+import Spinner from '../../components/spinner/spinner';
 
 export default function Main() {
   const currentCity = useAppSelector(selectCurrentCity);
   const offers = useAppSelector((state) =>
     selectOffersByCityName(state, currentCity.name)
   );
-  const isEmpty = offers.length === 0;
-  const currentSortOption = useAppSelector(selectCurrentSortOption);
-  const sortedOffers = getSortedOffers(offers, currentSortOption);
+  const requestStatus = useAppSelector(selectRequestStatus);
 
-  const [activeCard, setActiveCard] = useState('');
-
-  const handleCardHover = (offerId: string) => {
-    setActiveCard(offerId);
-  };
+  const isLoading = requestStatus === RequestStatus.Loading;
+  const isEmpty = !isLoading && !offers.length;
+  const hasOffers = !isLoading && offers.length;
 
   return (
     <main
@@ -40,40 +33,15 @@ export default function Main() {
       <div className="tabs">
         <MainLocationsList />
       </div>
-      <div className="cities">
-        {isEmpty ? (
-          <NoOffers currentLocation={currentCity.name} />
-        ) : (
-          <div
-            className={cn(
-              'cities__places-container container',
-              isEmpty && 'cities__places-container--empty'
-            )}
-          >
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offers.length} places to stay in {currentCity.name}
-              </b>
-              <SortOffersMenu />
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList
-                  offers={sortedOffers}
-                  className="cities"
-                  onCardHover={handleCardHover}
-                />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <Map
-                cityLocation={currentCity.location}
-                offers={offers}
-                activeOffer={activeCard}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+      {isLoading && <Spinner />}
+      {isEmpty && <NoOffers currentLocation={currentCity.name} />}
+      {hasOffers && (
+        <OffersListContainer
+          offers={offers}
+          isEmpty={isEmpty}
+          currentCity={currentCity}
+        />
+      )}
     </main>
   );
 }

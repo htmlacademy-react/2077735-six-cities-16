@@ -118,3 +118,10 @@ export const RATING = [
   { stars: 2, title: 'badly' },
   { stars: 1, title: 'terribly' },
 ] as const;
+
+export enum RequestStatus {
+  Idle,
+  Loading,
+  Success,
+  Failed,
+}
