@@ -22,7 +22,7 @@ export default function ReviewForm() {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <FormRating handleRatingChange={handleRatingChange} />
+      <FormRating onRatingChange={handleRatingChange} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"

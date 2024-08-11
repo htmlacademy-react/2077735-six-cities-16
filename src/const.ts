@@ -110,3 +110,11 @@ export enum APIRoute {
   login = '/six-cities/login',
   logout = '/six-cities/logout',
 }
+
+export const RATING = [
+  { stars: 5, title: 'perfect' },
+  { stars: 4, title: 'good' },
+  { stars: 3, title: 'not bad' },
+  { stars: 2, title: 'badly' },
+  { stars: 1, title: 'terribly' },
+] as const;
