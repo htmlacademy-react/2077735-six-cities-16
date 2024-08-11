@@ -71,7 +71,7 @@ export const LOCATIONS = [
       zoom: 13,
     },
   },
-];
+] as const;
 
 export const MARKER_URL = {
   DEFAULT:
@@ -120,8 +120,10 @@ export const RATING = [
 ] as const;
 
 export enum RequestStatus {
-  Idle,
-  Loading,
-  Success,
-  Failed,
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
 }
+
+export const NEARBY_OFFERS_COUNT = 3;

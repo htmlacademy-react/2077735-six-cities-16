@@ -67,19 +67,6 @@ export default function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, activeOffer]);
 
-  useEffect(() => {
-    if (map && activeOfferLocation) {
-      leaflet
-        .circle([activeOfferLocation.latitude, activeOfferLocation.longitude], {
-          color: 'none',
-          fillColor: '#1975c8',
-          fillOpacity: 0.5,
-          radius: 800,
-        })
-        .addTo(markerLayer.current);
-    }
-  }, [map, activeOfferLocation]);
-
   return (
     <section
       className={cn('map', {

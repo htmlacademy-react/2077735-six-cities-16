@@ -6,17 +6,16 @@ import Login from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFound from '../../pages/not-found/not-found';
 import { PrivateRoute, PublicRoute } from '../private-route/private-route';
-import { Offer, Review, AuthStatus } from '../../types';
+import { Offer, AuthStatus } from '../../types';
 import { APP_ROUTE } from '../../const';
 
 const currentStatus: AuthStatus = 'AUTH';
 
 type AppProps = {
   favorites: Offer[];
-  reviews: Review[];
 };
 
-export default function App({ favorites, reviews }: AppProps): JSX.Element {
+export default function App({ favorites }: AppProps): JSX.Element {
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,
@@ -36,7 +35,7 @@ export default function App({ favorites, reviews }: AppProps): JSX.Element {
         },
         {
           path: APP_ROUTE.OFFER,
-          element: <OfferPage reviews={reviews} />,
+          element: <OfferPage />,
         },
         {
           path: APP_ROUTE.LOGIN,

@@ -1,8 +1,9 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
-import currentCityReducer from './slices/current-city-slice';
-import offersReducer from './slices/offers-slice';
-import authReducer from './slices/auth-slice';
+import currentCityReducer from './slices/current-city';
+import offersReducer from './slices/offers';
+import offerReducer from './slices/offer';
+import authReducer from './slices/auth';
 
 import { createAPI } from '../services/api';
 
@@ -22,6 +23,7 @@ export const store = configureStore({
   reducer: {
     city: currentCityReducer,
     offers: offersReducer,
+    offer: offerReducer,
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>

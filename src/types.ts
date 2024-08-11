@@ -24,12 +24,12 @@ export type Offer = {
   title: string;
   type: string;
   price: number;
-  previewImage: string; //нет в деталях
   city: City;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+  previewImage: string; //нет в деталях
 };
 
 export type OfferDetail = Omit<Offer, 'previewImage'> & {

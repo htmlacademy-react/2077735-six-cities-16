@@ -9,8 +9,6 @@ import { createAppAsyncThunk } from '../with-types';
 
 export interface OffersState {
   offers: Offer[];
-  // isOffersDataLoading: boolean;
-  // hasError: boolean;
   requestStatus: RequestStatus;
   currentSortingOption: SortingOption;
 }
@@ -25,8 +23,6 @@ export const fetchOffers = createAppAsyncThunk(
 
 const initialState: OffersState = {
   offers: [],
-  // isOffersDataLoading: false,
-  // hasError: false,
   requestStatus: RequestStatus.Idle,
   currentSortingOption: SORTING_OPTION.DEFAULT,
 };
@@ -48,18 +44,13 @@ export const offersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOffers.pending, (state) => {
-        // state.isOffersDataLoading = true;
-        // state.hasError = false;
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
-        // state.isOffersDataLoading = false;
         state.requestStatus = RequestStatus.Success;
       })
       .addCase(fetchOffers.rejected, (state) => {
-        // state.isOffersDataLoading = false;
-        // state.hasError = true;
         state.requestStatus = RequestStatus.Failed;
       });
   },

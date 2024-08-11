@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { useAppSelector } from '../../store/hooks';
-import { selectCurrentCity } from '../../store/slices/current-city-slice';
+import { selectCurrentCity } from '../../store/slices/current-city';
 import {
   selectOffersByCityName,
   selectRequestStatus,
-} from '../../store/slices/offers-slice';
+} from '../../store/slices/offers';
 import MainLocationsList from '../../components/main-locations-list/main-locations-list';
 import NoOffers from '../../components/no-offers/no-offers';
 import OffersListContainer from '../../components/offers-list-container/offers-list-container';

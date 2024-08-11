@@ -2,7 +2,7 @@ import { useAppSelector } from '../store/hooks';
 import {
   selectOffers,
   selectOffersGroupedByCity,
-} from '../store/slices/offers-slice';
+} from '../store/slices/offers';
 
 export const useLocationsList = () => {
   const offers = useAppSelector(selectOffers);

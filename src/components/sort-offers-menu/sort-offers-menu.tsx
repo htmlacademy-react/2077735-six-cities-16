@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   offersSortingOptionChanged,
   selectCurrentSortOption,
-} from '../../store/slices/offers-slice';
+} from '../../store/slices/offers';
 
 import type { SortingOption } from '../../types';
 

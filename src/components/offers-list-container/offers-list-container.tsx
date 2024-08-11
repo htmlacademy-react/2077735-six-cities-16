@@ -3,7 +3,7 @@ import SortOffersMenu from '../sort-offers-menu/sort-offers-menu';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
-import { selectCurrentSortOption } from '../../store/slices/offers-slice';
+import { selectCurrentSortOption } from '../../store/slices/offers';
 import { useState } from 'react';
 import { getSortedOffers } from '../../helpers/get-sorted-offers';
 import { City, Offer } from '../../types';
@@ -21,7 +21,7 @@ export default function OffersListContainer({
 }: OffersListContainerProps) {
   const currentSortOption = useAppSelector(selectCurrentSortOption);
   const sortedOffers = getSortedOffers(offers, currentSortOption);
-
+  //TODO: перенести в стейт?
   const [activeCard, setActiveCard] = useState('');
 
   const handleCardHover = (offerId: string) => {
