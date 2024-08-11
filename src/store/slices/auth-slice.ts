@@ -20,9 +20,9 @@ const authSlice = createSlice({
     authorisationRequired(state, action: PayloadAction<AuthorizationStatus>) {
       state.authorizationStatus = action.payload;
     },
-    // userLoggedIn(state, action: PayloadAction<string>) {
-    //   state.username = action.payload
-    // },
+    userLoggedIn(state, action: PayloadAction<string>) {
+      state.username = action.payload;
+    },
     // userLoggedOut(state) {
     //   state.username = null
     // },

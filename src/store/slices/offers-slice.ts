@@ -14,7 +14,7 @@ export interface OffersState {
   currentSortingOption: SortingOption;
 }
 
-export const fetchOffersAction = createAppAsyncThunk(
+export const fetchOffers = createAppAsyncThunk(
   'offers/fetchOffers',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<Offer[]>(APIRoute.getOffers);
@@ -45,15 +45,15 @@ export const offersSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersAction.pending, (state) => {
+      .addCase(fetchOffers.pending, (state) => {
         state.isOffersDataLoading = true;
         state.hasError = false;
       })
-      .addCase(fetchOffersAction.fulfilled, (state, action) => {
+      .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isOffersDataLoading = false;
       })
-      .addCase(fetchOffersAction.rejected, (state) => {
+      .addCase(fetchOffers.rejected, (state) => {
         state.isOffersDataLoading = false;
         state.hasError = true;
       });
