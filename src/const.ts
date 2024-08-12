@@ -101,12 +101,9 @@ export enum AuthorizationStatus {
 }
 
 export enum APIRoute {
-  getOffers = '/six-cities/offers',
-  getOffer = '/six-cities/offers/{offerId}',
-  getOffersNearby = '/six-cities/offers/{offerId}/nearby',
-  getFavorites = '/six-cities/favorite',
-  toggleFavorite = '/six-cities/favorite/{offerId}/{status}',
-  reviews = '/six-cities/comments/{offerId}',
+  offers = '/six-cities/offers',
+  favorites = '/six-cities/favorite',
+  reviews = '/six-cities/comments',
   login = '/six-cities/login',
   logout = '/six-cities/logout',
 }

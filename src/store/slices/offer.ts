@@ -9,7 +9,7 @@ export const fetchOfferById = createAppAsyncThunk(
   'offer/fetchOfferById',
   async (offerId: string, { extra: api }) => {
     const { data } = await api.get<OfferDetail>(
-      `${APIRoute.getOffers}/${offerId}`
+      `${APIRoute.offers}/${offerId}`
     );
     return data;
   }
@@ -19,7 +19,7 @@ export const fetchOffersNearby = createAppAsyncThunk(
   'offer/fetchOffersNearby',
   async (offerId: string, { extra: api }) => {
     const { data } = await api.get<Offer[]>(
-      `${APIRoute.getOffers}/${offerId}/nearby`
+      `${APIRoute.offers}/${offerId}/nearby`
     );
     return data;
   }

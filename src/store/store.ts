@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import currentCityReducer from './slices/current-city';
 import offersReducer from './slices/offers';
 import offerReducer from './slices/offer';
+import reviewsReducer from './slices/reviews';
 import authReducer from './slices/auth';
 
 import { createAPI } from '../services/api';
@@ -25,6 +26,7 @@ export const store = configureStore({
     offers: offersReducer,
     offer: offerReducer,
     auth: authReducer,
+    reviews: reviewsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

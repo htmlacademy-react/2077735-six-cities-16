@@ -12,7 +12,7 @@ import {
   selectOffer,
   selectOffersNearby,
 } from '../../store/slices/offer';
-import { COMMENTS } from '../../mocks/comments';
+import { fetchReviews, selectReviews } from '../../store/slices/reviews';
 
 export default function OfferPage() {
   const { id: offerId } = useParams();
@@ -20,8 +20,7 @@ export default function OfferPage() {
 
   const currentOffer = useAppSelector(selectOffer);
   const allOffersNearby = useAppSelector(selectOffersNearby);
-  // const reviews = useAppSelector(selectReviews);
-  const reviews = COMMENTS;
+  const reviews = useAppSelector(selectReviews);
   const offersNearbyList = allOffersNearby.slice(0, NEARBY_OFFERS_COUNT);
   const pointsOnMap = [currentOffer, ...offersNearbyList];
 
@@ -32,7 +31,7 @@ export default function OfferPage() {
     Promise.all([
       dispatch(fetchOfferById(offerId as string)),
       dispatch(fetchOffersNearby(offerId as string)),
-      // dispatch(fetchReviews(offerId as string))
+      dispatch(fetchReviews(offerId as string))
     ]);
   }, [dispatch, offerId]);
 

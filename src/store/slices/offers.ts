@@ -16,7 +16,7 @@ export interface OffersState {
 export const fetchOffers = createAppAsyncThunk(
   'offers/fetchOffers',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Offer[]>(APIRoute.getOffers);
+    const { data } = await api.get<Offer[]>(APIRoute.offers);
     return data;
   }
 );
