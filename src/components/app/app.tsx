@@ -34,7 +34,7 @@ export default function App({ favorites }: AppProps): JSX.Element {
           ),
         },
         {
-          path: APP_ROUTE.OFFER,
+          path: APP_ROUTE.OFFER_ID,
           element: <OfferPage />,
         },
         {
@@ -46,7 +46,7 @@ export default function App({ favorites }: AppProps): JSX.Element {
           ),
         },
         {
-          path: APP_ROUTE.NOT_FOUND,
+          path: '*',
           element: <NotFound />,
         },
       ],

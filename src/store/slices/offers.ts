@@ -68,19 +68,19 @@ export const selectOffersByCityName = (state: RootState, cityName: string) => {
   return filterOffersByCity(offersList, cityName);
 };
 
-export const selectOffersGroupedByCity = (state: RootState) => {
-  const offersList = state.offers.offers;
+// export const selectOffersGroupedByCity = (state: RootState) => {
+//   const offersList = state.offers.offers;
 
-  return offersList.reduce((result: { [key: string]: Offer[] }, offer) => {
-    if (!result[offer.city.name]) {
-      result[offer.city.name] = [offer];
-    } else {
-      result[offer.city.name].push(offer);
-    }
+//   return offersList.reduce((result: { [key: string]: Offer[] }, offer) => {
+//     if (!result[offer.city.name]) {
+//       result[offer.city.name] = [offer];
+//     } else {
+//       result[offer.city.name].push(offer);
+//     }
 
-    return result;
-  }, {});
-};
+//     return result;
+//   }, {});
+// };
 
 export const { offersSet, offersSortingOptionChanged } = offersSlice.actions;
 export default offersSlice.reducer;

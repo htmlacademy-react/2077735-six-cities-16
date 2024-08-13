@@ -1,13 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Review } from '../../types';
 import { createAppAsyncThunk } from '../with-types';
 import { APIRoute, RequestStatus } from '../../const';
 import { RootState } from '../store';
+
+import type { PostReviewProps, Review } from '../../types';
 
 export const fetchReviews = createAppAsyncThunk(
   'offer/fetchReviews',
   async (offerId: string, { extra: api }) => {
     const { data } = await api.get<Review[]>(`${APIRoute.reviews}/${offerId}`);
+    return data;
+  }
+);
+
+export const postReview = createAppAsyncThunk(
+  'offer/postReview',
+  async ({ offerId, body }: PostReviewProps, { extra: api }) => {
+    const { data } = await api.post<Review>(
+      `${APIRoute.reviews}/${offerId}`,
+      body
+    );
     return data;
   }
 );
@@ -37,6 +49,9 @@ export const reviewsSlice = createSlice({
       })
       .addCase(fetchReviews.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.reviews.push(action.payload);
       });
   },
 });

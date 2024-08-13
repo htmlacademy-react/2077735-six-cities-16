@@ -60,6 +60,8 @@ export const offerSlice = createSlice({
 });
 
 export const selectOffer = (state: RootState) => state.offer.offer;
+export const selectOfferRequestStatus = (state: RootState) =>
+  state.offer.requestStatus;
 export const selectOffersNearby = (state: RootState) => state.offer.nearby;
 
 export default offerSlice.reducer;

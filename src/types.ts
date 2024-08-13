@@ -13,10 +13,22 @@ export type City = {
 
 export type LocationName = (typeof LOCATIONS_NAMES)[number];
 
-export type Host = {
+export type User = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
+};
+
+export type AuthData = {
+  email: string;
+  token: string;
+};
+
+export type AuthedUser = User & AuthData;
+
+export type AuthRequest = {
+  email: string;
+  password: string;
 };
 
 export type Offer = {
@@ -36,7 +48,7 @@ export type OfferDetail = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: User;
   images: string[];
   maxAdults: number;
 };
@@ -51,6 +63,14 @@ export type Review = {
   };
   comment: string;
   rating: number;
+};
+
+export type PostReviewProps = {
+  body: {
+    comment: string;
+    rating: number;
+  };
+  offerId: string;
 };
 
 export type AuthStatus = 'AUTH' | 'NOT_AUTH' | 'UNKNOWN';

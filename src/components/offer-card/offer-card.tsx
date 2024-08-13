@@ -48,7 +48,7 @@ export default function OfferCard({
     >
       {isPremium && <PremiumBadge />}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={APP_ROUTE.OFFER.replace(':id', id)}>
+        <Link to={`${APP_ROUTE.OFFER}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -72,7 +72,7 @@ export default function OfferCard({
         </div>
         <OfferRating rating={rating} />
         <h2 className="place-card__name">
-          <Link to={APP_ROUTE.OFFER.replace(':id', id)}>{title}</Link>
+          <Link to={`${APP_ROUTE.OFFER}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstChar(type)}</p>
       </div>

@@ -1,9 +1,9 @@
 import { AVATAR_SIZE } from '../../const';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import { Host } from '../../types';
+import { User } from '../../types';
 
 type AvatarProps = {
-  user: Host;
+  user: User;
   classNamePrefix: string;
 };
 
