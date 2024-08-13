@@ -44,7 +44,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   userData: null,
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.NotAuth,
   requestStatus: RequestStatus.Idle,
 };
 
@@ -65,6 +65,11 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
+        state.authorizationStatus = AuthorizationStatus.NotAuth;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.userData = null;
+        state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.NotAuth;
       });
   },
