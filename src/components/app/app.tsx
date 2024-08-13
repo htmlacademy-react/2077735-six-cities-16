@@ -5,15 +5,13 @@ import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFound from '../../pages/not-found/not-found';
-import { PrivateRoute, PublicRoute } from '../private-route/private-route';
-import { Offer, AuthStatus } from '../../types';
+import ProtectedRoute from '../protected-route/protected-route';
+import { Offer } from '../../types';
 import { APP_ROUTE } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { getToken } from '../../services/token';
 import { useEffect } from 'react';
 import { checkAuth } from '../../store/slices/auth';
-
-const currentStatus: AuthStatus = 'AUTH';
 
 type AppProps = {
   favorites: Offer[];
@@ -41,9 +39,9 @@ export default function App({ favorites }: AppProps): JSX.Element {
         {
           path: APP_ROUTE.FAVORITES,
           element: (
-            <PrivateRoute status={currentStatus}>
+            <ProtectedRoute>
               <Favorites favorites={favorites} />
-            </PrivateRoute>
+            </ProtectedRoute>
           ),
         },
         {
@@ -53,9 +51,9 @@ export default function App({ favorites }: AppProps): JSX.Element {
         {
           path: APP_ROUTE.LOGIN,
           element: (
-            <PublicRoute status={currentStatus}>
+            <ProtectedRoute onlyUnAuth>
               <Login />
-            </PublicRoute>
+            </ProtectedRoute>
           ),
         },
         {
