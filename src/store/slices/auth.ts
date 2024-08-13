@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '../store';
 import { APIRoute, AuthorizationStatus, RequestStatus } from '../../const';
-import { AuthedUser, AuthRequest } from '../../types';
+import { AuthedUser, LoginData } from '../../types';
 import { createAppAsyncThunk } from '../with-types';
 import { dropToken, saveToken } from '../../services/token';
 
@@ -16,7 +16,7 @@ export const checkAuth = createAppAsyncThunk(
 
 export const login = createAppAsyncThunk(
   'auth/login',
-  async ({ email, password }: AuthRequest, { extra: api }) => {
+  async ({ email, password }: LoginData, { extra: api }) => {
     const { data } = await api.post<AuthedUser>(APIRoute.login, {
       email,
       password,
@@ -34,8 +34,10 @@ export const logout = createAppAsyncThunk(
   }
 );
 
+type UserData = Omit<AuthedUser, 'token'>;
+
 interface AuthState {
-  userData: AuthedUser | null;
+  userData: UserData | null;
   authorizationStatus: AuthorizationStatus;
   requestStatus: RequestStatus;
 }
@@ -56,7 +58,8 @@ const authSlice = createSlice({
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.userData = action.payload;
+        const { name, avatarUrl, isPro, email } = action.payload;
+        state.userData = { name, avatarUrl, isPro, email };
         state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })

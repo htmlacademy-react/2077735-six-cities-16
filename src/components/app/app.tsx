@@ -8,6 +8,10 @@ import NotFound from '../../pages/not-found/not-found';
 import { PrivateRoute, PublicRoute } from '../private-route/private-route';
 import { Offer, AuthStatus } from '../../types';
 import { APP_ROUTE } from '../../const';
+import { useAppDispatch } from '../../store/hooks';
+import { getToken } from '../../services/token';
+import { useEffect } from 'react';
+import { checkAuth } from '../../store/slices/auth';
 
 const currentStatus: AuthStatus = 'AUTH';
 
@@ -16,6 +20,15 @@ type AppProps = {
 };
 
 export default function App({ favorites }: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const token = getToken();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(checkAuth());
+    }
+  }, [token]);
+
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,

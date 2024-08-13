@@ -26,7 +26,7 @@ export type AuthData = {
 
 export type AuthedUser = User & AuthData;
 
-export type AuthRequest = {
+export type LoginData = {
   email: string;
   password: string;
 };
