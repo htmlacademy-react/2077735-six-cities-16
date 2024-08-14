@@ -124,4 +124,9 @@ export enum RequestStatus {
   Failed = 'Failed',
 }
 
+export enum FavoriteStatus {
+  Removed,
+  Added,
+}
+
 export const NEARBY_OFFERS_COUNT = 3;

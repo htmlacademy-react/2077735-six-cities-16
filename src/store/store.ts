@@ -5,6 +5,7 @@ import offersReducer from './slices/offers';
 import offerReducer from './slices/offer';
 import reviewsReducer from './slices/reviews';
 import authReducer from './slices/auth';
+import favoritesReducer from './slices/favorites';
 
 import { createAPI } from '../services/api';
 
@@ -27,6 +28,7 @@ export const store = configureStore({
     offer: offerReducer,
     auth: authReducer,
     reviews: reviewsReducer,
+    favorites: favoritesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
