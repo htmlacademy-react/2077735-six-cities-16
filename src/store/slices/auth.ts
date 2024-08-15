@@ -48,12 +48,26 @@ const initialState: AuthState = {
   requestStatus: RequestStatus.Idle,
 };
 
+//TODO: вынести повторяющуюся логику в функции
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(checkAuth.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        const { name, avatarUrl, isPro, email } = action.payload;
+        state.userData = { name, avatarUrl, isPro, email };
+        state.requestStatus = RequestStatus.Success;
+        state.authorizationStatus = AuthorizationStatus.Auth;
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+        state.authorizationStatus = AuthorizationStatus.NotAuth;
+      })
       .addCase(login.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })

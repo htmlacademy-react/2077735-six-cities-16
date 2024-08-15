@@ -6,6 +6,7 @@ import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
 import { APIRoute, RequestStatus, SORTING_OPTION } from '../../const';
 
 import { createAppAsyncThunk } from '../with-types';
+import { changeFavorite } from './favorites';
 
 export interface OffersState {
   offers: Offer[];
@@ -52,6 +53,15 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchOffers.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
+      })
+      .addCase(changeFavorite.fulfilled, (state, action) => {
+        const offerToChange = action.payload.offer;
+        const foundOffer = state.offers.find(
+          (offer) => offer.id === offerToChange.id
+        );
+        if (foundOffer) {
+          foundOffer.isFavorite = offerToChange.isFavorite;
+        }
       });
   },
 });
@@ -67,20 +77,5 @@ export const selectOffersByCityName = (state: RootState, cityName: string) => {
 
   return filterOffersByCity(offersList, cityName);
 };
-
-// export const selectOffersGroupedByCity = (state: RootState) => {
-//   const offersList = state.offers.offers;
-
-//   return offersList.reduce((result: { [key: string]: Offer[] }, offer) => {
-//     if (!result[offer.city.name]) {
-//       result[offer.city.name] = [offer];
-//     } else {
-//       result[offer.city.name].push(offer);
-//     }
-
-//     return result;
-//   }, {});
-// };
-
 export const { offersSet, offersSortingOptionChanged } = offersSlice.actions;
 export default offersSlice.reducer;

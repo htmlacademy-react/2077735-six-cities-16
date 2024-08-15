@@ -76,7 +76,7 @@ export const favoritesSlice = createSlice({
 });
 
 export const selectFavorites = (state: RootState) => state.favorites.favorites;
-export const selectRequestStatus = (state: RootState) =>
+export const selectFavoritesStatus = (state: RootState) =>
   state.favorites.requestStatus;
 
 export default favoritesSlice.reducer;

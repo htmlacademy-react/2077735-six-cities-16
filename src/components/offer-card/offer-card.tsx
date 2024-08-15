@@ -68,7 +68,11 @@ export default function OfferCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <FavoriteButton className="place-card" isFavorite={isFavorite} />
+          <FavoriteButton
+            classNamePrefix="place-card"
+            isFavorite={isFavorite}
+            offerId={id}
+          />
         </div>
         <OfferRating rating={rating} />
         <h2 className="place-card__name">

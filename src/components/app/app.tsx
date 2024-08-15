@@ -6,18 +6,13 @@ import Login from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFound from '../../pages/not-found/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
-import { Offer } from '../../types';
 import { APP_ROUTE } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { getToken } from '../../services/token';
 import { useEffect } from 'react';
 import { checkAuth } from '../../store/slices/auth';
 
-type AppProps = {
-  favorites: Offer[];
-};
-
-export default function App({ favorites }: AppProps): JSX.Element {
+export default function App() {
   const dispatch = useAppDispatch();
   const token = getToken();
 
@@ -30,7 +25,7 @@ export default function App({ favorites }: AppProps): JSX.Element {
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,
-      element: <Layout favoritesCount={favorites.length} />,
+      element: <Layout />,
       children: [
         {
           index: true,
@@ -40,7 +35,7 @@ export default function App({ favorites }: AppProps): JSX.Element {
           path: APP_ROUTE.FAVORITES,
           element: (
             <ProtectedRoute>
-              <Favorites favorites={favorites} />
+              <Favorites />
             </ProtectedRoute>
           ),
         },
