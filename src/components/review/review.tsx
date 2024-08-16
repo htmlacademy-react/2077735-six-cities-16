@@ -1,4 +1,4 @@
-import { getAttributeDate, getMarkupDate } from '../../helpers/getReviewDate';
+import { getAttributeDate, getMarkupDate } from '../../helpers/get-review-date';
 import { Review } from '../../types';
 import Avatar from '../avatar/avatar';
 

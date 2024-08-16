@@ -1,8 +1,4 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import {
-  getBadroomsString,
-  getAdultsString,
-} from '../../helpers/getPluralString';
 import { useAuthCheck } from '../../hooks/use-auth-check';
 import { OfferDetail, Review } from '../../types';
 import Avatar from '../avatar/avatar';
@@ -35,7 +31,14 @@ export default function OfferContainer({
     host,
     description,
   } = currentOffer;
+
   const isAuth = useAuthCheck();
+
+  const getBadroomsString = (count: number) =>
+    `${count} Bedroom${count > 1 ? 's' : ''}`;
+  const getAdultsString = (count: number) =>
+    `Max ${count} adult${count > 1 ? 's' : ''}`;
+
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
