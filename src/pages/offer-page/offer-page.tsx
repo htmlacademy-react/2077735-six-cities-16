@@ -15,6 +15,7 @@ import {
 } from '../../store/slices/offer';
 import { fetchReviews, selectReviews } from '../../store/slices/reviews';
 import Spinner from '../../components/spinner/spinner';
+import { Offer } from '../../types';
 
 export default function OfferPage() {
   const { id: offerId } = useParams();
@@ -50,7 +51,7 @@ export default function OfferPage() {
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {currentOffer.images.map((image) => (
+            {currentOffer?.images.map((image) => (
               <div key={image} className="offer__image-wrapper">
                 <img className="offer__image" src={image} alt="Photo studio" />
               </div>
@@ -60,7 +61,7 @@ export default function OfferPage() {
         <OfferContainer reviews={reviews} currentOffer={currentOffer} />
         <Map
           cityLocation={currentCity.location}
-          offers={pointsOnMap}
+          offers={pointsOnMap as Offer[]}
           activeOffer={currentOffer.id}
           activeOfferLocation={currentOffer.location}
         />

@@ -18,7 +18,7 @@ export default function Layout() {
     if (isIdle && token) {
       dispatch(fetchFavorites());
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, isIdle]);
 
   const { rootClassName, shouldRenderFooter, shouldRenderUser } =
     getLayoutState(pathname, favoritesCount);

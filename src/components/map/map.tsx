@@ -9,8 +9,8 @@ import type { Offer, Location } from '../../types';
 
 type MapProps = {
   cityLocation: Location;
-  offers?: Offer[];
-  activeOffer?: string | null;
+  offers: Offer[];
+  activeOffer: string | null;
   activeOfferLocation?: Location;
 };
 
@@ -69,10 +69,7 @@ export default function Map(props: MapProps): JSX.Element {
 
   return (
     <section
-      className={cn('map', {
-        'offer__map': activeOfferLocation,
-        'cities__map': !activeOfferLocation,
-      })}
+      className={cn('map', activeOfferLocation ? 'offer__map' : 'cities__map')}
       style={{ height: '500px' }}
       ref={mapRef}
     />

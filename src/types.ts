@@ -41,7 +41,7 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  previewImage: string; //нет в деталях
+  previewImage?: string; //нет в деталях
 };
 
 export type OfferDetail = Omit<Offer, 'previewImage'> & {
