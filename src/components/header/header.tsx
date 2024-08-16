@@ -2,7 +2,7 @@ import Logo from '../logo/logo';
 import UserNav from '../userNav/userNav';
 
 type HeaderProps = {
-  isLoginPage: boolean;
+  isLoginPage?: boolean;
 };
 
 export default function Header({

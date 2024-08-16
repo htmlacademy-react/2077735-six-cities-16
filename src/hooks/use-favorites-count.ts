@@ -11,7 +11,7 @@ export default function UseFavoritesCount() {
     if (isIdle) {
       dispatch(fetchFavorites());
     }
-  }, [isIdle, fetchFavorites, dispatch]);
+  }, [isIdle, dispatch]);
 
   return favoritesCount;
 }

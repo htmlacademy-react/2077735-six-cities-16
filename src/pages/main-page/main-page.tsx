@@ -12,8 +12,7 @@ import OffersListContainer from '../../components/offers-list-container/offers-l
 import { RequestStatus } from '../../const';
 import Spinner from '../../components/spinner/spinner';
 import { useEffect } from 'react';
-import { getToken } from '../../services/token';
-import { checkAuth } from '../../store/slices/auth';
+import Layout from '../../components/layout/layout';
 
 export default function Main() {
   const currentCity = useAppSelector(selectCurrentCity);
@@ -27,35 +26,37 @@ export default function Main() {
   const hasOffers = !isLoading && offers.length;
 
   const dispatch = useAppDispatch();
-  const token = getToken();
 
   useEffect(() => {
-    if (token) {
-      dispatch(checkAuth());
-    }
     dispatch(fetchOffers());
-  }, [token, dispatch]);
+  }, [dispatch]);
 
   return (
-    <main
-      className={cn(
-        'page__main page__main--index',
-        isEmpty && 'page__main--index-empty'
-      )}
+    <Layout
+      pageClassName={cn('page page--gray page--main', {
+        'page__main--index-empty': isEmpty,
+      })}
     >
-      <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <MainLocationsList />
-      </div>
-      {isLoading && <Spinner />}
-      {isEmpty && <NoOffers currentLocation={currentCity.name} />}
-      {hasOffers && (
-        <OffersListContainer
-          offers={offers}
-          isEmpty={isEmpty}
-          currentCity={currentCity}
-        />
-      )}
-    </main>
+      <main
+        className={cn(
+          'page__main page__main--index',
+          isEmpty && 'page__main--index-empty'
+        )}
+      >
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <MainLocationsList />
+        </div>
+        {isLoading && <Spinner />}
+        {isEmpty && <NoOffers currentLocation={currentCity.name} />}
+        {hasOffers && (
+          <OffersListContainer
+            offers={offers}
+            isEmpty={isEmpty}
+            currentCity={currentCity}
+          />
+        )}
+      </main>
+    </Layout>
   );
 }
