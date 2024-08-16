@@ -20,20 +20,19 @@ export default function Layout() {
     }
   }, [dispatch, token]);
 
-  const { rootClassName, linkClassName, shouldRenderFooter, shouldRenderUser } =
+  const { rootClassName, shouldRenderFooter, shouldRenderUser } =
     getLayoutState(pathname, favoritesCount);
 
   return (
     <div className={`page${rootClassName}`}>
       <Header
         favoritesCount={favoritesCount}
-        linkClassName={linkClassName}
         shouldRenderUser={shouldRenderUser}
       />
       <Outlet />
       {shouldRenderFooter && (
         <footer className="footer container">
-          <Logo isFooter={shouldRenderFooter} linkClassName={linkClassName} />
+          <Logo isFooter={shouldRenderFooter} />
         </footer>
       )}
     </div>

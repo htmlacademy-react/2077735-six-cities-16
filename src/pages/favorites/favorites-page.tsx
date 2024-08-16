@@ -1,3 +1,4 @@
+import './favorites-page.css';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import FavLocationsList from '../../components/favorites-locations-list/favorites-locations-list';
 import Spinner from '../../components/spinner/spinner';

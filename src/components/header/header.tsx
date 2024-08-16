@@ -3,13 +3,11 @@ import UserNav from '../userNav/userNav';
 
 type HeaderProps = {
   favoritesCount: number;
-  linkClassName: string;
   shouldRenderUser: boolean;
 };
 
 export default function Header({
   favoritesCount,
-  linkClassName,
   shouldRenderUser,
 }: HeaderProps) {
   return (
@@ -17,7 +15,7 @@ export default function Header({
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo linkClassName={linkClassName} />
+            <Logo />
           </div>
           {shouldRenderUser && <UserNav favoritesCount={favoritesCount} />}
         </div>
