@@ -1,8 +1,5 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import {
-  getBadroomsString,
-  getAdultsString,
-} from '../../helpers/getPluralString';
+import { useAuthCheck } from '../../hooks/use-auth-check';
 import { OfferDetail, Review } from '../../types';
 import Avatar from '../avatar/avatar';
 import FavoriteButton from '../favorite-button/favorite-button';
@@ -16,15 +13,12 @@ type OfferContainerProps = {
   currentOffer: OfferDetail;
 };
 
-//TODO: replace with actual logic
-const isAuth = true;
-
 export default function OfferContainer({
   reviews,
   currentOffer,
 }: OfferContainerProps) {
   const {
-    // id,
+    id,
     isFavorite,
     isPremium,
     title,
@@ -37,13 +31,21 @@ export default function OfferContainer({
     host,
     description,
   } = currentOffer;
+
+  const isAuth = useAuthCheck();
+
+  const getBadroomsString = (count: number) =>
+    `${count} Bedroom${count > 1 ? 's' : ''}`;
+  const getAdultsString = (count: number) =>
+    `Max ${count} adult${count > 1 ? 's' : ''}`;
+
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
         {isPremium && <PremiumBadge isOfferDetail />}
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{title}</h1>
-          <FavoriteButton className="offer" isFavorite={isFavorite} />
+          <FavoriteButton offerId={id} classNamePrefix="offer" isFavorite={isFavorite} />
         </div>
         <OfferRating rating={rating} isOfferDetail />
         <ul className="offer__features">

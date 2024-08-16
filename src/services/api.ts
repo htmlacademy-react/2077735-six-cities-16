@@ -1,13 +1,11 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { getToken } from './token';
-
-const BACKEND_URL = 'https://16.design.htmlacademy.pro';
-const REQUEST_TIMEOUT = 5000;
+import { ApiConfig } from './const';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: BACKEND_URL,
-    timeout: REQUEST_TIMEOUT,
+    baseURL: ApiConfig.BaseURL as string,
+    timeout: ApiConfig.Timeout as number,
   });
 
   api.interceptors.request.use((config: InternalAxiosRequestConfig) => {

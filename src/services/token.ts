@@ -1,4 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = '6-cities-token';
+import { AUTH_TOKEN_KEY_NAME } from './const';
 
 export type Token = string;
 

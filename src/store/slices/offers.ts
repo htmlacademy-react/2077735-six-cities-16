@@ -3,29 +3,28 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { SortingOption, Offer } from '../../types';
 import { RootState } from '../store';
 import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
-import { APIRoute, SORTING_OPTION } from '../../const';
+import { APIRoute, RequestStatus, SORTING_OPTION } from '../../const';
 
 import { createAppAsyncThunk } from '../with-types';
+import { changeFavorite } from './favorites';
 
 export interface OffersState {
   offers: Offer[];
-  isOffersDataLoading: boolean;
-  hasError: boolean;
+  requestStatus: RequestStatus;
   currentSortingOption: SortingOption;
 }
 
-export const fetchOffersAction = createAppAsyncThunk(
+export const fetchOffers = createAppAsyncThunk(
   'offers/fetchOffers',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Offer[]>(APIRoute.getOffers);
+    const { data } = await api.get<Offer[]>(APIRoute.offers);
     return data;
   }
 );
 
 const initialState: OffersState = {
   offers: [],
-  isOffersDataLoading: false,
-  hasError: false,
+  requestStatus: RequestStatus.Idle,
   currentSortingOption: SORTING_OPTION.DEFAULT,
 };
 
@@ -45,22 +44,31 @@ export const offersSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersAction.pending, (state) => {
-        state.isOffersDataLoading = true;
-        state.hasError = false;
+      .addCase(fetchOffers.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
       })
-      .addCase(fetchOffersAction.fulfilled, (state, action) => {
+      .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.isOffersDataLoading = false;
+        state.requestStatus = RequestStatus.Success;
       })
-      .addCase(fetchOffersAction.rejected, (state) => {
-        state.isOffersDataLoading = false;
-        state.hasError = true;
+      .addCase(fetchOffers.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+      })
+      .addCase(changeFavorite.fulfilled, (state, action) => {
+        const offerToChange = action.payload.offer;
+        const foundOffer = state.offers.find(
+          (offer) => offer.id === offerToChange.id
+        );
+        if (foundOffer) {
+          foundOffer.isFavorite = offerToChange.isFavorite;
+        }
       });
   },
 });
 
 export const selectOffers = (state: RootState) => state.offers.offers;
+export const selectRequestStatus = (state: RootState) =>
+  state.offers.requestStatus;
 export const selectCurrentSortOption = (state: RootState) =>
   state.offers.currentSortingOption;
 
@@ -69,20 +77,5 @@ export const selectOffersByCityName = (state: RootState, cityName: string) => {
 
   return filterOffersByCity(offersList, cityName);
 };
-
-export const selectOffersGroupedByCity = (state: RootState) => {
-  const offersList = state.offers.offers;
-
-  return offersList.reduce((result: { [key: string]: Offer[] }, offer) => {
-    if (!result[offer.city.name]) {
-      result[offer.city.name] = [offer];
-    } else {
-      result[offer.city.name].push(offer);
-    }
-
-    return result;
-  }, {});
-};
-
 export const { offersSet, offersSortingOptionChanged } = offersSlice.actions;
 export default offersSlice.reducer;

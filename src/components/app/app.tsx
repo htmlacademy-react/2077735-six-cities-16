@@ -1,26 +1,31 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from '../layout/layout';
-import Main from '../../pages/main/main';
-import Favorites from '../../pages/favorites/favorites';
-import Login from '../../pages/login/login';
+import Main from '../../pages/main-page/main-page';
+import Favorites from '../../pages/favorites-page/favorites-page';
+import Login from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-import NotFound from '../../pages/not-found/not-found';
-import { PrivateRoute, PublicRoute } from '../private-route/private-route';
-import { Offer, Review, AuthStatus } from '../../types';
+import NotFound from '../../pages/not-found-page/not-found-page';
+import ProtectedRoute from '../protected-route/protected-route';
 import { APP_ROUTE } from '../../const';
+import { useAppDispatch } from '../../store/hooks';
+import { getToken } from '../../services/token';
+import { useEffect } from 'react';
+import { checkAuth } from '../../store/slices/auth';
 
-const currentStatus: AuthStatus = 'AUTH';
+export default function App() {
+  const dispatch = useAppDispatch();
+  const token = getToken();
 
-type AppProps = {
-  favorites: Offer[];
-  reviews: Review[];
-};
+  useEffect(() => {
+    if (token) {
+      dispatch(checkAuth());
+    }
+  }, [token, dispatch]);
 
-export default function App({ favorites, reviews }: AppProps): JSX.Element {
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,
-      element: <Layout favoritesCount={favorites.length} />,
+      element: <Layout />,
       children: [
         {
           index: true,
@@ -29,25 +34,25 @@ export default function App({ favorites, reviews }: AppProps): JSX.Element {
         {
           path: APP_ROUTE.FAVORITES,
           element: (
-            <PrivateRoute status={currentStatus}>
-              <Favorites favorites={favorites} />
-            </PrivateRoute>
+            <ProtectedRoute>
+              <Favorites />
+            </ProtectedRoute>
           ),
         },
         {
-          path: APP_ROUTE.OFFER,
-          element: <OfferPage reviews={reviews} />,
+          path: APP_ROUTE.OFFER_ID,
+          element: <OfferPage />,
         },
         {
           path: APP_ROUTE.LOGIN,
           element: (
-            <PublicRoute status={currentStatus}>
+            <ProtectedRoute onlyUnAuth>
               <Login />
-            </PublicRoute>
+            </ProtectedRoute>
           ),
         },
         {
-          path: APP_ROUTE.NOT_FOUND,
+          path: '*',
           element: <NotFound />,
         },
       ],

@@ -1,35 +1,56 @@
 import FormButton from '../form-button/form-button';
 import FormRating from '../form-rating/form-rating';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+
+import type { PostReviewProps } from '../../types';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
+import { postReview } from '../../store/slices/reviews';
 
 export default function ReviewForm() {
-  const [reviewText, setReviewText] = useState('');
-  const [, setUserRating] = useState(0);
+  const [newReview, setNewReview] = useState({
+    rating: 0,
+    comment: '',
+  });
+  const { id: offerId } = useParams();
+  const dispatch = useAppDispatch();
 
   const handleRatingChange = (rating: number) => {
-    setUserRating(rating);
+    setNewReview({ ...newReview, rating });
   };
 
-  const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(event.target.value);
+  const handleTextChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+    setNewReview({ ...newReview, comment: target.value });
   };
 
-  // console.log('rating', userRating);
-  // console.log('reviewText', reviewText);
+  const handleFormSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (!offerId) {
+      return;
+    }
+    const data: PostReviewProps = {
+      offerId,
+      body: {
+        ...newReview,
+      },
+    };
+
+    dispatch(postReview(data));
+  };
 
   return (
-    <form className="reviews__form form">
+    <form className="reviews__form form" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <FormRating handleRatingChange={handleRatingChange} />
+      <FormRating onRatingChange={handleRatingChange} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextChange}
-        value={reviewText}
+        value={newReview.comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

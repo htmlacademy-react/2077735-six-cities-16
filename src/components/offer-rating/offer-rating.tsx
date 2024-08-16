@@ -1,4 +1,4 @@
-import { getRatingPercentage } from '../../helpers/getRatingPercentage';
+import { getRatingPercentage } from '../../helpers/get-rating-percentage';
 
 type OfferRatingProps = {
   rating: number;

@@ -1,12 +1,12 @@
 import FavLocation from '../favorites-location/favorites-location';
-import { Offer } from '../../types';
+
+import type { Offer } from '../../types';
 
 type FavLocationListProps = {
   favorites: Offer[];
 };
 
 export default function FavLocationsList({ favorites }: FavLocationListProps) {
-  //TODO replace with actual logic
   const groupedByCity = favorites.reduce(
     (result: { [key: string]: Offer[] }, offer) => {
       if (!result[offer.city.name]) {
@@ -19,7 +19,6 @@ export default function FavLocationsList({ favorites }: FavLocationListProps) {
     },
     {}
   );
-
   const locations = Object.keys(groupedByCity);
 
   return (

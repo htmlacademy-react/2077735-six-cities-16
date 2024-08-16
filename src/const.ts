@@ -2,7 +2,8 @@ export const APP_ROUTE = {
   ROOT: '/',
   LOGIN: '/login',
   FAVORITES: '/favorites',
-  OFFER: '/offer/:id',
+  OFFER: '/offer',
+  OFFER_ID: '/offer/:id',
   NOT_FOUND: '*',
 } as const;
 
@@ -71,7 +72,7 @@ export const LOCATIONS = [
       zoom: 13,
     },
   },
-];
+] as const;
 
 export const MARKER_URL = {
   DEFAULT:
@@ -101,12 +102,31 @@ export enum AuthorizationStatus {
 }
 
 export enum APIRoute {
-  getOffers = '/six-cities/offers',
-  getOffer = '/six-cities/offers/{offerId}',
-  getOffersNearby = '/six-cities/offers/{offerId}/nearby',
-  getFavorites = '/six-cities/favorite',
-  toggleFavorite = '/six-cities/favorite/{offerId}/{status}',
-  reviews = '/six-cities/comments/{offerId}',
+  offers = '/six-cities/offers',
+  favorites = '/six-cities/favorite',
+  reviews = '/six-cities/comments',
   login = '/six-cities/login',
   logout = '/six-cities/logout',
 }
+
+export const RATING = [
+  { stars: 5, title: 'perfect' },
+  { stars: 4, title: 'good' },
+  { stars: 3, title: 'not bad' },
+  { stars: 2, title: 'badly' },
+  { stars: 1, title: 'terribly' },
+] as const;
+
+export enum RequestStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
+}
+
+export enum FavoriteStatus {
+  Removed,
+  Added,
+}
+
+export const NEARBY_OFFERS_COUNT = 3;

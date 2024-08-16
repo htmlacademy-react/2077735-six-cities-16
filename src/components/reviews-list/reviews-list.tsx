@@ -9,7 +9,7 @@ const sortOffersByDate = (a: Review, b: Review) =>
   new Date(b.date).getTime() - new Date(a.date).getTime();
 
 export default function ReviewsList({ reviews }: ReviewsListProps) {
-  const tempOfferReviews = reviews.sort(sortOffersByDate);
+  const tempOfferReviews = [...reviews].sort(sortOffersByDate);
   //TODO: add slice for rendering only the first 10 comments
   return (
     <>

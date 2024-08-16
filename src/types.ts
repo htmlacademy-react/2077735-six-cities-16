@@ -7,16 +7,28 @@ export type Location = {
 };
 
 export type City = {
-  name: string;
+  name: LocationName;
   location: Location;
 };
 
 export type LocationName = (typeof LOCATIONS_NAMES)[number];
 
-export type Host = {
+export type User = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
+};
+
+export type AuthData = {
+  email: string;
+  token: string;
+};
+
+export type AuthedUser = User & AuthData;
+
+export type LoginData = {
+  email: string;
+  password: string;
 };
 
 export type Offer = {
@@ -24,19 +36,19 @@ export type Offer = {
   title: string;
   type: string;
   price: number;
-  previewImage: string; //нет в деталях
   city: City;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+  previewImage?: string; //нет в деталях
 };
 
 export type OfferDetail = Omit<Offer, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: User;
   images: string[];
   maxAdults: number;
 };
@@ -51,6 +63,14 @@ export type Review = {
   };
   comment: string;
   rating: number;
+};
+
+export type PostReviewProps = {
+  body: {
+    comment: string;
+    rating: number;
+  };
+  offerId: string;
 };
 
 export type AuthStatus = 'AUTH' | 'NOT_AUTH' | 'UNKNOWN';
