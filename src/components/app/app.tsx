@@ -7,21 +7,8 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 import ProtectedRoute from '../protected-route/protected-route';
 import { APP_ROUTE } from '../../const';
-import { useAppDispatch } from '../../store/hooks';
-import { getToken } from '../../services/token';
-import { useEffect } from 'react';
-import { checkAuth } from '../../store/slices/auth';
 
 export default function App() {
-  const dispatch = useAppDispatch();
-  const token = getToken();
-
-  useEffect(() => {
-    if (token) {
-      dispatch(checkAuth());
-    }
-  }, [token, dispatch]);
-
   const router = createBrowserRouter([
     {
       path: APP_ROUTE.ROOT,

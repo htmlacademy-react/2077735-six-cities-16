@@ -3,12 +3,9 @@ import { APP_ROUTE } from '../../const';
 import { useAuthCheck } from '../../hooks/use-auth-check';
 import { logout, selectCurrentUser } from '../../store/slices/auth';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import FavoriteCount from '../favorite-count/favorite-count';
 
-type UserNavProps = {
-  favoritesCount: number;
-};
-
-export default function UserNav({ favoritesCount }: UserNavProps) {
+export default function UserNav() {
   const isLoggedIn = useAuthCheck();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser);
@@ -31,7 +28,7 @@ export default function UserNav({ favoritesCount }: UserNavProps) {
               <span className="header__user-name user__name">
                 {user?.email}
               </span>
-              <span className="header__favorite-count">{favoritesCount}</span>
+              <FavoriteCount />
             </Link>
           </li>
         )}

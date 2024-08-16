@@ -2,13 +2,11 @@ import Logo from '../logo/logo';
 import UserNav from '../userNav/userNav';
 
 type HeaderProps = {
-  favoritesCount: number;
-  shouldRenderUser: boolean;
+  isLoginPage: boolean;
 };
 
 export default function Header({
-  favoritesCount,
-  shouldRenderUser,
+  isLoginPage,
 }: HeaderProps) {
   return (
     <header className="header">
@@ -17,7 +15,7 @@ export default function Header({
           <div className="header__left">
             <Logo />
           </div>
-          {shouldRenderUser && <UserNav favoritesCount={favoritesCount} />}
+          {!isLoginPage && <UserNav />}
         </div>
       </div>
     </header>

@@ -1,7 +1,8 @@
 import cn from 'classnames';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentCity } from '../../store/slices/current-city';
 import {
+  fetchOffers,
   selectOffersByCityName,
   selectRequestStatus,
 } from '../../store/slices/offers';
@@ -10,6 +11,9 @@ import NoOffers from '../../components/no-offers/no-offers';
 import OffersListContainer from '../../components/offers-list-container/offers-list-container';
 import { RequestStatus } from '../../const';
 import Spinner from '../../components/spinner/spinner';
+import { useEffect } from 'react';
+import { getToken } from '../../services/token';
+import { checkAuth } from '../../store/slices/auth';
 
 export default function Main() {
   const currentCity = useAppSelector(selectCurrentCity);
@@ -21,6 +25,16 @@ export default function Main() {
   const isLoading = requestStatus === RequestStatus.Loading;
   const isEmpty = !isLoading && !offers.length;
   const hasOffers = !isLoading && offers.length;
+
+  const dispatch = useAppDispatch();
+  const token = getToken();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(checkAuth());
+    }
+    dispatch(fetchOffers());
+  }, [token, dispatch]);
 
   return (
     <main

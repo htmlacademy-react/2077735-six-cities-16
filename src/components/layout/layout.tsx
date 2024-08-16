@@ -1,38 +1,34 @@
+import cn from 'classnames';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../header/header';
-import { getLayoutState } from '../../helpers/get-layout-state';
 import Logo from '../logo/logo';
-import { useAppDispatch } from '../../store/hooks';
-import { fetchFavorites } from '../../store/slices/favorites';
-import { getToken } from '../../services/token';
-import { useEffect } from 'react';
 import UseFavorites from '../../hooks/use-favorites';
+import { APP_ROUTE } from '../../const';
 
 export default function Layout() {
   const { pathname } = useLocation();
-  const { favoritesCount, isIdle } = UseFavorites();
-  const token = getToken();
-  const dispatch = useAppDispatch();
+  const { favoritesCount } = UseFavorites();
 
-  useEffect(() => {
-    if (isIdle && token) {
-      dispatch(fetchFavorites());
-    }
-  }, [dispatch, token, isIdle]);
-
-  const { rootClassName, shouldRenderFooter, shouldRenderUser } =
-    getLayoutState(pathname, favoritesCount);
+  const isMain = pathname === APP_ROUTE.ROOT;
+  const isLogin = pathname === APP_ROUTE.LOGIN;
+  const isFavorites = pathname === APP_ROUTE.FAVORITES;
+  const isEmptyFavorites = pathname === APP_ROUTE.FAVORITES && !favoritesCount;
 
   return (
-    <div className={`page${rootClassName}`}>
-      <Header
-        favoritesCount={favoritesCount}
-        shouldRenderUser={shouldRenderUser}
-      />
+    <div
+      className={cn(
+        'page',
+        isMain && 'page--gray page--main',
+        isLogin && 'page--gray page--login',
+        isFavorites && 'page--favorites',
+        isEmptyFavorites && 'page--favorites-empty'
+      )}
+    >
+      <Header isLoginPage={isLogin} />
       <Outlet />
-      {shouldRenderFooter && (
+      {isFavorites && (
         <footer className="footer container">
-          <Logo isFooter={shouldRenderFooter} />
+          <Logo isFooter={isFavorites} />
         </footer>
       )}
     </div>
