@@ -21,4 +21,5 @@ function Header_({ isLoginPage }: HeaderProps) {
   );
 }
 
-export const Header = memo(Header_);
+const Header = memo(Header_);
+export default Header;

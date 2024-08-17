@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { getSortedOffers } from '../../helpers/get-sorted-offers';
 import { City, Offer, SortingOption } from '../../types';
 import { SORTING_OPTION } from '../../const';
+import { pluralIntl } from '../../utils/intl';
 
 type OffersListContainerProps = {
   offers: Offer[];
@@ -28,6 +29,14 @@ export default function OffersListContainer({
   //TODO: перенести в стейт?
   const [activeCard, setActiveCard] = useState('');
 
+  const getPlaceString = (count: number) => {
+    const pluralKey = pluralIntl.select(count);
+    if (pluralKey === 'one') {
+      return `${count} place to stay`;
+    }
+    return `${count} places to stay`;
+  };
+
   const handleCardHover = (offerId: string) => {
     setActiveCard(offerId);
   };
@@ -47,7 +56,7 @@ export default function OffersListContainer({
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">
-            {offers.length} places to stay in {currentCity.name}
+            {getPlaceString(offers.length)} in {currentCity.name}
           </b>
           <SortOffersMenu
             currentSortOption={currentSortOption}
