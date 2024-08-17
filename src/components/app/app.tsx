@@ -14,7 +14,7 @@ export default function App() {
   const dispatch = useAppDispatch();
   const token = getToken();
 
-  if (token) {
+  if (!token) {
     dispatch(checkAuth());
   }
 
