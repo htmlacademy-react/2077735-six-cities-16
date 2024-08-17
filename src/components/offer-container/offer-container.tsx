@@ -1,6 +1,6 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { useAuthCheck } from '../../hooks/use-auth-check';
-import { OfferDetail, Review } from '../../types';
+import { OfferDetail } from '../../types';
 import { pluralIntl } from '../../utils/intl';
 import Avatar from '../avatar/avatar';
 import FavoriteButton from '../favorite-button/favorite-button';
@@ -10,14 +10,10 @@ import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
 type OfferContainerProps = {
-  reviews: Review[];
   currentOffer: OfferDetail;
 };
 
-export default function OfferContainer({
-  reviews,
-  currentOffer,
-}: OfferContainerProps) {
+export default function OfferContainer({ currentOffer }: OfferContainerProps) {
   const {
     id,
     isFavorite,
@@ -99,7 +95,7 @@ export default function OfferContainer({
           </div>
         </div>
         <section className="offer__reviews reviews">
-          <ReviewsList reviews={reviews} />
+          <ReviewsList />
           {isAuth && <ReviewForm />}
         </section>
       </div>

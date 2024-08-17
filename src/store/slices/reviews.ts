@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '../with-types';
 import { APIRoute, RequestStatus } from '../../const';
 import { RootState } from '../store';
 
 import type { PostReviewProps, Review } from '../../types';
+import { compareDates } from '../../helpers/compare-dates';
 
 export const fetchReviews = createAppAsyncThunk(
   'offer/fetchReviews',
@@ -56,6 +57,9 @@ export const reviewsSlice = createSlice({
   },
 });
 
-export const selectReviews = (state: RootState) => state.reviews.reviews;
+export const selectReviews = createSelector(
+  (state: RootState) => state.reviews.reviews,
+  (reviews) => [...reviews].sort(compareDates)
+);
 
 export default reviewsSlice.reducer;

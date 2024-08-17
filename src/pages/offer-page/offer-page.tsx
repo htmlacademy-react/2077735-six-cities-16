@@ -13,11 +13,12 @@ import {
   selectOfferRequestStatus,
   selectOffersNearby,
 } from '../../store/slices/offer';
-import { fetchReviews, selectReviews } from '../../store/slices/reviews';
+import { fetchReviews } from '../../store/slices/reviews';
 import Spinner from '../../components/spinner/spinner';
 import { Offer } from '../../types';
 import Layout from '../../components/layout/layout';
 import NotFoundPage from '../not-found-page/not-found-page';
+import { ImageGallery } from '../../components/image-gallery/image-gallery';
 
 export default function OfferPage() {
   const { id: offerId } = useParams();
@@ -27,10 +28,14 @@ export default function OfferPage() {
   const offerRequestStatus = useAppSelector(selectOfferRequestStatus);
   const currentCity = useAppSelector(selectCurrentCity);
   const allOffersNearby = useAppSelector(selectOffersNearby);
-  const reviews = useAppSelector(selectReviews);
-
   const offersNearbyList = allOffersNearby.slice(0, NEARBY_OFFERS_COUNT);
   const pointsOnMap = [currentOffer, ...offersNearbyList];
+
+  let title, images;
+  if (currentOffer) {
+    title = currentOffer.title;
+    images = currentOffer.images;
+  }
 
   useEffect(() => {
     Promise.all([
@@ -45,29 +50,15 @@ export default function OfferPage() {
   }
 
   if (offerRequestStatus === RequestStatus.Failed || !currentOffer) {
-    return (
-      <NotFoundPage />
-    );
+    return <NotFoundPage />;
   }
 
   return (
-    <Layout pageClassName='page'>
+    <Layout pageClassName="page">
       <main className="page__main page__main--offer">
         <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {currentOffer?.images.map((image) => (
-                <div key={image} className="offer__image-wrapper">
-                  <img
-                    className="offer__image"
-                    src={image}
-                    alt="Photo studio"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-          <OfferContainer reviews={reviews} currentOffer={currentOffer} />
+          <ImageGallery images={images} title={title} />
+          <OfferContainer currentOffer={currentOffer} />
           <Map
             cityLocation={currentCity.location}
             offers={pointsOnMap as Offer[]}

@@ -1,6 +1,6 @@
+import { AVATAR_SIZE } from '../../const';
 import { Review } from '../../types';
 import { dateFormatter } from '../../utils/intl';
-import Avatar from '../avatar/avatar';
 
 type ReviewProps = {
   review: Review;
@@ -13,7 +13,16 @@ export default function OfferReview({ review }: ReviewProps) {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
-        <Avatar user={user} classNamePrefix={'reviews'} />
+        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+          <img
+            alt="Reviews avatar"
+            className="reviews__avatar user__avatar"
+            width={AVATAR_SIZE.REVIEW}
+            height={AVATAR_SIZE.REVIEW}
+            src={user.avatarUrl}
+          />
+        </div>
+        <span className="reviews__user-name">{user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
