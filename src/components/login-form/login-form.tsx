@@ -37,6 +37,7 @@ export default function LoginForm() {
           required
           value={loginData.email}
           onChange={handleChange}
+          pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$"
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
@@ -49,6 +50,7 @@ export default function LoginForm() {
           required
           value={loginData.password}
           onChange={handleChange}
+          pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
         />
       </div>
       <button className="login__submit form__submit button" type="submit">
