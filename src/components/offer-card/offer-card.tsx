@@ -25,6 +25,7 @@ export default function OfferCard({
   className,
   onCardHover,
 }: OfferCardProps) {
+  //TODO  убрать в константы
   const imgWidth = className === FAVORITES_CLASS_NAME ? 150 : 260;
   const imgHeight = className === FAVORITES_CLASS_NAME ? 110 : 200;
 

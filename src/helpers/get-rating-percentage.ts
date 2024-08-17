@@ -1,3 +1,3 @@
 export function getRatingPercentage(rating: number) {
-  return `${(rating * 100) / 5}%`;
+  return `${(Math.round(rating) * 100) / 5}%`;
 }

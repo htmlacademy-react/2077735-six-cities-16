@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentCity } from '../../store/slices/current-city';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { APP_ROUTE, NEARBY_OFFERS_COUNT, RequestStatus } from '../../const';
+import { NEARBY_OFFERS_COUNT, RequestStatus } from '../../const';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
@@ -17,6 +17,7 @@ import { fetchReviews, selectReviews } from '../../store/slices/reviews';
 import Spinner from '../../components/spinner/spinner';
 import { Offer } from '../../types';
 import Layout from '../../components/layout/layout';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 export default function OfferPage() {
   const { id: offerId } = useParams();
@@ -44,7 +45,9 @@ export default function OfferPage() {
   }
 
   if (offerRequestStatus === RequestStatus.Failed || !currentOffer) {
-    return <Navigate to={APP_ROUTE.NOT_FOUND} replace />;
+    return (
+      <NotFoundPage />
+    );
   }
 
   return (
