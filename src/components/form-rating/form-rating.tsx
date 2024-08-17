@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { RATING } from '../../const';
 
 type FormRatingProps = {
@@ -17,7 +17,7 @@ export default function FormRating({ onRatingChange }: FormRatingProps) {
       onChange={handleRatingChange}
     >
       {RATING.map((item) => (
-        <div key={item.title}>
+        <Fragment key={item.title}>
           <input
             className="form__rating-input visually-hidden"
             name="rating"
@@ -34,7 +34,7 @@ export default function FormRating({ onRatingChange }: FormRatingProps) {
               <use xlinkHref="#icon-star" />
             </svg>
           </label>
-        </div>
+        </Fragment>
       ))}
     </div>
   );

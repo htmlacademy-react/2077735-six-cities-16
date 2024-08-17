@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Logo from '../logo/logo';
 import UserNav from '../userNav/userNav';
 
@@ -5,9 +6,7 @@ type HeaderProps = {
   isLoginPage?: boolean;
 };
 
-export default function Header({
-  isLoginPage,
-}: HeaderProps) {
+function Header_({ isLoginPage }: HeaderProps) {
   return (
     <header className="header">
       <div className="container">
@@ -21,3 +20,5 @@ export default function Header({
     </header>
   );
 }
+
+export const Header = memo(Header_);

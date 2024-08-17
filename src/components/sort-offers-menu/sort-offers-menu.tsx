@@ -2,26 +2,26 @@ import { useState } from 'react';
 import { SORTING_OPTION } from '../../const';
 import SortOffersOption from '../sort-offers-option/sort-offers-option';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  offersSortingOptionChanged,
-  selectCurrentSortOption,
-} from '../../store/slices/offers';
 
 import type { SortingOption } from '../../types';
 
-export default function SortOffersMenu() {
+type SortOffersMenuProps = {
+  currentSortOption: SortingOption;
+  onOptionChange: (option: SortingOption) => void;
+};
+
+export default function SortOffersMenu({
+  currentSortOption,
+  onOptionChange,
+}: SortOffersMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const currentSortOption = useAppSelector(selectCurrentSortOption);
-  const dispatch = useAppDispatch();
 
   const handleSortClick = () => {
     setIsOpen(!isOpen);
   };
 
   const handleOptionClick = (sortOption: SortingOption) => {
-    dispatch(offersSortingOptionChanged(sortOption));
-
+    onOptionChange(sortOption);
     setIsOpen(false);
   };
 

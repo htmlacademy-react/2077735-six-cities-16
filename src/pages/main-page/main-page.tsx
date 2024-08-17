@@ -1,29 +1,21 @@
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentCity } from '../../store/slices/current-city';
-import {
-  fetchOffers,
-  selectOffersByCityName,
-  selectRequestStatus,
-} from '../../store/slices/offers';
+import { fetchOffers } from '../../store/slices/offers';
 import MainLocationsList from '../../components/main-locations-list/main-locations-list';
 import NoOffers from '../../components/no-offers/no-offers';
 import OffersListContainer from '../../components/offers-list-container/offers-list-container';
-import { RequestStatus } from '../../const';
 import Spinner from '../../components/spinner/spinner';
 import { useEffect } from 'react';
 import Layout from '../../components/layout/layout';
+import { useCityOffers } from '../../hooks/use-city-offers';
 
 export default function Main() {
   const currentCity = useAppSelector(selectCurrentCity);
-  const offers = useAppSelector((state) =>
-    selectOffersByCityName(state, currentCity.name)
-  );
-  const requestStatus = useAppSelector(selectRequestStatus);
 
-  const isLoading = requestStatus === RequestStatus.Loading;
-  const isEmpty = !isLoading && !offers.length;
-  const hasOffers = !isLoading && offers.length;
+  const { hasOffers, isLoading, offers } = useCityOffers(currentCity.name);
+  const isEmpty = !isLoading && !hasOffers;
+  const showOffers = !isLoading && hasOffers;
 
   const dispatch = useAppDispatch();
 
@@ -49,7 +41,7 @@ export default function Main() {
         </div>
         {isLoading && <Spinner />}
         {isEmpty && <NoOffers currentLocation={currentCity.name} />}
-        {hasOffers && (
+        {showOffers && (
           <OffersListContainer
             offers={offers}
             isEmpty={isEmpty}
