@@ -1,7 +1,7 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { useAuthCheck } from '../../hooks/use-auth-check';
 import { OfferDetail } from '../../types';
-import { pluralIntl } from '../../utils/intl';
+import { pluralIntl } from '../../helpers/intl';
 import Avatar from '../avatar/avatar';
 import FavoriteButton from '../favorite-button/favorite-button';
 import Rating from '../rating/rating';

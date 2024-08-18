@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import { getSortedOffers } from '../../helpers/get-sorted-offers';
 import { City, Offer, SortingOption } from '../../types';
 import { SORTING_OPTION } from '../../const';
-import { pluralIntl } from '../../utils/intl';
+import { pluralIntl } from '../../helpers/intl';
 
 type OffersListContainerProps = {
   offers: Offer[];

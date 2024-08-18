@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import LoginForm from '../../components/login-form/login-form';
 import Layout from '../../components/layout/layout';
+import RandomCity from '../../components/random-city/random-city';
 
 export default function Login() {
   return (
@@ -11,13 +11,7 @@ export default function Login() {
             <h1 className="login__title">Sign in</h1>
             <LoginForm />
           </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to={''}>
-                <span>Amsterdam</span>
-              </Link>
-            </div>
-          </section>
+          <RandomCity />
         </div>
       </main>
     </Layout>

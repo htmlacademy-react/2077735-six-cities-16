@@ -1,6 +1,6 @@
 import { AVATAR_SIZE } from '../../const';
 import { Review } from '../../types';
-import { dateFormatter } from '../../utils/intl';
+import { dateFormatter } from '../../helpers/intl';
 import Rating from '../rating/rating';
 
 type ReviewProps = {
