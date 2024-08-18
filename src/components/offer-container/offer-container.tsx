@@ -4,7 +4,7 @@ import { OfferDetail } from '../../types';
 import { pluralIntl } from '../../utils/intl';
 import Avatar from '../avatar/avatar';
 import FavoriteButton from '../favorite-button/favorite-button';
-import OfferRating from '../offer-rating/offer-rating';
+import Rating from '../rating/rating';
 import PremiumBadge from '../premium-badge/premium-badge';
 import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -59,7 +59,7 @@ export default function OfferContainer({ currentOffer }: OfferContainerProps) {
             isFavorite={isFavorite}
           />
         </div>
-        <OfferRating rating={rating} isOfferDetail />
+        <Rating rating={rating} classNamePrefix="offer" isOfferDetail />
         <ul className="offer__features">
           <li className="offer__feature offer__feature--entire">
             {capitalizeFirstChar(type)}

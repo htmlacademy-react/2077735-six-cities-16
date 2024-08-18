@@ -1,21 +1,19 @@
-import React, { Fragment } from 'react';
+import { ChangeEvent, Fragment } from 'react';
 import { RATING } from '../../const';
 
 type FormRatingProps = {
-  onRatingChange: (rating: number) => void;
+  onRatingChange: (
+    evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  disabled: boolean;
 };
 
-export default function FormRating({ onRatingChange }: FormRatingProps) {
-  const handleRatingChange = (event: React.FormEvent) => {
-    if (event.target instanceof HTMLInputElement) {
-      onRatingChange(Number(event.target.value));
-    }
-  };
+export default function FormRating({
+  onRatingChange,
+  disabled,
+}: FormRatingProps) {
   return (
-    <div
-      className="reviews__rating-form form__rating"
-      onChange={handleRatingChange}
-    >
+    <div className="reviews__rating-form form__rating">
       {RATING.map((item) => (
         <Fragment key={item.title}>
           <input
@@ -24,6 +22,9 @@ export default function FormRating({ onRatingChange }: FormRatingProps) {
             id={`${item.stars}-stars`}
             type="radio"
             value={item.stars}
+            disabled={disabled}
+            required
+            onChange={onRatingChange}
           />
           <label
             htmlFor={`${item.stars}-stars`}

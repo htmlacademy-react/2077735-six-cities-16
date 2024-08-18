@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { APP_ROUTE } from '../../const';
-import OfferRating from '../offer-rating/offer-rating';
+import Rating from '../rating/rating';
 import FavoriteButton from '../favorite-button/favorite-button';
 import PremiumBadge from '../premium-badge/premium-badge';
 
@@ -75,7 +75,7 @@ export default function OfferCard({
             offerId={id}
           />
         </div>
-        <OfferRating rating={rating} />
+        <Rating classNamePrefix="place-card" rating={rating} />
         <h2 className="place-card__name">
           <Link to={`${APP_ROUTE.OFFER}/${id}`}>{title}</Link>
         </h2>
