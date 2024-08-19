@@ -1,17 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { SortingOption, Offer } from '../../types';
+import { Offer } from '../../types';
 import { RootState } from '../store';
-import { filterOffersByCity } from '../../helpers/filter-offers-by-city';
-import { APIRoute, RequestStatus, SORTING_OPTION } from '../../const';
+import { APIRoute, RequestStatus } from '../../const';
 
 import { createAppAsyncThunk } from '../with-types';
 import { changeFavorite } from './favorites';
 
 export interface OffersState {
+  activeOffer: string;
   offers: Offer[];
   requestStatus: RequestStatus;
-  currentSortingOption: SortingOption;
 }
 
 export const fetchOffers = createAppAsyncThunk(
@@ -23,23 +22,17 @@ export const fetchOffers = createAppAsyncThunk(
 );
 
 const initialState: OffersState = {
+  activeOffer: '',
   offers: [],
   requestStatus: RequestStatus.Idle,
-  currentSortingOption: SORTING_OPTION.DEFAULT,
 };
 
 export const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    offersSet: (state, action: PayloadAction<Offer[]>) => {
-      state.offers = action.payload;
-    },
-    offersSortingOptionChanged: (
-      state,
-      action: PayloadAction<SortingOption>
-    ) => {
-      state.currentSortingOption = action.payload;
+    setActiveOffer: (state, action: PayloadAction<string>) => {
+      state.activeOffer = action.payload;
     },
   },
   extraReducers(builder) {
@@ -67,15 +60,18 @@ export const offersSlice = createSlice({
 });
 
 export const selectOffers = (state: RootState) => state.offers.offers;
-export const selectRequestStatus = (state: RootState) =>
+export const selectActiveOffer = (state: RootState) => state.offers.activeOffer;
+export const selectOffersRequestStatus = (state: RootState) =>
   state.offers.requestStatus;
-export const selectCurrentSortOption = (state: RootState) =>
-  state.offers.currentSortingOption;
 
-export const selectOffersByCityName = (state: RootState, cityName: string) => {
-  const offersList = state.offers.offers;
+//example of memoized selector:
 
-  return filterOffersByCity(offersList, cityName);
-};
-export const { offersSet, offersSortingOptionChanged } = offersSlice.actions;
+// export const selectOffersByCityName = (state: RootState, cityName: string) => {
+//   const offersList = state.offers.offers;
+//   return filterOffersByCity(offersList, cityName);
+// };
+// --->
+// export const selectOffersByCityName = createSelector([selectOffers, selectCurrentCity], (offers, cityName)=>{offers.filter((offer) => offer.city.name === cityName.name)});
+
+export const { setActiveOffer } = offersSlice.actions;
 export default offersSlice.reducer;

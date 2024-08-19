@@ -1,27 +1,28 @@
+import cn from 'classnames';
 import { useState } from 'react';
 import { SORTING_OPTION } from '../../const';
 import SortOffersOption from '../sort-offers-option/sort-offers-option';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  offersSortingOptionChanged,
-  selectCurrentSortOption,
-} from '../../store/slices/offers';
 
 import type { SortingOption } from '../../types';
 
-export default function SortOffersMenu() {
+type SortOffersMenuProps = {
+  currentSortOption: SortingOption;
+  onOptionChange: (option: SortingOption) => void;
+};
+
+export default function SortOffersMenu({
+  currentSortOption,
+  onOptionChange,
+}: SortOffersMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const currentSortOption = useAppSelector(selectCurrentSortOption);
-  const dispatch = useAppDispatch();
 
   const handleSortClick = () => {
     setIsOpen(!isOpen);
   };
 
   const handleOptionClick = (sortOption: SortingOption) => {
-    dispatch(offersSortingOptionChanged(sortOption));
-
+    onOptionChange(sortOption);
     setIsOpen(false);
   };
 
@@ -38,20 +39,22 @@ export default function SortOffersMenu() {
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      {isOpen && (
-        <ul className="places__options places__options--custom places__options--opened">
-          {(
-            Object.keys(SORTING_OPTION) as Array<keyof typeof SORTING_OPTION>
-          ).map((option) => (
-            <SortOffersOption
-              key={option}
-              sortingOption={SORTING_OPTION[option]}
-              onOptionClick={handleOptionClick}
-              currentType={currentSortOption}
-            />
-          ))}
-        </ul>
-      )}
+      <ul
+        className={cn('places__options', 'places__options--custom', {
+          'places__options--opened': isOpen,
+        })}
+      >
+        {(
+          Object.keys(SORTING_OPTION) as Array<keyof typeof SORTING_OPTION>
+        ).map((option) => (
+          <SortOffersOption
+            key={option}
+            sortingOption={SORTING_OPTION[option]}
+            onOptionClick={handleOptionClick}
+            currentType={currentSortOption}
+          />
+        ))}
+      </ul>
     </form>
   );
 }

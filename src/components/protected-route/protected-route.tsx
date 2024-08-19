@@ -6,7 +6,7 @@ import { selectAuthorizationStatus, selectCurrentUser } from '../../store/slices
 import Spinner from '../spinner/spinner';
 
 type ProtectedRouteProps = {
-  onlyUnAuth?: boolean;
+  publicRoute?: boolean;
   children: ReactNode;
 }
 
@@ -14,7 +14,7 @@ type FromState = {
   from?: Location;
 }
 
-export default function ProtectedRoute({onlyUnAuth, children}: ProtectedRouteProps) {
+export default function ProtectedRoute({publicRoute, children}: ProtectedRouteProps) {
   const location: Location<FromState> = useLocation() as Location<FromState>;
 
   const user = useAppSelector(selectCurrentUser);
@@ -24,14 +24,15 @@ export default function ProtectedRoute({onlyUnAuth, children}: ProtectedRoutePro
     return <Spinner />;
   }
 
-  if (user && onlyUnAuth) {
+  if (user && publicRoute) {
     const from = location.state?.from || { pathname: APP_ROUTE.ROOT };
     return <Navigate to={from} />;
   }
 
-  if (!user && !onlyUnAuth) {
-    return <Navigate to={APP_ROUTE.ROOT} state={{ from: location }}/>;
+  if (!user && !publicRoute) {
+    return <Navigate to={APP_ROUTE.LOGIN} state={{ from: location }}/>;
   }
 
   return children;
 }
+

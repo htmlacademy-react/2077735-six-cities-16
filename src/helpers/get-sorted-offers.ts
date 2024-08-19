@@ -13,5 +13,5 @@ export function getSortedOffers(offers: Offer[], sortOption: SortingOption) {
       offerB.rating - offerA.rating,
   };
 
-  return offers.sort(sortingRules[sortOption]);
+  return offers.toSorted(sortingRules[sortOption]);
 }

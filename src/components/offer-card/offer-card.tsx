@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { APP_ROUTE } from '../../const';
-import OfferRating from '../offer-rating/offer-rating';
+import Rating from '../rating/rating';
 import FavoriteButton from '../favorite-button/favorite-button';
 import PremiumBadge from '../premium-badge/premium-badge';
 
@@ -25,6 +25,7 @@ export default function OfferCard({
   className,
   onCardHover,
 }: OfferCardProps) {
+  //TODO  убрать в константы
   const imgWidth = className === FAVORITES_CLASS_NAME ? 150 : 260;
   const imgHeight = className === FAVORITES_CLASS_NAME ? 110 : 200;
 
@@ -74,7 +75,7 @@ export default function OfferCard({
             offerId={id}
           />
         </div>
-        <OfferRating rating={rating} />
+        <Rating classNamePrefix="place-card" rating={rating} />
         <h2 className="place-card__name">
           <Link to={`${APP_ROUTE.OFFER}/${id}`}>{title}</Link>
         </h2>

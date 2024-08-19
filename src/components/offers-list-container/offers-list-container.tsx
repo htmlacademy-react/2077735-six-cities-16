@@ -2,11 +2,13 @@ import cn from 'classnames';
 import SortOffersMenu from '../sort-offers-menu/sort-offers-menu';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
-import { useAppSelector } from '../../store/hooks';
-import { selectCurrentSortOption } from '../../store/slices/offers';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { getSortedOffers } from '../../helpers/get-sorted-offers';
-import { City, Offer } from '../../types';
+import { City, Offer, SortingOption } from '../../types';
+import { SORTING_OPTION } from '../../const';
+import { pluralIntl } from '../../helpers/intl';
+import { setActiveOffer } from '../../store/slices/offers';
+import { useAppDispatch } from '../../store/hooks';
 
 type OffersListContainerProps = {
   offers: Offer[];
@@ -19,13 +21,30 @@ export default function OffersListContainer({
   isEmpty,
   currentCity,
 }: OffersListContainerProps) {
-  const currentSortOption = useAppSelector(selectCurrentSortOption);
-  const sortedOffers = getSortedOffers(offers, currentSortOption);
-  //TODO: перенести в стейт?
-  const [activeCard, setActiveCard] = useState('');
+  const [currentSortOption, setCurrentSortOption] = useState<SortingOption>(
+    SORTING_OPTION.DEFAULT
+  );
+  const sortedOffers = useMemo(
+    () => getSortedOffers(offers, currentSortOption),
+    [offers, currentSortOption]
+  );
+
+  const dispatch = useAppDispatch();
+
+  const getPlaceString = (count: number) => {
+    const pluralKey = pluralIntl.select(count);
+    if (pluralKey === 'one') {
+      return `${count} place to stay`;
+    }
+    return `${count} places to stay`;
+  };
 
   const handleCardHover = (offerId: string) => {
-    setActiveCard(offerId);
+    dispatch(setActiveOffer(offerId));
+  };
+
+  const handleSortingChange = (option: SortingOption) => {
+    setCurrentSortOption(option);
   };
 
   return (
@@ -39,9 +58,12 @@ export default function OffersListContainer({
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">
-            {offers.length} places to stay in {currentCity.name}
+            {getPlaceString(offers.length)} in {currentCity.name}
           </b>
-          <SortOffersMenu />
+          <SortOffersMenu
+            currentSortOption={currentSortOption}
+            onOptionChange={handleSortingChange}
+          />
           <div className="cities__places-list places__list tabs__content">
             <OffersList
               offers={sortedOffers}
@@ -51,11 +73,7 @@ export default function OffersListContainer({
           </div>
         </section>
         <div className="cities__right-section">
-          <Map
-            cityLocation={currentCity.location}
-            offers={offers}
-            activeOffer={activeCard}
-          />
+          <Map cityLocation={currentCity.location} offers={offers} />
         </div>
       </div>
     </div>

@@ -1,23 +1,16 @@
 import OfferReview from '../review/review';
-import { Review } from '../../types';
+import { useReviews } from '../../hooks/useReviews';
 
-type ReviewsListProps = {
-  reviews: Review[];
-};
+export default function ReviewsList() {
+  const { reviewsToRender, reviewsCount } = useReviews();
 
-const sortOffersByDate = (a: Review, b: Review) =>
-  new Date(b.date).getTime() - new Date(a.date).getTime();
-
-export default function ReviewsList({ reviews }: ReviewsListProps) {
-  const tempOfferReviews = [...reviews].sort(sortOffersByDate);
-  //TODO: add slice for rendering only the first 10 comments
   return (
     <>
       <h2 className="reviews__title">
-        Reviews · <span className="reviews__amount">{reviews.length}</span>
+        Reviews · <span className="reviews__amount">{reviewsCount}</span>
       </h2>
       <ul className="reviews__list">
-        {tempOfferReviews.map((review) => (
+        {reviewsToRender.map((review) => (
           <OfferReview key={review.id} review={review} />
         ))}
       </ul>

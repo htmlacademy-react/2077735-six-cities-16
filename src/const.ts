@@ -130,3 +130,5 @@ export enum FavoriteStatus {
 }
 
 export const NEARBY_OFFERS_COUNT = 3;
+export const GALLERY_IMAGES_COUNT = 6;
+export const REVIEWS_COUNT = 10;

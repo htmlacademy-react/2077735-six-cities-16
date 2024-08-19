@@ -1,4 +1,9 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+  isAxiosError,
+} from 'axios';
+import { toast } from 'react-hot-toast';
 import { getToken } from './token';
 import { ApiConfig } from './const';
 
@@ -18,18 +23,17 @@ export const createAPI = (): AxiosInstance => {
     return config;
   });
 
-  //   api.interceptors.response.use(
-  //     (response) => response,
-  //     (error: AxiosError<DetailMessageType>) => {
-  //       if (error.response && shouldDisplayError(error.response)) {
-  //         const detailMessage = (error.response.data);
+  api.interceptors.response.use(null, (error) => {
+    if (isAxiosError(error)) {
+      if (error.code === 'ERR_NETWORK') {
+        toast.error('Network error');
+      }
 
-  //         toast.warn(detailMessage.message);
-  //       }
-
-  //       throw error;
-  //     }
-  //   );
+      if (error.response && error.response.status >= 500) {
+        toast.error('Server error');
+      }
+    }
+  });
 
   return api;
 };

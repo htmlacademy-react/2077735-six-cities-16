@@ -1,15 +1,12 @@
+import { memo } from 'react';
 import Logo from '../logo/logo';
 import UserNav from '../userNav/userNav';
 
 type HeaderProps = {
-  favoritesCount: number;
-  shouldRenderUser: boolean;
+  isLoginPage?: boolean;
 };
 
-export default function Header({
-  favoritesCount,
-  shouldRenderUser,
-}: HeaderProps) {
+function Header_({ isLoginPage }: HeaderProps) {
   return (
     <header className="header">
       <div className="container">
@@ -17,9 +14,12 @@ export default function Header({
           <div className="header__left">
             <Logo />
           </div>
-          {shouldRenderUser && <UserNav favoritesCount={favoritesCount} />}
+          {!isLoginPage && <UserNav />}
         </div>
       </div>
     </header>
   );
 }
+
+const Header = memo(Header_);
+export default Header;

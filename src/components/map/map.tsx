@@ -1,69 +1,65 @@
-import leaflet, { LayerGroup } from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import cn from 'classnames';
 import useMap from '../../hooks/use-map';
 import { MARKER_URL } from '../../const';
 
 import type { Offer, Location } from '../../types';
+import { useAppSelector } from '../../store/hooks';
+import { selectActiveOffer } from '../../store/slices/offers';
 
 type MapProps = {
   cityLocation: Location;
   offers: Offer[];
-  activeOffer: string | null;
   activeOfferLocation?: Location;
 };
 
-const defaultCustomIcon = leaflet.icon({
+const defaultMarkerIcon = new Icon({
   iconUrl: MARKER_URL.DEFAULT,
   iconSize: [27, 39],
   iconAnchor: [13, 39],
 });
 
-const currentCustomIcon = leaflet.icon({
+const currentMarkerIcon = new Icon({
   iconUrl: MARKER_URL.CURRENT,
   iconSize: [27, 39],
   iconAnchor: [13, 39],
 });
 
-export default function Map(props: MapProps): JSX.Element {
-  const { cityLocation, offers, activeOffer, activeOfferLocation } = props;
+function Map_(props: MapProps): JSX.Element {
+  const { cityLocation, offers, activeOfferLocation } = props;
+  const activeOffer = useAppSelector(selectActiveOffer);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityLocation);
-  const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
 
   useEffect(() => {
-    if (map) {
+    if (map && cityLocation) {
       map.setView(
         [cityLocation.latitude, cityLocation.longitude],
         cityLocation.zoom
       );
-      markerLayer.current.addTo(map);
-      markerLayer.current.clearLayers();
     }
   }, [cityLocation, map]);
 
   useEffect(() => {
-    if (map && offers) {
+    if (map) {
+      const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
-        if (offer.location) {
-          leaflet
-            .marker(
-              {
-                lat: offer.location.latitude,
-                lng: offer.location.longitude,
-              },
-              {
-                icon:
-                  activeOffer && activeOffer === offer.id
-                    ? currentCustomIcon
-                    : defaultCustomIcon,
-              }
-            )
-            .addTo(markerLayer.current);
-        }
+        const marker = new Marker({
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
+        });
+        marker
+          .setIcon(
+            offer.id === activeOffer ? currentMarkerIcon : defaultMarkerIcon
+          )
+          .addTo(markerLayer);
       });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   }, [map, offers, activeOffer]);
 
@@ -75,3 +71,6 @@ export default function Map(props: MapProps): JSX.Element {
     />
   );
 }
+
+const Map = memo(Map_);
+export default Map;

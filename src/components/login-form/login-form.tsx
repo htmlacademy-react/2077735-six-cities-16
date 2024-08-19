@@ -2,12 +2,15 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { LoginData } from '../../types';
 import { useAppDispatch } from '../../store/hooks';
 import { login } from '../../store/slices/auth';
+import toast from 'react-hot-toast';
+import { useNavigation } from 'react-router-dom';
 
 export default function LoginForm() {
   const [loginData, setLoginData] = useState<LoginData>({
     email: '',
     password: '',
   });
+  const { state } = useNavigation();
   const dispatch = useAppDispatch();
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +26,11 @@ export default function LoginForm() {
     evt.preventDefault();
 
     dispatch(login(loginData));
+    toast.promise(dispatch(login(loginData)).unwrap(), {
+      error: 'Login Failed.',
+      loading: 'Logging...',
+      success: 'Logged in!',
+    });
   };
 
   return (
@@ -37,6 +45,7 @@ export default function LoginForm() {
           required
           value={loginData.email}
           onChange={handleChange}
+          pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$"
         />
       </div>
       <div className="login__input-wrapper form__input-wrapper">
@@ -49,9 +58,14 @@ export default function LoginForm() {
           required
           value={loginData.password}
           onChange={handleChange}
+          pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
         />
       </div>
-      <button className="login__submit form__submit button" type="submit">
+      <button
+        className="login__submit form__submit button"
+        type="submit"
+        disabled={state !== 'idle'}
+      >
         Sign in
       </button>
     </form>

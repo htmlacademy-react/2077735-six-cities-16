@@ -1,56 +1,88 @@
-import FormButton from '../form-button/form-button';
+import { toast } from 'react-hot-toast';
 import FormRating from '../form-rating/form-rating';
-import { useState, ChangeEvent, FormEvent } from 'react';
-
-import type { PostReviewProps } from '../../types';
+import { useState, FormEvent, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
 import { postReview } from '../../store/slices/reviews';
 
+type HTMLReviewForm = HTMLFormElement & {
+  rating: RadioNodeList;
+  review: HTMLTextAreaElement;
+};
+
 export default function ReviewForm() {
-  const [newReview, setNewReview] = useState({
-    rating: 0,
-    comment: '',
-  });
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormDisabled, setFormDisabled] = useState(false);
+
   const { id: offerId } = useParams();
+  const formRef = useRef<HTMLReviewForm>(null);
   const dispatch = useAppDispatch();
 
-  const handleRatingChange = (rating: number) => {
-    setNewReview({ ...newReview, rating });
+  useEffect(() => () => formRef.current?.reset(), [offerId]);
+
+  const handleError = () => {
+    setFormDisabled(false);
+    setIsFormValid(true);
+    return 'Something went wrong';
   };
 
-  const handleTextChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
-    setNewReview({ ...newReview, comment: target.value });
+  const handleSuccess = () => {
+    setFormDisabled(false);
+    formRef.current?.reset();
+    return 'Comment sent!';
   };
 
-  const handleFormSubmit = (evt: FormEvent) => {
-    evt.preventDefault();
+  const handleInput = () => {
+    setIsFormValid(formRef.current!.checkValidity());
+  };
+
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget as HTMLReviewForm;
+    event.preventDefault();
+    setIsFormValid(false);
+    setFormDisabled(true);
     if (!offerId) {
       return;
     }
-    const data: PostReviewProps = {
-      offerId,
-      body: {
-        ...newReview,
-      },
-    };
 
-    dispatch(postReview(data));
+    toast.promise(
+      dispatch(
+        postReview({
+          body: {
+            comment: form.review.value,
+            rating: Number(form.rating.value),
+          },
+          offerId,
+        })
+      ).unwrap(),
+      {
+        error: handleError,
+        loading: 'Sending...',
+        success: handleSuccess,
+      }
+    );
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleFormSubmit}>
+    <form
+      className="reviews__form form"
+      onSubmit={handleFormSubmit}
+      ref={formRef}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <FormRating onRatingChange={handleRatingChange} />
+      <FormRating onRatingChange={handleInput} disabled={isFormDisabled} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleTextChange}
-        value={newReview.comment}
+        onChange={handleInput}
+        disabled={isFormDisabled}
+        required
+        minLength={50}
+        maxLength={300}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -58,7 +90,13 @@ export default function ReviewForm() {
           <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <FormButton />
+        <button
+          className="reviews__submit form__submit button"
+          disabled={!isFormValid}
+          type="submit"
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

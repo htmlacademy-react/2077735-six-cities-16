@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentCity } from '../../store/slices/current-city';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { APP_ROUTE, NEARBY_OFFERS_COUNT, RequestStatus } from '../../const';
+import { NEARBY_OFFERS_COUNT, RequestStatus } from '../../const';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
@@ -13,9 +13,13 @@ import {
   selectOfferRequestStatus,
   selectOffersNearby,
 } from '../../store/slices/offer';
-import { fetchReviews, selectReviews } from '../../store/slices/reviews';
+import { fetchReviews } from '../../store/slices/reviews';
 import Spinner from '../../components/spinner/spinner';
 import { Offer } from '../../types';
+import Layout from '../../components/layout/layout';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { ImageGallery } from '../../components/image-gallery/image-gallery';
+import { setActiveOffer } from '../../store/slices/offers';
 
 export default function OfferPage() {
   const { id: offerId } = useParams();
@@ -25,10 +29,14 @@ export default function OfferPage() {
   const offerRequestStatus = useAppSelector(selectOfferRequestStatus);
   const currentCity = useAppSelector(selectCurrentCity);
   const allOffersNearby = useAppSelector(selectOffersNearby);
-  const reviews = useAppSelector(selectReviews);
-
   const offersNearbyList = allOffersNearby.slice(0, NEARBY_OFFERS_COUNT);
   const pointsOnMap = [currentOffer, ...offersNearbyList];
+
+  let title, images;
+  if (currentOffer) {
+    title = currentOffer.title;
+    images = currentOffer.images;
+  }
 
   useEffect(() => {
     Promise.all([
@@ -36,6 +44,7 @@ export default function OfferPage() {
       dispatch(fetchOffersNearby(offerId as string)),
       dispatch(fetchReviews(offerId as string)),
     ]);
+    dispatch(setActiveOffer(offerId as string));
   }, [dispatch, offerId]);
 
   if (offerRequestStatus === RequestStatus.Loading) {
@@ -43,39 +52,32 @@ export default function OfferPage() {
   }
 
   if (offerRequestStatus === RequestStatus.Failed || !currentOffer) {
-    return <Navigate to={APP_ROUTE.NOT_FOUND} replace />;
+    return <NotFoundPage />;
   }
 
   return (
-    <main className="page__main page__main--offer">
-      <section className="offer">
-        <div className="offer__gallery-container container">
-          <div className="offer__gallery">
-            {currentOffer?.images.map((image) => (
-              <div key={image} className="offer__image-wrapper">
-                <img className="offer__image" src={image} alt="Photo studio" />
-              </div>
-            ))}
-          </div>
-        </div>
-        <OfferContainer reviews={reviews} currentOffer={currentOffer} />
-        <Map
-          cityLocation={currentCity.location}
-          offers={pointsOnMap as Offer[]}
-          activeOffer={currentOffer.id}
-          activeOfferLocation={currentOffer.location}
-        />
-      </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">
-            Other places in the neighbourhood
-          </h2>
-          <div className="near-places__list places__list">
-            <OffersList offers={offersNearbyList} className={'near-places'} />
-          </div>
+    <Layout pageClassName="page">
+      <main className="page__main page__main--offer">
+        <section className="offer">
+          <ImageGallery images={images} title={title} />
+          <OfferContainer currentOffer={currentOffer} />
+          <Map
+            cityLocation={currentCity.location}
+            offers={pointsOnMap as Offer[]}
+            activeOfferLocation={currentOffer.location}
+          />
         </section>
-      </div>
-    </main>
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">
+              Other places in the neighbourhood
+            </h2>
+            <div className="near-places__list places__list">
+              <OffersList offers={offersNearbyList} className={'near-places'} />
+            </div>
+          </section>
+        </div>
+      </main>
+    </Layout>
   );
 }

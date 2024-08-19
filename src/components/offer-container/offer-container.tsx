@@ -1,22 +1,19 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { useAuthCheck } from '../../hooks/use-auth-check';
-import { OfferDetail, Review } from '../../types';
+import { OfferDetail } from '../../types';
+import { pluralIntl } from '../../helpers/intl';
 import Avatar from '../avatar/avatar';
 import FavoriteButton from '../favorite-button/favorite-button';
-import OfferRating from '../offer-rating/offer-rating';
+import Rating from '../rating/rating';
 import PremiumBadge from '../premium-badge/premium-badge';
 import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
 type OfferContainerProps = {
-  reviews: Review[];
   currentOffer: OfferDetail;
 };
 
-export default function OfferContainer({
-  reviews,
-  currentOffer,
-}: OfferContainerProps) {
+export default function OfferContainer({ currentOffer }: OfferContainerProps) {
   const {
     id,
     isFavorite,
@@ -34,10 +31,21 @@ export default function OfferContainer({
 
   const isAuth = useAuthCheck();
 
-  const getBadroomsString = (count: number) =>
-    `${count} Bedroom${count > 1 ? 's' : ''}`;
-  const getAdultsString = (count: number) =>
-    `Max ${count} adult${count > 1 ? 's' : ''}`;
+  const getBadroomsString = (count: number) => {
+    const pluralKey = pluralIntl.select(count);
+    if (pluralKey === 'one') {
+      return `${count} Bedroom`;
+    }
+    return `${count} Bedrooms`;
+  };
+
+  const getAdultsString = (count: number) => {
+    const pluralKey = pluralIntl.select(count);
+    if (pluralKey === 'one') {
+      return `Max ${count} adult`;
+    }
+    return `Max ${count} adults`;
+  };
 
   return (
     <div className="offer__container container">
@@ -45,9 +53,13 @@ export default function OfferContainer({
         {isPremium && <PremiumBadge isOfferDetail />}
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{title}</h1>
-          <FavoriteButton offerId={id} classNamePrefix="offer" isFavorite={isFavorite} />
+          <FavoriteButton
+            offerId={id}
+            classNamePrefix="offer"
+            isFavorite={isFavorite}
+          />
         </div>
-        <OfferRating rating={rating} isOfferDetail />
+        <Rating rating={rating} classNamePrefix="offer" isOfferDetail />
         <ul className="offer__features">
           <li className="offer__feature offer__feature--entire">
             {capitalizeFirstChar(type)}
@@ -83,7 +95,7 @@ export default function OfferContainer({
           </div>
         </div>
         <section className="offer__reviews reviews">
-          <ReviewsList reviews={reviews} />
+          <ReviewsList />
           {isAuth && <ReviewForm />}
         </section>
       </div>

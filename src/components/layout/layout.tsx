@@ -1,40 +1,22 @@
-import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../header/header';
-import { getLayoutState } from '../../helpers/get-layout-state';
-import Logo from '../logo/logo';
-import { useAppDispatch } from '../../store/hooks';
-import { fetchFavorites } from '../../store/slices/favorites';
-import { getToken } from '../../services/token';
-import { useEffect } from 'react';
-import UseFavorites from '../../hooks/use-favorites';
+import { ReactNode } from 'react';
 
-export default function Layout() {
-  const { pathname } = useLocation();
-  const { favoritesCount, isIdle } = UseFavorites();
-  const token = getToken();
-  const dispatch = useAppDispatch();
+type LayoutProps = {
+  pageClassName: string;
+  isLoginPage?: boolean;
+  children: ReactNode;
+};
 
-  useEffect(() => {
-    if (isIdle && token) {
-      dispatch(fetchFavorites());
-    }
-  }, [dispatch, token, isIdle]);
-
-  const { rootClassName, shouldRenderFooter, shouldRenderUser } =
-    getLayoutState(pathname, favoritesCount);
+export default function Layout({
+  children,
+  pageClassName,
+  isLoginPage,
+}: LayoutProps) {
 
   return (
-    <div className={`page${rootClassName}`}>
-      <Header
-        favoritesCount={favoritesCount}
-        shouldRenderUser={shouldRenderUser}
-      />
-      <Outlet />
-      {shouldRenderFooter && (
-        <footer className="footer container">
-          <Logo isFooter={shouldRenderFooter} />
-        </footer>
-      )}
+    <div className={pageClassName}>
+      <Header isLoginPage={isLoginPage} />
+      {children}
     </div>
   );
 }
