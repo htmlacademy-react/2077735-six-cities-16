@@ -6,11 +6,12 @@ import useMap from '../../hooks/use-map';
 import { MARKER_URL } from '../../const';
 
 import type { Offer, Location } from '../../types';
+import { useAppSelector } from '../../store/hooks';
+import { selectActiveOffer } from '../../store/slices/offers';
 
 type MapProps = {
   cityLocation: Location;
   offers: Offer[];
-  activeOffer: string | null;
   activeOfferLocation?: Location;
 };
 
@@ -27,7 +28,8 @@ const currentMarkerIcon = new Icon({
 });
 
 function Map_(props: MapProps): JSX.Element {
-  const { cityLocation, offers, activeOffer, activeOfferLocation } = props;
+  const { cityLocation, offers, activeOfferLocation } = props;
+  const activeOffer = useAppSelector(selectActiveOffer);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityLocation);

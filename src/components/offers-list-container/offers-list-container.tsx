@@ -7,6 +7,8 @@ import { getSortedOffers } from '../../helpers/get-sorted-offers';
 import { City, Offer, SortingOption } from '../../types';
 import { SORTING_OPTION } from '../../const';
 import { pluralIntl } from '../../helpers/intl';
+import { setActiveOffer } from '../../store/slices/offers';
+import { useAppDispatch } from '../../store/hooks';
 
 type OffersListContainerProps = {
   offers: Offer[];
@@ -26,8 +28,8 @@ export default function OffersListContainer({
     () => getSortedOffers(offers, currentSortOption),
     [offers, currentSortOption]
   );
-  //TODO: перенести в стейт?
-  const [activeCard, setActiveCard] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const getPlaceString = (count: number) => {
     const pluralKey = pluralIntl.select(count);
@@ -38,7 +40,7 @@ export default function OffersListContainer({
   };
 
   const handleCardHover = (offerId: string) => {
-    setActiveCard(offerId);
+    dispatch(setActiveOffer(offerId));
   };
 
   const handleSortingChange = (option: SortingOption) => {
@@ -71,11 +73,7 @@ export default function OffersListContainer({
           </div>
         </section>
         <div className="cities__right-section">
-          <Map
-            cityLocation={currentCity.location}
-            offers={offers}
-            activeOffer={activeCard}
-          />
+          <Map cityLocation={currentCity.location} offers={offers} />
         </div>
       </div>
     </div>

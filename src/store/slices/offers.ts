@@ -8,6 +8,7 @@ import { createAppAsyncThunk } from '../with-types';
 import { changeFavorite } from './favorites';
 
 export interface OffersState {
+  activeOffer: string;
   offers: Offer[];
   requestStatus: RequestStatus;
 }
@@ -21,6 +22,7 @@ export const fetchOffers = createAppAsyncThunk(
 );
 
 const initialState: OffersState = {
+  activeOffer: '',
   offers: [],
   requestStatus: RequestStatus.Idle,
 };
@@ -29,8 +31,8 @@ export const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    offersSet: (state, action: PayloadAction<Offer[]>) => {
-      state.offers = action.payload;
+    setActiveOffer: (state, action: PayloadAction<string>) => {
+      state.activeOffer = action.payload;
     },
   },
   extraReducers(builder) {
@@ -58,6 +60,7 @@ export const offersSlice = createSlice({
 });
 
 export const selectOffers = (state: RootState) => state.offers.offers;
+export const selectActiveOffer = (state: RootState) => state.offers.activeOffer;
 export const selectOffersRequestStatus = (state: RootState) =>
   state.offers.requestStatus;
 
@@ -70,5 +73,5 @@ export const selectOffersRequestStatus = (state: RootState) =>
 // --->
 // export const selectOffersByCityName = createSelector([selectOffers, selectCurrentCity], (offers, cityName)=>{offers.filter((offer) => offer.city.name === cityName.name)});
 
-export const { offersSet } = offersSlice.actions;
+export const { setActiveOffer } = offersSlice.actions;
 export default offersSlice.reducer;

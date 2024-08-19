@@ -19,6 +19,7 @@ import { Offer } from '../../types';
 import Layout from '../../components/layout/layout';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { ImageGallery } from '../../components/image-gallery/image-gallery';
+import { setActiveOffer } from '../../store/slices/offers';
 
 export default function OfferPage() {
   const { id: offerId } = useParams();
@@ -43,6 +44,7 @@ export default function OfferPage() {
       dispatch(fetchOffersNearby(offerId as string)),
       dispatch(fetchReviews(offerId as string)),
     ]);
+    dispatch(setActiveOffer(offerId as string));
   }, [dispatch, offerId]);
 
   if (offerRequestStatus === RequestStatus.Loading) {
@@ -62,7 +64,6 @@ export default function OfferPage() {
           <Map
             cityLocation={currentCity.location}
             offers={pointsOnMap as Offer[]}
-            activeOffer={currentOffer.id}
             activeOfferLocation={currentOffer.location}
           />
         </section>
