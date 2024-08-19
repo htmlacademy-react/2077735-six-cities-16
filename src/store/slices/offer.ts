@@ -25,7 +25,7 @@ export const fetchOffersNearby = createAppAsyncThunk(
   }
 );
 
-type OfferState = {
+export type OfferState = {
   offer: OfferDetail | null;
   nearby: Offer[];
   requestStatus: RequestStatus;

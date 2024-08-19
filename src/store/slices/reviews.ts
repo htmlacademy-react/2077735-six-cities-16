@@ -25,7 +25,7 @@ export const postReview = createAppAsyncThunk(
   }
 );
 
-type ReviewsState = {
+export type ReviewsState = {
   reviews: Review[];
   requestStatus: RequestStatus;
 };

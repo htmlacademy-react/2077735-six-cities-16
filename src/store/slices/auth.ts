@@ -36,7 +36,7 @@ export const logout = createAppAsyncThunk(
 
 // type UserData = Omit<AuthedUser, 'token'>;
 
-interface AuthState {
+export interface AuthState {
   // userData: UserData | null;
   userData: AuthedUser | null;
   authorizationStatus: AuthorizationStatus;
