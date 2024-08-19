@@ -34,10 +34,11 @@ export const logout = createAppAsyncThunk(
   }
 );
 
-type UserData = Omit<AuthedUser, 'token'>;
+// type UserData = Omit<AuthedUser, 'token'>;
 
 interface AuthState {
-  userData: UserData | null;
+  // userData: UserData | null;
+  userData: AuthedUser | null;
   authorizationStatus: AuthorizationStatus;
   requestStatus: RequestStatus;
 }
@@ -52,15 +53,22 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    userLoggedOut: (state) => {
+      state.userData = null;
+      state.authorizationStatus = AuthorizationStatus.NotAuth;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(checkAuth.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
+        state.authorizationStatus = AuthorizationStatus.Unknown;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
-        const { name, avatarUrl, isPro, email } = action.payload;
-        state.userData = { name, avatarUrl, isPro, email };
+        state.userData = action.payload;
+        // const { name, avatarUrl, isPro, email } = action.payload;
+        // state.userData = { name, avatarUrl, isPro, email };
         state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
@@ -70,10 +78,12 @@ const authSlice = createSlice({
       })
       .addCase(login.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
+        state.authorizationStatus = AuthorizationStatus.Unknown;
       })
       .addCase(login.fulfilled, (state, action) => {
-        const { name, avatarUrl, isPro, email } = action.payload;
-        state.userData = { name, avatarUrl, isPro, email };
+        // const { name, avatarUrl, isPro, email } = action.payload;
+        // state.userData = { name, avatarUrl, isPro, email };
+        state.userData = action.payload;
         state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
@@ -83,12 +93,13 @@ const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.userData = null;
-        state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.NotAuth;
+        state.requestStatus = RequestStatus.Success;
       });
   },
 });
 
+export const { userLoggedOut } = authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCurrentUser = (state: RootState) => state.auth.userData;
