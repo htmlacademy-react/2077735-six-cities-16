@@ -54,10 +54,10 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    userLoggedOut: (state) => {
-      state.userData = null;
-      state.authorizationStatus = AuthorizationStatus.NotAuth;
-    },
+    // userLoggedOut: (state) => {
+    //   state.userData = null;
+    //   state.authorizationStatus = AuthorizationStatus.NotAuth;
+    // },
   },
   extraReducers(builder) {
     builder

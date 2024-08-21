@@ -6,22 +6,16 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 import ProtectedRoute from '../protected-route/protected-route';
 import { APP_ROUTE } from '../../const';
-import { getToken } from '../../services/token';
 import { useAppDispatch } from '../../store/hooks';
-import { checkAuth, userLoggedOut } from '../../store/slices/auth';
+import { checkAuth } from '../../store/slices/auth';
 import { useEffect } from 'react';
 
 export default function App() {
   const dispatch = useAppDispatch();
-  const token = getToken();
 
   useEffect(() => {
-    if (token) {
-      dispatch(checkAuth());
-    } else {
-      dispatch(userLoggedOut());
-    }
-  }, [token, dispatch]);
+    dispatch(checkAuth());
+  }, [dispatch]);
 
   const router = createBrowserRouter([
     {
