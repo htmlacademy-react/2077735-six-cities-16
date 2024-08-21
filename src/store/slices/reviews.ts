@@ -61,5 +61,3 @@ export const selectReviews = createSelector(
   (state: RootState) => state.reviews.reviews,
   (reviews) => [...reviews].sort(compareDates)
 );
-
-export default reviewsSlice.reducer;

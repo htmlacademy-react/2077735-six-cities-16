@@ -50,7 +50,7 @@ const initialState: AuthState = {
 };
 
 //TODO: вынести повторяющуюся логику в функции
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -99,8 +99,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { userLoggedOut } = authSlice.actions;
-export default authSlice.reducer;
+// export const { userLoggedOut } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.userData;
 export const selectRequestStatus = (state: RootState) =>

@@ -14,7 +14,7 @@ const initialState: CurrentCityState = {
 };
 
 export const currentCitySlice = createSlice({
-  name: 'current-city',
+  name: 'city',
   initialState,
   reducers: {
     currentCityChanged: (state, action: PayloadAction<City>) => {
@@ -24,22 +24,4 @@ export const currentCitySlice = createSlice({
 });
 
 export const selectCurrentCity = (state: RootState) => state.city.currentCity;
-
-// TODO: do I need this selector?
-
-// export const selectLocationsList = (state: RootState) => {
-//   const offersList = state.offers.offers;
-//   const offersByCityList = selectOffersGroupedByCity(state);
-//   const citiesNamesList = Object.keys(offersByCityList);
-
-//   return citiesNamesList.map((cityName) => {
-//     const cityByName = offersList.find((offer) => offer.city.name === cityName);
-//     return {
-//       name: cityName,
-//       location: cityByName!.city.location,
-//     };
-//   });
-// };
-
 export const { currentCityChanged } = currentCitySlice.actions;
-export default currentCitySlice.reducer;

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   currentCityChanged,
   selectCurrentCity,
-} from '../../store/slices/current-city';
+} from '../../store/slices/city';
 import { Link } from 'react-router-dom';
 
 import type { City } from '../../types';

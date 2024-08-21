@@ -6,7 +6,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from './store/store';
 import { createAPI } from './services/api';
 import { Action } from 'redux';
-import { CurrentCityState } from './store/slices/current-city';
+import { CurrentCityState } from './store/slices/city';
 import { OffersState } from './store/slices/offers';
 import { OfferState } from './store/slices/offer';
 import { ReviewsState } from './store/slices/reviews';
