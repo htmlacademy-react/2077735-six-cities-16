@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Offer } from '../../types';
+import { changeFavoriteProps, Offer } from '../../types';
 import { APIRoute, FavoriteStatus, RequestStatus } from '../../const';
 
 import { createAppAsyncThunk } from '../with-types';
@@ -12,11 +12,6 @@ export const fetchFavorites = createAppAsyncThunk(
     return data;
   }
 );
-
-type changeFavoriteProps = {
-  offerId: string;
-  status: FavoriteStatus;
-};
 
 export const changeFavorite = createAppAsyncThunk(
   'favorites/changeFavorite',
@@ -75,6 +70,6 @@ export const favoritesSlice = createSlice({
   },
 });
 
-export const selectFavorites = (state: RootState) => state.favorites.favorites;
-export const selectFavoritesStatus = (state: RootState) =>
+export const selectFavorites = (state: Pick<RootState, 'favorites'>) => state.favorites.favorites;
+export const selectFavoritesStatus = (state: Pick<RootState, 'favorites'>) =>
   state.favorites.requestStatus;

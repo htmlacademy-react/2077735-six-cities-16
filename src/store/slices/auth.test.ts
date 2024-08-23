@@ -73,8 +73,8 @@ describe('Auth Slice', () => {
           email: 'test@test.ru',
           password: '123abc',
         };
-        const fakeServerReplay = { token: 'secret' };
-        mockAxiosAdapter.onPost(APIRoute.login).reply(200, fakeServerReplay);
+        const fakeServerResponse = { token: 'secret' };
+        mockAxiosAdapter.onPost(APIRoute.login).reply(200, fakeServerResponse);
 
         await store.dispatch(login(fakeUser));
         const actions = extractActionsTypes(store.getActions());
@@ -87,14 +87,14 @@ describe('Auth Slice', () => {
           email: 'test@test.ru',
           password: '123abc',
         };
-        const fakeServerReplay = { token: 'secret' };
-        mockAxiosAdapter.onPost(APIRoute.login).reply(200, fakeServerReplay);
+        const fakeServerResponse = { token: 'secret' };
+        mockAxiosAdapter.onPost(APIRoute.login).reply(200, fakeServerResponse);
         const mockSaveToken = vi.spyOn(tokenStorage, 'saveToken');
 
         await store.dispatch(login(fakeUser));
 
         expect(mockSaveToken).toBeCalledTimes(1);
-        expect(mockSaveToken).toBeCalledWith(fakeServerReplay.token);
+        expect(mockSaveToken).toBeCalledWith(fakeServerResponse.token);
       });
     });
 
@@ -241,7 +241,6 @@ describe('Auth Slice', () => {
             password: '123test',
           })
         );
-
         expect(result).toEqual(expectedState);
       });
 

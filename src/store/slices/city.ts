@@ -8,7 +8,6 @@ export interface CurrentCityState {
   currentCity: City;
 }
 
-//TODO: can I use locationsList here, or should it be a constant?
 const initialState: CurrentCityState = {
   currentCity: LOCATIONS[0],
 };
@@ -23,5 +22,5 @@ export const currentCitySlice = createSlice({
   },
 });
 
-export const selectCurrentCity = (state: RootState) => state.city.currentCity;
+export const selectCurrentCity = (state: Pick<RootState, 'city'>) => state.city.currentCity;
 export const { currentCityChanged } = currentCitySlice.actions;

@@ -1,17 +1,12 @@
 import { internet, lorem, name } from 'faker';
-import { AuthedUser, OfferDetail, Review } from './types';
 import { getRandomLocation } from './helpers/get-random-location';
 import { AuthorizationStatus, LOCATIONS, RequestStatus } from './const';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from './store/store';
 import { createAPI } from './services/api';
 import { Action } from 'redux';
-import { CurrentCityState } from './store/slices/city';
-import { OffersState } from './store/slices/offers';
-import { OfferState } from './store/slices/offer';
-import { ReviewsState } from './store/slices/reviews';
-import { FavoritesState } from './store/slices/favorites';
-import { AuthState } from './store/slices/auth';
+
+import type { AuthedUser, InitialState, OfferDetail, Review } from './types';
 
 export type AppThunkDispatch = ThunkDispatch<
   RootState,
@@ -55,7 +50,7 @@ export const makeFakeOffer = (): OfferDetail => ({
   type: 'room',
   price: Math.floor(Math.random() * 100) + 1,
   rating: Math.floor(Math.random() * 5) + 1,
-  isFavorite: false,
+  isFavorite: true,
   isPremium: false,
   //   previewImage: internet.url(),
   images: [internet.url()],
@@ -75,16 +70,7 @@ export const makeFakeOffer = (): OfferDetail => ({
   },
 });
 
-type State = {
-  city: CurrentCityState;
-  offers: OffersState;
-  offer: OfferState;
-  reviews: ReviewsState;
-  favorites: FavoritesState;
-  auth: AuthState;
-};
-
-export const initialState = {
+export const initialState: InitialState = {
   city: { currentCity: LOCATIONS[0] },
   offers: { activeOffer: '', offers: [], requestStatus: RequestStatus.Idle },
   offer: { offer: null, nearby: [], requestStatus: RequestStatus.Idle },
@@ -95,4 +81,4 @@ export const initialState = {
     authorizationStatus: AuthorizationStatus.NotAuth,
     requestStatus: RequestStatus.Idle,
   },
-} as State;
+};

@@ -101,8 +101,8 @@ export const authSlice = createSlice({
 
 // export const { userLoggedOut } = authSlice.actions;
 
-export const selectCurrentUser = (state: RootState) => state.auth.userData;
-export const selectRequestStatus = (state: RootState) =>
+export const selectCurrentUser = (state: Pick<RootState, 'auth'>) => state.auth.userData;
+export const selectRequestStatus = (state: Pick<RootState, 'auth'>) =>
   state.auth.requestStatus;
-export const selectAuthorizationStatus = (state: RootState) =>
+export const selectAuthorizationStatus = (state: Pick<RootState, 'auth'>) =>
   state.auth.authorizationStatus;
