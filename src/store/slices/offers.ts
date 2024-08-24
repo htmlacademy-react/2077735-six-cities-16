@@ -59,9 +59,9 @@ export const offersSlice = createSlice({
   },
 });
 
-export const selectOffers = (state: RootState) => state.offers.offers;
-export const selectActiveOffer = (state: RootState) => state.offers.activeOffer;
-export const selectOffersRequestStatus = (state: RootState) =>
+export const selectOffers = (state: Pick<RootState, 'offers'>) => state.offers.offers;
+export const selectActiveOffer = (state: Pick<RootState, 'offers'>) => state.offers.activeOffer;
+export const selectOffersRequestStatus = (state: Pick<RootState, 'offers'>) =>
   state.offers.requestStatus;
 
 export const { setActiveOffer } = offersSlice.actions;
