@@ -5,7 +5,7 @@ import {
   selectFavoritesStatus,
 } from '../store/slices/favorites';
 
-export default function UseFavorites() {
+export default function useFavorites() {
   const favoriteOffers = useAppSelector(selectFavorites);
   const status = useAppSelector(selectFavoritesStatus);
 

@@ -1,5 +1,5 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import { useAuthCheck } from '../../hooks/use-auth-check';
+import useAuthCheck from '../../hooks/use-auth-check';
 import { OfferDetail } from '../../types';
 import { pluralIntl } from '../../helpers/intl';
 import Avatar from '../avatar/avatar';

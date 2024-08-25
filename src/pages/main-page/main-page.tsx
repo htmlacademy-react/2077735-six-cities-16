@@ -8,7 +8,7 @@ import OffersListContainer from '../../components/offers-list-container/offers-l
 import Spinner from '../../components/spinner/spinner';
 import { useEffect } from 'react';
 import Layout from '../../components/layout/layout';
-import { useCityOffers } from '../../hooks/use-city-offers';
+import useCityOffers from '../../hooks/use-city-offers';
 
 export default function Main() {
   const currentCity = useAppSelector(selectCurrentCity);

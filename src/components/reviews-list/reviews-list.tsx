@@ -1,5 +1,5 @@
 import OfferReview from '../review/review';
-import { useReviews } from '../../hooks/useReviews';
+import useReviews from '../../hooks/use-reviews';
 
 export default function ReviewsList() {
   const { reviewsToRender, reviewsCount } = useReviews();
