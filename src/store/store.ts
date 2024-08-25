@@ -1,11 +1,11 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
-import currentCityReducer from './slices/current-city';
-import offersReducer from './slices/offers';
-import offerReducer from './slices/offer';
-import reviewsReducer from './slices/reviews';
-import authReducer from './slices/auth';
-import favoritesReducer from './slices/favorites';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { currentCitySlice } from './slices/city';
+import { offersSlice } from './slices/offers';
+import { offerSlice } from './slices/offer';
+import { reviewsSlice } from './slices/reviews';
+import { authSlice } from './slices/auth';
+import { favoritesSlice } from './slices/favorites';
 
 import { createAPI } from '../services/api';
 
@@ -21,19 +21,21 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
 
 export const api = createAPI();
 
+export const reducer = combineReducers({
+  [currentCitySlice.name]: currentCitySlice.reducer,
+  [favoritesSlice.name]: favoritesSlice.reducer,
+  [offerSlice.name]: offerSlice.reducer,
+  [offersSlice.name]: offersSlice.reducer,
+  [reviewsSlice.name]: reviewsSlice.reducer,
+  [authSlice.name]: authSlice.reducer,
+});
+
 export const store = configureStore({
-  reducer: {
-    city: currentCityReducer,
-    offers: offersReducer,
-    offer: offerReducer,
-    auth: authReducer,
-    reviews: reviewsReducer,
-    favorites: favoritesReducer,
-  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
         extraArgument: api,
       },
     }),
+  reducer,
 });

@@ -36,7 +36,7 @@ export const logout = createAppAsyncThunk(
 
 // type UserData = Omit<AuthedUser, 'token'>;
 
-interface AuthState {
+export interface AuthState {
   // userData: UserData | null;
   userData: AuthedUser | null;
   authorizationStatus: AuthorizationStatus;
@@ -50,14 +50,14 @@ const initialState: AuthState = {
 };
 
 //TODO: вынести повторяющуюся логику в функции
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    userLoggedOut: (state) => {
-      state.userData = null;
-      state.authorizationStatus = AuthorizationStatus.NotAuth;
-    },
+    // userLoggedOut: (state) => {
+    //   state.userData = null;
+    //   state.authorizationStatus = AuthorizationStatus.NotAuth;
+    // },
   },
   extraReducers(builder) {
     builder
@@ -99,11 +99,10 @@ const authSlice = createSlice({
   },
 });
 
-export const { userLoggedOut } = authSlice.actions;
-export default authSlice.reducer;
+// export const { userLoggedOut } = authSlice.actions;
 
-export const selectCurrentUser = (state: RootState) => state.auth.userData;
-export const selectRequestStatus = (state: RootState) =>
+export const selectCurrentUser = (state: Pick<RootState, 'auth'>) => state.auth.userData;
+export const selectRequestStatus = (state: Pick<RootState, 'auth'>) =>
   state.auth.requestStatus;
-export const selectAuthorizationStatus = (state: RootState) =>
+export const selectAuthorizationStatus = (state: Pick<RootState, 'auth'>) =>
   state.auth.authorizationStatus;

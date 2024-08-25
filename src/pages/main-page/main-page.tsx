@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentCity } from '../../store/slices/current-city';
+import { selectCurrentCity } from '../../store/slices/city';
 import { fetchOffers } from '../../store/slices/offers';
 import MainLocationsList from '../../components/main-locations-list/main-locations-list';
 import NoOffers from '../../components/no-offers/no-offers';

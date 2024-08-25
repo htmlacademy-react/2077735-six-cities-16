@@ -59,19 +59,9 @@ export const offersSlice = createSlice({
   },
 });
 
-export const selectOffers = (state: RootState) => state.offers.offers;
-export const selectActiveOffer = (state: RootState) => state.offers.activeOffer;
-export const selectOffersRequestStatus = (state: RootState) =>
+export const selectOffers = (state: Pick<RootState, 'offers'>) => state.offers.offers;
+export const selectActiveOffer = (state: Pick<RootState, 'offers'>) => state.offers.activeOffer;
+export const selectOffersRequestStatus = (state: Pick<RootState, 'offers'>) =>
   state.offers.requestStatus;
 
-//example of memoized selector:
-
-// export const selectOffersByCityName = (state: RootState, cityName: string) => {
-//   const offersList = state.offers.offers;
-//   return filterOffersByCity(offersList, cityName);
-// };
-// --->
-// export const selectOffersByCityName = createSelector([selectOffers, selectCurrentCity], (offers, cityName)=>{offers.filter((offer) => offer.city.name === cityName.name)});
-
 export const { setActiveOffer } = offersSlice.actions;
-export default offersSlice.reducer;

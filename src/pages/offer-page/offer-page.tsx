@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentCity } from '../../store/slices/current-city';
+import { selectCurrentCity } from '../../store/slices/city';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { NEARBY_OFFERS_COUNT, RequestStatus } from '../../const';

@@ -25,7 +25,7 @@ export const fetchOffersNearby = createAppAsyncThunk(
   }
 );
 
-type OfferState = {
+export type OfferState = {
   offer: OfferDetail | null;
   nearby: Offer[];
   requestStatus: RequestStatus;
@@ -59,9 +59,7 @@ export const offerSlice = createSlice({
   },
 });
 
-export const selectOffer = (state: RootState) => state.offer.offer;
-export const selectOfferRequestStatus = (state: RootState) =>
+export const selectOffer = (state: Pick<RootState, 'offer'>) => state.offer.offer;
+export const selectOfferRequestStatus = (state: Pick<RootState, 'offer'>) =>
   state.offer.requestStatus;
-export const selectOffersNearby = (state: RootState) => state.offer.nearby;
-
-export default offerSlice.reducer;
+export const selectOffersNearby = (state: Pick<RootState, 'offer'>) => state.offer.nearby;

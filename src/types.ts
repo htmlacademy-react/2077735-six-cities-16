@@ -1,4 +1,10 @@
-import { LOCATIONS_NAMES } from './const';
+import { FavoriteStatus, LOCATIONS_NAMES } from './const';
+import { CurrentCityState } from './store/slices/city';
+import { OffersState } from './store/slices/offers';
+import { OfferState } from './store/slices/offer';
+import { ReviewsState } from './store/slices/reviews';
+import { FavoritesState } from './store/slices/favorites';
+import { AuthState } from './store/slices/auth';
 
 export type Location = {
   latitude: number;
@@ -73,9 +79,23 @@ export type PostReviewProps = {
   offerId: string;
 };
 
+export type changeFavoriteProps = {
+  offerId: string;
+  status: FavoriteStatus;
+};
+
 export type AuthStatus = 'AUTH' | 'NOT_AUTH' | 'UNKNOWN';
 export type SortingOption =
   | 'popular'
   | 'price: low to high'
   | 'price: high to low'
   | 'top rated first';
+
+export type InitialState = {
+  city: CurrentCityState;
+  offers: OffersState;
+  offer: OfferState;
+  reviews: ReviewsState;
+  favorites: FavoritesState;
+  auth: AuthState;
+};

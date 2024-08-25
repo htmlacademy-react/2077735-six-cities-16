@@ -11,7 +11,7 @@ type HTMLReviewForm = HTMLFormElement & {
 };
 
 export default function ReviewForm() {
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isSubmitDisabled, setSubmitDisabled] = useState(true);
   const [isFormDisabled, setFormDisabled] = useState(false);
 
   const { id: offerId } = useParams();
@@ -22,7 +22,7 @@ export default function ReviewForm() {
 
   const handleError = () => {
     setFormDisabled(false);
-    setIsFormValid(true);
+    setSubmitDisabled(false);
     return 'Something went wrong';
   };
 
@@ -32,14 +32,17 @@ export default function ReviewForm() {
     return 'Comment sent!';
   };
 
-  const handleInput = () => {
-    setIsFormValid(formRef.current!.checkValidity());
-  };
+  function handleInput(event: FormEvent<HTMLReviewForm>) {
+    const form = event.currentTarget;
+    const review = form.review.value;
+    const rating = form.rating.value;
+    setSubmitDisabled(review.length < 50 || review.length > 300 || !rating);
+  }
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget as HTMLReviewForm;
     event.preventDefault();
-    setIsFormValid(false);
+    setSubmitDisabled(true);
     setFormDisabled(true);
     if (!offerId) {
       return;
@@ -67,22 +70,19 @@ export default function ReviewForm() {
     <form
       className="reviews__form form"
       onSubmit={handleFormSubmit}
+      onInput={handleInput}
       ref={formRef}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <FormRating onRatingChange={handleInput} disabled={isFormDisabled} />
+      <FormRating disabled={isFormDisabled} />
       <textarea
         className="reviews__textarea form__textarea"
+        disabled={isFormDisabled}
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleInput}
-        disabled={isFormDisabled}
-        required
-        minLength={50}
-        maxLength={300}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -92,7 +92,7 @@ export default function ReviewForm() {
         </p>
         <button
           className="reviews__submit form__submit button"
-          disabled={!isFormValid}
+          disabled={isSubmitDisabled}
           type="submit"
         >
           Submit

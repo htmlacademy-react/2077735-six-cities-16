@@ -76,9 +76,9 @@ export const LOCATIONS = [
 
 export const MARKER_URL = {
   DEFAULT:
-    'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    '/img/pin.svg',
   CURRENT:
-    'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+    '/img/pin-active.svg',
 } as const;
 
 export const MAP_LAYER = {

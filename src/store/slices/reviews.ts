@@ -25,7 +25,7 @@ export const postReview = createAppAsyncThunk(
   }
 );
 
-type ReviewsState = {
+export type ReviewsState = {
   reviews: Review[];
   requestStatus: RequestStatus;
 };
@@ -58,8 +58,6 @@ export const reviewsSlice = createSlice({
 });
 
 export const selectReviews = createSelector(
-  (state: RootState) => state.reviews.reviews,
+  (state: Pick<RootState, 'reviews'>) => state.reviews.reviews,
   (reviews) => [...reviews].sort(compareDates)
 );
-
-export default reviewsSlice.reducer;
