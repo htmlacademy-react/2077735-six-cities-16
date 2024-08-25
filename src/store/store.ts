@@ -21,7 +21,7 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
 
 export const api = createAPI();
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   [currentCitySlice.name]: currentCitySlice.reducer,
   [favoritesSlice.name]: favoritesSlice.reducer,
   [offerSlice.name]: offerSlice.reducer,

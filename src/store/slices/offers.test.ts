@@ -9,7 +9,7 @@ import {
   extractActionsTypes,
   initialState,
   makeFakeOffer,
-} from '../../test-mocks';
+} from '../../utils/test-mocks';
 import { APIRoute, FavoriteStatus, RequestStatus } from '../../const';
 import {
   fetchOffers,

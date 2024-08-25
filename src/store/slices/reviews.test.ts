@@ -9,7 +9,7 @@ import {
   extractActionsTypes,
   initialState,
   makeFakeComment,
-} from '../../test-mocks';
+} from '../../utils/test-mocks';
 import { APIRoute, RequestStatus } from '../../const';
 import { reviewsSlice, fetchReviews, selectReviews } from './reviews';
 

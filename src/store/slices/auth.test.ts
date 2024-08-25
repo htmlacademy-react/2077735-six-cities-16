@@ -9,7 +9,7 @@ import {
   extractActionsTypes,
   initialState,
   makeFakeUser,
-} from '../../test-mocks';
+} from '../../utils/test-mocks';
 import { APIRoute, AuthorizationStatus, RequestStatus } from '../../const';
 import {
   checkAuth,

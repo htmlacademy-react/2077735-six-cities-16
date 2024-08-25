@@ -1,12 +1,12 @@
 import { internet, lorem, name } from 'faker';
-import { getRandomLocation } from './helpers/get-random-location';
-import { AuthorizationStatus, LOCATIONS, RequestStatus } from './const';
 import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from './store/store';
-import { createAPI } from './services/api';
 import { Action } from 'redux';
 
-import type { AuthedUser, InitialState, OfferDetail, Review } from './types';
+import { RootState } from '../store/store';
+import { createAPI } from '../services/api';
+import { AuthedUser, InitialState, OfferDetail, Review } from '../types';
+import { getRandomLocation } from '../helpers/get-random-location';
+import { AuthorizationStatus, LOCATIONS, RequestStatus } from '../const';
 
 export type AppThunkDispatch = ThunkDispatch<
   RootState,
@@ -52,7 +52,6 @@ export const makeFakeOffer = (): OfferDetail => ({
   rating: Math.floor(Math.random() * 5) + 1,
   isFavorite: true,
   isPremium: false,
-  //   previewImage: internet.url(),
   images: [internet.url()],
   bedrooms: Math.floor(Math.random() * 4) + 1,
   maxAdults: Math.floor(Math.random() * 10) + 1,

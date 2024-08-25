@@ -16,6 +16,7 @@ export default function Avatar({ user, classNamePrefix }: AvatarProps) {
         className={`${classNamePrefix}__avatar-wrapper ${
           isPro ? `${classNamePrefix}__avatar-wrapper--pro` : ''
         } user__avatar-wrapper`}
+        data-testid="avatar"
       >
         <img
           className={`${classNamePrefix}__avatar user__avatar`}

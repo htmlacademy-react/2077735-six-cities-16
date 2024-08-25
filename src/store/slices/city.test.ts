@@ -1,4 +1,4 @@
-import { initialState } from '../../test-mocks';
+import { initialState } from '../../utils/test-mocks';
 import { LOCATIONS } from '../../const';
 import {
   currentCityChanged,

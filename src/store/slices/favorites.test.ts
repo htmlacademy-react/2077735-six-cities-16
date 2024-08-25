@@ -9,12 +9,8 @@ import {
   extractActionsTypes,
   initialState,
   makeFakeOffer,
-} from '../../test-mocks';
-import {
-  APIRoute,
-  FavoriteStatus,
-  RequestStatus,
-} from '../../const';
+} from '../../utils/test-mocks';
+import { APIRoute, FavoriteStatus, RequestStatus } from '../../const';
 import { changeFavoriteProps } from '../../types';
 import {
   changeFavorite,
