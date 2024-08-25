@@ -8,7 +8,7 @@ import {
 } from '../store/slices/offers';
 import { RequestStatus } from '../const';
 
-export function useCityOffers(cityName: LocationName) {
+export default function useCityOffers(cityName: LocationName) {
   const requestStatus = useAppSelector(selectOffersRequestStatus);
   const isLoading = requestStatus === RequestStatus.Loading;
 

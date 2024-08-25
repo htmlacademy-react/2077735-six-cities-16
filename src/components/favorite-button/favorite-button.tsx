@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuthCheck } from '../../hooks/use-auth-check';
-import { APP_ROUTE } from '../../const';
+import useAuthCheck from '../../hooks/use-auth-check';
+import { APP_ROUTE, FAVORITE_BUTTON_SIZE } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { changeFavorite } from '../../store/slices/favorites';
 import { useState } from 'react';
@@ -18,10 +18,15 @@ export default function FavoriteButton({
   isFavorite = false,
   offerId,
 }: FavoriteButtonProps) {
-  //TODO: убрать в константы
-  const imgWidth = classNamePrefix === OFFER_CLASS_NAME ? 31 : 18;
-  const imgHeight = classNamePrefix === OFFER_CLASS_NAME ? 33 : 19;
-  //for optimistic update
+  const imgWidth =
+    classNamePrefix === OFFER_CLASS_NAME
+      ? FAVORITE_BUTTON_SIZE.OFFER.WIDTH
+      : FAVORITE_BUTTON_SIZE.CARD.WIDTH;
+  const imgHeight =
+    classNamePrefix === OFFER_CLASS_NAME
+      ? FAVORITE_BUTTON_SIZE.OFFER.HIGHT
+      : FAVORITE_BUTTON_SIZE.CARD.HIGHT;
+
   const [isOn, setIsOn] = useState(isFavorite);
   const isLoggedIn = useAuthCheck();
   const navigate = useNavigate();

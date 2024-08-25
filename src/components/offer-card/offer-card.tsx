@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import { APP_ROUTE } from '../../const';
+import { APP_ROUTE, CARD_SIZE } from '../../const';
 import Rating from '../rating/rating';
 import FavoriteButton from '../favorite-button/favorite-button';
 import PremiumBadge from '../premium-badge/premium-badge';
@@ -25,9 +25,14 @@ export default function OfferCard({
   className,
   onCardHover,
 }: OfferCardProps) {
-  //TODO  убрать в константы
-  const imgWidth = className === FAVORITES_CLASS_NAME ? 150 : 260;
-  const imgHeight = className === FAVORITES_CLASS_NAME ? 110 : 200;
+  const imgWidth =
+    className === FAVORITES_CLASS_NAME
+      ? CARD_SIZE.FAVORITES.WIDTH
+      : CARD_SIZE.MAIN.WIDTH;
+  const imgHeight =
+    className === FAVORITES_CLASS_NAME
+      ? CARD_SIZE.FAVORITES.HIGHT
+      : CARD_SIZE.MAIN.HIGHT;
 
   const handleMouseEnter = () => {
     if (onCardHover) {

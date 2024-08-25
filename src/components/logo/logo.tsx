@@ -1,15 +1,14 @@
 import cn from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
-import { APP_ROUTE } from '../../const';
+import { APP_ROUTE, LOGO_SIZE } from '../../const';
 
 type LogoProps = {
   isFooter?: boolean;
 };
 
 export default function Logo({ isFooter }: LogoProps) {
-  //TODO: убрать в константы
-  const imgWidth = isFooter ? 64 : 81;
-  const imgHeight = isFooter ? 33 : 41;
+  const imgWidth = isFooter ? LOGO_SIZE.FOOTER.WIDTH : LOGO_SIZE.HEADER.WIDTH;
+  const imgHeight = isFooter ? LOGO_SIZE.FOOTER.HIGHT : LOGO_SIZE.HEADER.HIGHT;
 
   const { pathname } = useLocation();
   const isMainPage = pathname === APP_ROUTE.ROOT;

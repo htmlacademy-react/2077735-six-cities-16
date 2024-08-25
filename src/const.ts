@@ -12,6 +12,21 @@ export const AVATAR_SIZE = {
   REVIEW: 54,
 } as const;
 
+export const FAVORITE_BUTTON_SIZE = {
+  OFFER: { WIDTH: 31, HIGHT: 33 },
+  CARD: { WIDTH: 18, HIGHT: 19 },
+} as const;
+
+export const LOGO_SIZE = {
+  FOOTER: { WIDTH: 64, HIGHT: 33 },
+  HEADER: { WIDTH: 81, HIGHT: 41 },
+} as const;
+
+export const CARD_SIZE = {
+  FAVORITES: { WIDTH: 150, HIGHT: 110 },
+  MAIN: { WIDTH: 260, HIGHT: 200 },
+} as const;
+
 export const LOCATIONS_NAMES = [
   'Paris',
   'Cologne',
@@ -75,10 +90,8 @@ export const LOCATIONS = [
 ] as const;
 
 export const MARKER_URL = {
-  DEFAULT:
-    '/img/pin.svg',
-  CURRENT:
-    '/img/pin-active.svg',
+  DEFAULT: '/img/pin.svg',
+  CURRENT: '/img/pin-active.svg',
 } as const;
 
 export const MAP_LAYER = {

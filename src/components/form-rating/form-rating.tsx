@@ -9,7 +9,7 @@ export default function FormRating({
   disabled,
 }: FormRatingProps) {
   return (
-    <div className="reviews__rating-form form__rating">
+    <div className="reviews__rating-form form__rating" data-testid="form-rating">
       {RATING.map((item) => (
         <Fragment key={item.title}>
           <input

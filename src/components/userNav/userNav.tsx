@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { APP_ROUTE } from '../../const';
-import { useAuthCheck } from '../../hooks/use-auth-check';
+import useAuthCheck from '../../hooks/use-auth-check';
 import { logout, selectCurrentUser } from '../../store/slices/auth';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import FavoriteCount from '../favorite-count/favorite-count';

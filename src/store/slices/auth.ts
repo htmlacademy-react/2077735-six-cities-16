@@ -34,10 +34,7 @@ export const logout = createAppAsyncThunk(
   }
 );
 
-// type UserData = Omit<AuthedUser, 'token'>;
-
 export interface AuthState {
-  // userData: UserData | null;
   userData: AuthedUser | null;
   authorizationStatus: AuthorizationStatus;
   requestStatus: RequestStatus;
@@ -49,16 +46,10 @@ const initialState: AuthState = {
   requestStatus: RequestStatus.Idle,
 };
 
-//TODO: вынести повторяющуюся логику в функции
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    // userLoggedOut: (state) => {
-    //   state.userData = null;
-    //   state.authorizationStatus = AuthorizationStatus.NotAuth;
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(checkAuth.pending, (state) => {
@@ -67,8 +58,6 @@ export const authSlice = createSlice({
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.userData = action.payload;
-        // const { name, avatarUrl, isPro, email } = action.payload;
-        // state.userData = { name, avatarUrl, isPro, email };
         state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
@@ -81,8 +70,6 @@ export const authSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.Unknown;
       })
       .addCase(login.fulfilled, (state, action) => {
-        // const { name, avatarUrl, isPro, email } = action.payload;
-        // state.userData = { name, avatarUrl, isPro, email };
         state.userData = action.payload;
         state.requestStatus = RequestStatus.Success;
         state.authorizationStatus = AuthorizationStatus.Auth;
@@ -99,9 +86,8 @@ export const authSlice = createSlice({
   },
 });
 
-// export const { userLoggedOut } = authSlice.actions;
-
-export const selectCurrentUser = (state: Pick<RootState, 'auth'>) => state.auth.userData;
+export const selectCurrentUser = (state: Pick<RootState, 'auth'>) =>
+  state.auth.userData;
 export const selectRequestStatus = (state: Pick<RootState, 'auth'>) =>
   state.auth.requestStatus;
 export const selectAuthorizationStatus = (state: Pick<RootState, 'auth'>) =>
