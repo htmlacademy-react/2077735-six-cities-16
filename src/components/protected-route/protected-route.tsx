@@ -1,5 +1,5 @@
 import { Location, Navigate, useLocation } from 'react-router-dom';
-import { APP_ROUTE } from '../../const';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../../store/hooks';
 import { ReactNode } from 'react';
 import { selectCurrentUser } from '../../store/slices/auth';
@@ -22,12 +22,12 @@ export default function ProtectedRoute({
   const user = useAppSelector(selectCurrentUser);
 
   if (user && publicRoute) {
-    const from = location.state?.from || { pathname: APP_ROUTE.ROOT };
+    const from = location.state?.from || { pathname: AppRoute.Root };
     return <Navigate to={from} />;
   }
 
   if (!user && !publicRoute) {
-    return <Navigate to={APP_ROUTE.LOGIN} state={{ from: location }} />;
+    return <Navigate to={AppRoute.Login} state={{ from: location }} />;
   }
 
   return children;

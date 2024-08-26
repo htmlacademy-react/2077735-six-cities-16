@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { APP_ROUTE } from '../../const';
+import { AppRoute } from '../../const';
 import useAuthCheck from '../../hooks/use-auth-check';
 import { logout, selectCurrentUser } from '../../store/slices/auth';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -22,7 +22,7 @@ export default function UserNav() {
           <li className="header__nav-item user">
             <Link
               className="header__nav-link header__nav-link--profile"
-              to={APP_ROUTE.FAVORITES}
+              to={AppRoute.Favorites}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__user-name user__name">
@@ -44,7 +44,7 @@ export default function UserNav() {
           ) : (
             <Link
               className="header__nav-link header__nav-link--profile"
-              to={APP_ROUTE.LOGIN}
+              to={AppRoute.Login}
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__login">Sign in</span>

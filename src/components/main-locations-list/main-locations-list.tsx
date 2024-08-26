@@ -1,8 +1,8 @@
-import { LOCATIONS } from '../../const';
+import { Locations } from '../../const';
 import MainLocationsItem from '../main-locations-item/main-locations-item';
 
 export default function MainLocationsList() {
-  const locationsList = LOCATIONS;
+  const locationsList = Locations;
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">

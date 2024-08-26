@@ -1,5 +1,5 @@
 import { initialState } from '../../utils/test-mocks';
-import { LOCATIONS } from '../../const';
+import { Locations } from '../../const';
 import {
   currentCityChanged,
   currentCitySlice,
@@ -8,7 +8,7 @@ import {
 
 describe('City Slice', () => {
   describe('City Selectors', () => {
-    const state = { city: { currentCity: LOCATIONS[3] } };
+    const state = { city: { currentCity: Locations[3] } };
 
     it('returns current city from the state', () => {
       const { currentCity } = state.city;
@@ -21,11 +21,11 @@ describe('City Slice', () => {
   describe('City Reducers', () => {
     it('sets "currentCity" to the new city with "currentCityChanged"', () => {
       const expectedState = {
-        currentCity: LOCATIONS[3],
+        currentCity: Locations[3],
       };
       const result = currentCitySlice.reducer(
         initialState.city,
-        currentCityChanged(LOCATIONS[3])
+        currentCityChanged(Locations[3])
       );
 
       expect(result).toEqual(expectedState);

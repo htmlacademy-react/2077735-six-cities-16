@@ -1,4 +1,4 @@
-import { APP_ROUTE } from '../../const';
+import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   currentCityChanged,
@@ -29,7 +29,7 @@ export default function MainLocationsItem({
         className={`${
           activeTab && 'tabs__item--active'
         } locations__item-link tabs__item`}
-        to={APP_ROUTE.ROOT}
+        to={AppRoute.Root}
       >
         <span>{locationsItem.name}</span>
       </Link>

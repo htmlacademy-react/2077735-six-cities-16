@@ -1,4 +1,4 @@
-import { FavoriteStatus, LOCATIONS_NAMES } from './const';
+import { FavoriteStatus, LocationsNames } from './const';
 import { CurrentCityState } from './store/slices/city';
 import { OffersState } from './store/slices/offers';
 import { OfferState } from './store/slices/offer';
@@ -17,7 +17,7 @@ export type City = {
   location: Location;
 };
 
-export type LocationName = (typeof LOCATIONS_NAMES)[number];
+export type LocationName = (typeof LocationsNames)[number];
 
 export type User = {
   name: string;
@@ -85,7 +85,7 @@ export type changeFavoriteProps = {
 };
 
 export type AuthStatus = 'AUTH' | 'NOT_AUTH' | 'UNKNOWN';
-export type SortingOption =
+export type TSortingOption =
   | 'popular'
   | 'price: low to high'
   | 'price: high to low'

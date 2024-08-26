@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { City } from '../../types';
-import { LOCATIONS } from '../../const';
+import { Locations } from '../../const';
 import { RootState } from '../store';
 
 export interface CurrentCityState {
@@ -9,7 +9,7 @@ export interface CurrentCityState {
 }
 
 const initialState: CurrentCityState = {
-  currentCity: LOCATIONS[0],
+  currentCity: Locations[0],
 };
 
 export const currentCitySlice = createSlice({

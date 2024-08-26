@@ -1,15 +1,15 @@
-import { SORTING_OPTION } from '../const';
+import { SortingOption } from '../const';
 
-import type { Offer, SortingOption } from '../types';
+import type { Offer, TSortingOption } from '../types';
 
-export function getSortedOffers(offers: Offer[], sortOption: SortingOption) {
+export function getSortedOffers(offers: Offer[], sortOption: TSortingOption) {
   const sortingRules = {
-    [SORTING_OPTION.DEFAULT]: () => 1,
-    [SORTING_OPTION.LOW_PRICE_FIRST]: (offerA: Offer, offerB: Offer) =>
+    [SortingOption.Default]: () => 1,
+    [SortingOption.LowPriceFirst]: (offerA: Offer, offerB: Offer) =>
       offerA.price - offerB.price,
-    [SORTING_OPTION.HIGH_PRICE_FIRST]: (offerA: Offer, offerB: Offer) =>
+    [SortingOption.HighPriceFirst]: (offerA: Offer, offerB: Offer) =>
       offerB.price - offerA.price,
-    [SORTING_OPTION.TOP_RATED_FIRST]: (offerA: Offer, offerB: Offer) =>
+    [SortingOption.TopRatedFirst]: (offerA: Offer, offerB: Offer) =>
       offerB.rating - offerA.rating,
   };
 

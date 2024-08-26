@@ -1,12 +1,12 @@
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import cn from 'classnames';
 
-import type { SortingOption } from '../../types';
+import type { TSortingOption } from '../../types';
 
 type SortOffersOptionProps = {
-  sortingOption: SortingOption;
-  currentType: SortingOption;
-  onOptionClick: (sortingOption: SortingOption) => void;
+  sortingOption: TSortingOption;
+  currentType: TSortingOption;
+  onOptionClick: (sortingOption: TSortingOption) => void;
 };
 
 export default function SortOffersOption({
