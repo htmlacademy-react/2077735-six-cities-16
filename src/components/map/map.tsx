@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { useRef, useEffect, memo } from 'react';
 import cn from 'classnames';
 import useMap from '../../hooks/use-map';
-import { MARKER_URL } from '../../const';
+import { MarkerUrl } from '../../const';
 
 import type { Offer, Location } from '../../types';
 import { useAppSelector } from '../../store/hooks';
@@ -16,13 +16,13 @@ type MapProps = {
 };
 
 const defaultMarkerIcon = new Icon({
-  iconUrl: MARKER_URL.DEFAULT,
+  iconUrl: MarkerUrl.Default,
   iconSize: [27, 39],
   iconAnchor: [13, 39],
 });
 
 const currentMarkerIcon = new Icon({
-  iconUrl: MARKER_URL.CURRENT,
+  iconUrl: MarkerUrl.Current,
   iconSize: [27, 39],
   iconAnchor: [13, 39],
 });

@@ -1,4 +1,4 @@
-import { APP_ROUTE, AuthorizationStatus, RequestStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
 import { withStore } from '../../utils/mock-component';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { screen } from '@testing-library/react';
@@ -8,11 +8,11 @@ import { makeFakeUser } from '../../utils/test-mocks';
 describe('Component: ProtectedRoute', () => {
   const routesConfig = [
     {
-      path: APP_ROUTE.ROOT,
+      path: AppRoute.Root,
       element: <span>Main</span>,
     },
     {
-      path: APP_ROUTE.FAVORITES,
+      path: AppRoute.Favorites,
       element: (
         <ProtectedRoute>
           <span>Favorites</span>
@@ -20,7 +20,7 @@ describe('Component: ProtectedRoute', () => {
       ),
     },
     {
-      path: APP_ROUTE.LOGIN,
+      path: AppRoute.Login,
       element: (
         <ProtectedRoute publicRoute>
           <span>Login</span>
@@ -31,7 +31,7 @@ describe('Component: ProtectedRoute', () => {
 
   it('redirects to Main page, when logged in user visits Login page', () => {
     const router = createMemoryRouter(routesConfig, {
-      initialEntries: [APP_ROUTE.LOGIN],
+      initialEntries: [AppRoute.Login],
     });
 
     withStore(<RouterProvider router={router} />, {
@@ -48,7 +48,7 @@ describe('Component: ProtectedRoute', () => {
 
   it('renders Login page, when user is not authorized', () => {
     const router = createMemoryRouter(routesConfig, {
-      initialEntries: [APP_ROUTE.LOGIN],
+      initialEntries: [AppRoute.Login],
     });
 
     withStore(<RouterProvider router={router} />, {
@@ -65,7 +65,7 @@ describe('Component: ProtectedRoute', () => {
 
   it('redirects to Login page, when not authorized user visits Favorites page', () => {
     const router = createMemoryRouter(routesConfig, {
-      initialEntries: [APP_ROUTE.FAVORITES],
+      initialEntries: [AppRoute.Favorites],
     });
 
     withStore(<RouterProvider router={router} />, {
@@ -82,7 +82,7 @@ describe('Component: ProtectedRoute', () => {
 
   it('renders Favorites page, when user is authorized', () => {
     const router = createMemoryRouter(routesConfig, {
-      initialEntries: [APP_ROUTE.FAVORITES],
+      initialEntries: [AppRoute.Favorites],
     });
 
     withStore(<RouterProvider router={router} />, {

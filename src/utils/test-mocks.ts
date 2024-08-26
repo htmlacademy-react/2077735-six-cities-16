@@ -6,7 +6,7 @@ import { RootState } from '../store/store';
 import { createAPI } from '../services/api';
 import { AuthedUser, InitialState, OfferDetail, Review } from '../types';
 import { getRandomLocation } from '../helpers/get-random-location';
-import { AuthorizationStatus, LOCATIONS, RequestStatus } from '../const';
+import { AuthorizationStatus, Locations, RequestStatus } from '../const';
 
 export type AppThunkDispatch = ThunkDispatch<
   RootState,
@@ -39,7 +39,7 @@ export const makeFakeComment = (): Review => ({
 export const makeFakeOffer = (): OfferDetail => ({
   id: crypto.randomUUID(),
   city: {
-    name: getRandomLocation(LOCATIONS).name,
+    name: getRandomLocation(Locations).name,
     location: {
       latitude: 52.38333,
       longitude: 4.9,
@@ -70,7 +70,7 @@ export const makeFakeOffer = (): OfferDetail => ({
 });
 
 export const initialState: InitialState = {
-  city: { currentCity: LOCATIONS[0] },
+  city: { currentCity: Locations[0] },
   offers: { activeOffer: '', offers: [], requestStatus: RequestStatus.Idle },
   offer: { offer: null, nearby: [], requestStatus: RequestStatus.Idle },
   reviews: { reviews: [], requestStatus: RequestStatus.Idle },

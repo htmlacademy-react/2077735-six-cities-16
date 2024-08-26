@@ -1,20 +1,20 @@
 import cn from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
-import { APP_ROUTE, LOGO_SIZE } from '../../const';
+import { AppRoute, LogoSize } from '../../const';
 
 type LogoProps = {
   isFooter?: boolean;
 };
 
 export default function Logo({ isFooter }: LogoProps) {
-  const imgWidth = isFooter ? LOGO_SIZE.FOOTER.WIDTH : LOGO_SIZE.HEADER.WIDTH;
-  const imgHeight = isFooter ? LOGO_SIZE.FOOTER.HIGHT : LOGO_SIZE.HEADER.HIGHT;
+  const imgWidth = isFooter ? LogoSize.Footer.Width : LogoSize.Header.Width;
+  const imgHeight = isFooter ? LogoSize.Footer.Hight : LogoSize.Header.Hight;
 
   const { pathname } = useLocation();
-  const isMainPage = pathname === APP_ROUTE.ROOT;
+  const isMainPage = pathname === AppRoute.Root;
   return (
     <Link
-      to={APP_ROUTE.ROOT}
+      to={AppRoute.Root}
       className={cn(
         'header__logo-link',
         isMainPage && 'header__logo-link--active'

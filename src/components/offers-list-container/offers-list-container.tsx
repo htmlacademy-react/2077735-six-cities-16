@@ -4,8 +4,8 @@ import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import { useMemo, useState } from 'react';
 import { getSortedOffers } from '../../helpers/get-sorted-offers';
-import { City, Offer, SortingOption } from '../../types';
-import { SORTING_OPTION } from '../../const';
+import { City, Offer, TSortingOption } from '../../types';
+import { SortingOption } from '../../const';
 import { pluralIntl } from '../../helpers/intl';
 import { setActiveOffer } from '../../store/slices/offers';
 import { useAppDispatch } from '../../store/hooks';
@@ -21,8 +21,8 @@ export default function OffersListContainer({
   isEmpty,
   currentCity,
 }: OffersListContainerProps) {
-  const [currentSortOption, setCurrentSortOption] = useState<SortingOption>(
-    SORTING_OPTION.DEFAULT
+  const [currentSortOption, setCurrentSortOption] = useState<TSortingOption>(
+    SortingOption.Default
   );
   const sortedOffers = useMemo(
     () => getSortedOffers(offers, currentSortOption),
@@ -43,7 +43,7 @@ export default function OffersListContainer({
     dispatch(setActiveOffer(offerId));
   };
 
-  const handleSortingChange = (option: SortingOption) => {
+  const handleSortingChange = (option: TSortingOption) => {
     setCurrentSortOption(option);
   };
 

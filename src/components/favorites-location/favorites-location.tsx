@@ -1,7 +1,7 @@
 import OffersList from '../offers-list/offers-list';
 import { Offer } from '../../types';
 import { Link } from 'react-router-dom';
-import { APP_ROUTE } from '../../const';
+import { AppRoute } from '../../const';
 
 type FavLocationProps = {
   cityName: string;
@@ -13,7 +13,7 @@ export default function FavLocation({ cityName, favorites }: FavLocationProps) {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link className="locations__item-link" to={APP_ROUTE.ROOT}>
+          <Link className="locations__item-link" to={AppRoute.Root}>
             <span>{cityName}</span>
           </Link>
         </div>

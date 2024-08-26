@@ -1,33 +1,33 @@
-export const APP_ROUTE = {
-  ROOT: '/',
-  LOGIN: '/login',
-  FAVORITES: '/favorites',
-  OFFER: '/offer',
-  OFFER_ID: '/offer/:id',
-  NOT_FOUND: '*',
+export const AppRoute = {
+  Root: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer',
+  OfferId: '/offer/:id',
+  NotFound: '*',
 } as const;
 
-export const AVATAR_SIZE = {
-  OFFER: 74,
-  REVIEW: 54,
+export const AvatarSize = {
+  Offer: 74,
+  Review: 54,
 } as const;
 
-export const FAVORITE_BUTTON_SIZE = {
-  OFFER: { WIDTH: 31, HIGHT: 33 },
-  CARD: { WIDTH: 18, HIGHT: 19 },
+export const FavoriteButtonSize = {
+  Offer: { Width: 31, Hight: 33 },
+  Card: { Width: 18, Hight: 19 },
 } as const;
 
-export const LOGO_SIZE = {
-  FOOTER: { WIDTH: 64, HIGHT: 33 },
-  HEADER: { WIDTH: 81, HIGHT: 41 },
+export const LogoSize = {
+  Footer: { Width: 64, Hight: 33 },
+  Header: { Width: 81, Hight: 41 },
 } as const;
 
-export const CARD_SIZE = {
-  FAVORITES: { WIDTH: 150, HIGHT: 110 },
-  MAIN: { WIDTH: 260, HIGHT: 200 },
+export const CardSize = {
+  Favorites: { Width: 150, Hight: 110 },
+  Main: { Width: 260, Hight: 200 },
 } as const;
 
-export const LOCATIONS_NAMES = [
+export const LocationsNames = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -36,9 +36,7 @@ export const LOCATIONS_NAMES = [
   'Dusseldorf',
 ] as const;
 
-export const DEFAULT_CITY_NAME = 'Paris';
-
-export const LOCATIONS = [
+export const Locations = [
   {
     name: 'Paris',
     location: {
@@ -89,23 +87,23 @@ export const LOCATIONS = [
   },
 ] as const;
 
-export const MARKER_URL = {
-  DEFAULT: '/img/pin.svg',
-  CURRENT: '/img/pin-active.svg',
+export const MarkerUrl = {
+  Default: '/img/pin.svg',
+  Current: '/img/pin-active.svg',
 } as const;
 
-export const MAP_LAYER = {
-  BASE_URL:
+export const MapLayer = {
+  BaseUrl:
     'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  ATTRIBUTION:
+  Attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 } as const;
 
-export const SORTING_OPTION = {
-  DEFAULT: 'popular',
-  LOW_PRICE_FIRST: 'price: low to high',
-  HIGH_PRICE_FIRST: 'price: high to low',
-  TOP_RATED_FIRST: 'top rated first',
+export const SortingOption = {
+  Default: 'popular',
+  LowPriceFirst: 'price: low to high',
+  HighPriceFirst: 'price: high to low',
+  TopRatedFirst: 'top rated first',
 } as const;
 
 export enum AuthorizationStatus {
@@ -122,7 +120,7 @@ export enum APIRoute {
   logout = '/six-cities/logout',
 }
 
-export const RATING = [
+export const Rating = [
   { stars: 5, title: 'perfect' },
   { stars: 4, title: 'good' },
   { stars: 3, title: 'not bad' },
@@ -142,6 +140,13 @@ export enum FavoriteStatus {
   Added,
 }
 
-export const NEARBY_OFFERS_COUNT = 3;
-export const GALLERY_IMAGES_COUNT = 6;
-export const REVIEWS_COUNT = 10;
+export const MaxCount = {
+  NearbyOffers: 3,
+  GalleryImages: 6,
+  Reviews: 10,
+};
+
+export const ReviewValidationRule = {
+  MaxLength: 50,
+  MinLength: 300,
+};

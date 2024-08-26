@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { APP_ROUTE } from './const';
+import { AppRoute } from './const';
 import Main from './pages/main-page/main-page';
 import ProtectedRoute from './components/protected-route/protected-route';
 import Favorites from './pages/favorites-page/favorites-page';
@@ -9,11 +9,11 @@ import NotFound from './pages/not-found-page/not-found-page';
 
 export const router = createBrowserRouter([
   {
-    path: APP_ROUTE.ROOT,
+    path: AppRoute.Root,
     element: <Main />,
   },
   {
-    path: APP_ROUTE.FAVORITES,
+    path: AppRoute.Favorites,
     element: (
       <ProtectedRoute>
         <Favorites />
@@ -21,11 +21,11 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: APP_ROUTE.OFFER_ID,
+    path: AppRoute.OfferId,
     element: <OfferPage />,
   },
   {
-    path: APP_ROUTE.LOGIN,
+    path: AppRoute.Login,
     element: (
       <ProtectedRoute publicRoute>
         <Login />

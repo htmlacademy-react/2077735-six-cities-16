@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
-import { APP_ROUTE, CARD_SIZE } from '../../const';
+import { AppRoute, CardSize } from '../../const';
 import Rating from '../rating/rating';
 import FavoriteButton from '../favorite-button/favorite-button';
 import PremiumBadge from '../premium-badge/premium-badge';
@@ -27,12 +27,12 @@ export default function OfferCard({
 }: OfferCardProps) {
   const imgWidth =
     className === FAVORITES_CLASS_NAME
-      ? CARD_SIZE.FAVORITES.WIDTH
-      : CARD_SIZE.MAIN.WIDTH;
+      ? CardSize.Favorites.Width
+      : CardSize.Main.Width;
   const imgHeight =
     className === FAVORITES_CLASS_NAME
-      ? CARD_SIZE.FAVORITES.HIGHT
-      : CARD_SIZE.MAIN.HIGHT;
+      ? CardSize.Favorites.Hight
+      : CardSize.Main.Hight;
 
   const handleMouseEnter = () => {
     if (onCardHover) {
@@ -54,7 +54,7 @@ export default function OfferCard({
     >
       {isPremium && <PremiumBadge />}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${APP_ROUTE.OFFER}/${id}`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -82,7 +82,7 @@ export default function OfferCard({
         </div>
         <Rating classNamePrefix="place-card" rating={rating} />
         <h2 className="place-card__name">
-          <Link to={`${APP_ROUTE.OFFER}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstChar(type)}</p>
       </div>

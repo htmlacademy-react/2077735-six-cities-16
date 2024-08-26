@@ -1,4 +1,4 @@
-import { AVATAR_SIZE } from '../../const';
+import { AvatarSize } from '../../const';
 import { Review } from '../../types';
 import { dateFormatter } from '../../helpers/intl';
 import Rating from '../rating/rating';
@@ -18,8 +18,8 @@ export default function OfferReview({ review }: ReviewProps) {
           <img
             alt="Reviews avatar"
             className="reviews__avatar user__avatar"
-            width={AVATAR_SIZE.REVIEW}
-            height={AVATAR_SIZE.REVIEW}
+            width={AvatarSize.Review}
+            height={AvatarSize.Review}
             src={user.avatarUrl}
           />
         </div>

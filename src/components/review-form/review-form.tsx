@@ -4,6 +4,7 @@ import { useState, FormEvent, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
 import { postReview } from '../../store/slices/reviews';
+import { ReviewValidationRule } from '../../const';
 
 type HTMLReviewForm = HTMLFormElement & {
   rating: RadioNodeList;
@@ -36,7 +37,11 @@ export default function ReviewForm() {
     const form = event.currentTarget;
     const review = form.review.value;
     const rating = form.rating.value;
-    setSubmitDisabled(review.length < 50 || review.length > 300 || !rating);
+    setSubmitDisabled(
+      review.length < ReviewValidationRule.MinLength ||
+        review.length > ReviewValidationRule.MaxLength ||
+        !rating
+    );
   }
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {

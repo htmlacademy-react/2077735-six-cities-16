@@ -1,4 +1,4 @@
-import { AVATAR_SIZE } from '../../const';
+import { AvatarSize } from '../../const';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 import { User } from '../../types';
 
@@ -21,8 +21,8 @@ export default function Avatar({ user, classNamePrefix }: AvatarProps) {
         <img
           className={`${classNamePrefix}__avatar user__avatar`}
           src={avatarUrl}
-          width={isOfferDetail ? AVATAR_SIZE.OFFER : AVATAR_SIZE.REVIEW}
-          height={isOfferDetail ? AVATAR_SIZE.OFFER : AVATAR_SIZE.REVIEW}
+          width={isOfferDetail ? AvatarSize.Offer : AvatarSize.Review}
+          height={isOfferDetail ? AvatarSize.Offer : AvatarSize.Review}
           alt={`${capitalizeFirstChar(classNamePrefix)} avatar`}
         />
       </div>

@@ -1,14 +1,14 @@
 import cn from 'classnames';
 import { useState } from 'react';
-import { SORTING_OPTION } from '../../const';
+import { SortingOption } from '../../const';
 import SortOffersOption from '../sort-offers-option/sort-offers-option';
 import { capitalizeFirstChar } from '../../helpers/capitalize-first-char';
 
-import type { SortingOption } from '../../types';
+import type { TSortingOption } from '../../types';
 
 type SortOffersMenuProps = {
-  currentSortOption: SortingOption;
-  onOptionChange: (option: SortingOption) => void;
+  currentSortOption: TSortingOption;
+  onOptionChange: (option: TSortingOption) => void;
 };
 
 export default function SortOffersMenu({
@@ -21,7 +21,7 @@ export default function SortOffersMenu({
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (sortOption: SortingOption) => {
+  const handleOptionClick = (sortOption: TSortingOption) => {
     onOptionChange(sortOption);
     setIsOpen(false);
   };
@@ -45,11 +45,11 @@ export default function SortOffersMenu({
         })}
       >
         {(
-          Object.keys(SORTING_OPTION) as Array<keyof typeof SORTING_OPTION>
+          Object.keys(SortingOption) as Array<keyof typeof SortingOption>
         ).map((option) => (
           <SortOffersOption
             key={option}
-            sortingOption={SORTING_OPTION[option]}
+            sortingOption={SortingOption[option]}
             onOptionClick={handleOptionClick}
             currentType={currentSortOption}
           />

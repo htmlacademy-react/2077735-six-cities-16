@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { RATING } from '../../const';
+import { Rating } from '../../const';
 
 type FormRatingProps = {
   disabled: boolean;
@@ -10,7 +10,7 @@ export default function FormRating({
 }: FormRatingProps) {
   return (
     <div className="reviews__rating-form form__rating" data-testid="form-rating">
-      {RATING.map((item) => (
+      {Rating.map((item) => (
         <Fragment key={item.title}>
           <input
             className="form__rating-input visually-hidden"

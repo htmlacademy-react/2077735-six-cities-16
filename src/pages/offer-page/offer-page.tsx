@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentCity } from '../../store/slices/city';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { NEARBY_OFFERS_COUNT, RequestStatus } from '../../const';
+import { MaxCount, RequestStatus } from '../../const';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
@@ -29,7 +29,7 @@ export default function OfferPage() {
   const offerRequestStatus = useAppSelector(selectOfferRequestStatus);
   const currentCity = useAppSelector(selectCurrentCity);
   const allOffersNearby = useAppSelector(selectOffersNearby);
-  const offersNearbyList = allOffersNearby.slice(0, NEARBY_OFFERS_COUNT);
+  const offersNearbyList = allOffersNearby.slice(0, MaxCount.NearbyOffers);
   const pointsOnMap = [currentOffer, ...offersNearbyList];
 
   let title, images;

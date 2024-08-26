@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useAuthCheck from '../../hooks/use-auth-check';
-import { APP_ROUTE, FAVORITE_BUTTON_SIZE } from '../../const';
+import { AppRoute, FavoriteButtonSize } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { changeFavorite } from '../../store/slices/favorites';
 import { useState } from 'react';
@@ -20,12 +20,12 @@ export default function FavoriteButton({
 }: FavoriteButtonProps) {
   const imgWidth =
     classNamePrefix === OFFER_CLASS_NAME
-      ? FAVORITE_BUTTON_SIZE.OFFER.WIDTH
-      : FAVORITE_BUTTON_SIZE.CARD.WIDTH;
+      ? FavoriteButtonSize.Offer.Width
+      : FavoriteButtonSize.Card.Width;
   const imgHeight =
     classNamePrefix === OFFER_CLASS_NAME
-      ? FAVORITE_BUTTON_SIZE.OFFER.HIGHT
-      : FAVORITE_BUTTON_SIZE.CARD.HIGHT;
+      ? FavoriteButtonSize.Offer.Hight
+      : FavoriteButtonSize.Card.Hight;
 
   const [isOn, setIsOn] = useState(isFavorite);
   const isLoggedIn = useAuthCheck();
@@ -38,7 +38,7 @@ export default function FavoriteButton({
 
   const handleClick = () => {
     if (!isLoggedIn) {
-      return navigate(APP_ROUTE.LOGIN);
+      return navigate(AppRoute.Login);
     }
 
     dispatch(changeFavorite({ offerId, status: Number(!isOn) }));
