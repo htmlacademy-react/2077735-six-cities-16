@@ -4,6 +4,7 @@ import { APIRoute, FavoriteStatus, RequestStatus } from '../../const';
 
 import { createAppAsyncThunk } from '../with-types';
 import { RootState } from '../store';
+import { logout } from './auth';
 
 export const fetchFavorites = createAppAsyncThunk(
   'favorites/fetchFavorites',
@@ -66,10 +67,14 @@ export const favoritesSlice = createSlice({
       })
       .addCase(changeFavorite.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.favorites = [];
       });
   },
 });
 
-export const selectFavorites = (state: Pick<RootState, 'favorites'>) => state.favorites.favorites;
+export const selectFavorites = (state: Pick<RootState, 'favorites'>) =>
+  state.favorites.favorites;
 export const selectFavoritesStatus = (state: Pick<RootState, 'favorites'>) =>
   state.favorites.requestStatus;
