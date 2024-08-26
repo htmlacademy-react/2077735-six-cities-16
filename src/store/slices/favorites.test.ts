@@ -19,6 +19,7 @@ import {
   selectFavorites,
   selectFavoritesStatus,
 } from './favorites';
+import { logout } from './auth';
 
 describe('Favorites Slice', () => {
   describe('Favorites Thunks', () => {
@@ -231,6 +232,26 @@ describe('Favorites Slice', () => {
           })
         );
 
+        expect(result).toEqual(expectedState);
+      });
+    });
+
+    describe('logout', () => {
+      it('clears "favorites" list with "logout.fulfilled" action', () => {
+        const mockedState = {
+          favorites: [makeFakeOffer()],
+          requestStatus: RequestStatus.Success,
+        };
+
+        const expectedState = {
+          favorites: [],
+          requestStatus: RequestStatus.Success,
+        };
+
+        const result = favoritesSlice.reducer(
+          mockedState,
+          logout.fulfilled(undefined, '', undefined)
+        );
         expect(result).toEqual(expectedState);
       });
     });
