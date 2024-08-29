@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAppSelector } from '../store/hooks';
 
-import type { LocationName } from '../types';
+import type { LocationName, Offer } from '../types';
 import {
   selectOffers,
   selectOffersRequestStatus,
@@ -15,9 +15,19 @@ export default function useCityOffers(cityName: LocationName) {
   const offers = useAppSelector(selectOffers);
 
   const offersByCity = useMemo(
-    () => Object.groupBy(offers, ({ city: { name } }) => name),
+    () =>
+      offers.reduce((result: { [key: string]: Offer[] }, offer) => {
+        if (!result[offer.city.name]) {
+          result[offer.city.name] = [offer];
+        } else {
+          result[offer.city.name].push(offer);
+        }
+
+        return result;
+      }, {}),
     [offers]
   );
+
   const currentOffers = offersByCity[cityName] || [];
 
   return {

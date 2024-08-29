@@ -6,3 +6,5 @@ export default function useAuthCheck() {
   const status = useAppSelector(selectAuthorizationStatus);
   return status === AuthorizationStatus.Auth;
 }
+
+

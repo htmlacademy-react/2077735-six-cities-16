@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import Logo from '../logo/logo';
-import UserNav from '../userNav/userNav';
+import UserNav from '../user-nav/user-nav';
 
 type HeaderProps = {
   isLoginPage?: boolean;

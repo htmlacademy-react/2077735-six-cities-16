@@ -34,6 +34,7 @@ export default function Main() {
           'page__main page__main--index',
           isEmpty && 'page__main--index-empty'
         )}
+        data-testid="main-page"
       >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

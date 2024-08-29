@@ -21,6 +21,7 @@ export default function Favorites() {
         className={`page__main page__main--favorites${
           !favoriteOffers.length ? ' page__main--favorites-empty' : ''
         }`}
+        data-testid="favorites-page"
       >
         <div className="page__favorites-container container">
           <section

@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AuthorizationStatus, RequestStatus } from '../../const';
-import { withStore } from '../../utils/mock-component';
+import { renderWithStore } from '../../utils/mock-component';
 import { screen } from '@testing-library/react';
 
 import FavoriteButton from './favorite-button';
@@ -8,7 +8,7 @@ import FavoriteButton from './favorite-button';
 describe('Component: FavoriteButton', () => {
   it('renders correct label when user is logged in', () => {
     const expectedText = /In bookmarks/i;
-    withStore(
+    renderWithStore(
       <BrowserRouter>
         <FavoriteButton classNamePrefix="" isFavorite offerId="" />
       </BrowserRouter>,
@@ -27,7 +27,7 @@ describe('Component: FavoriteButton', () => {
 
   it('renders correct label when user is not logged in', () => {
     const expectedText = /To bookmarks/i;
-    withStore(
+    renderWithStore(
       <BrowserRouter>
         <FavoriteButton classNamePrefix="" isFavorite offerId="" />
       </BrowserRouter>,

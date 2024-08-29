@@ -1,17 +1,18 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { LoginData } from '../../types';
-import { useAppDispatch } from '../../store/hooks';
-import { login } from '../../store/slices/auth';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { login, selectRequestStatus } from '../../store/slices/auth';
 import toast from 'react-hot-toast';
-import { useNavigation } from 'react-router-dom';
+import { RequestStatus } from '../../const';
 
 export default function LoginForm() {
   const [loginData, setLoginData] = useState<LoginData>({
     email: '',
     password: '',
   });
-  const { state } = useNavigation();
   const dispatch = useAppDispatch();
+  const isLoading =
+    useAppSelector(selectRequestStatus) === RequestStatus.Loading;
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.currentTarget;
@@ -64,7 +65,7 @@ export default function LoginForm() {
       <button
         className="login__submit form__submit button"
         type="submit"
-        disabled={state !== 'idle'}
+        disabled={isLoading}
       >
         Sign in
       </button>
