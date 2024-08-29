@@ -53,6 +53,13 @@ export function renderWithStore(
     <Provider store={mockStore}>{children}</Provider>
   );
 
+  if (!component) {
+    return {
+      Wrapper,
+      mockStore,
+    };
+  }
+
   return {
     Wrapper,
     mockStore,
@@ -74,6 +81,7 @@ export const renderWithRouterAndRedux = (
       <MemoryRouter>{children}</MemoryRouter>
     </Provider>
   );
+
   return {
     user: userEvent.setup(),
     mockStore,
