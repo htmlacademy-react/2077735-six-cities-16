@@ -68,6 +68,7 @@ function Map_(props: MapProps): JSX.Element {
       className={cn('map', activeOfferLocation ? 'offer__map' : 'cities__map')}
       style={{ height: '500px' }}
       ref={mapRef}
+      data-testid="map"
     />
   );
 }

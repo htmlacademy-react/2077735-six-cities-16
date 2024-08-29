@@ -12,9 +12,8 @@ export default function Layout({
   pageClassName,
   isLoginPage,
 }: LayoutProps) {
-
   return (
-    <div className={pageClassName}>
+    <div className={pageClassName} data-testid="layout">
       <Header isLoginPage={isLoginPage} />
       {children}
     </div>

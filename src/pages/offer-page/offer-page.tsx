@@ -57,7 +57,7 @@ export default function OfferPage() {
 
   return (
     <Layout pageClassName="page">
-      <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer" data-testid="offer-page">
         <section className="offer">
           <ImageGallery images={images} title={title} />
           <OfferContainer currentOffer={currentOffer} />

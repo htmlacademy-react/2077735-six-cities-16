@@ -17,7 +17,7 @@ export default function RandomCity() {
           to={AppRoute.Root}
           onClick={() => dispatch(currentCityChanged(randomLocation))}
         >
-          <span>{randomLocation.name}</span>
+          <span data-testid="random-city">{randomLocation.name}</span>
         </Link>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { AppRoute, AuthorizationStatus, RequestStatus } from '../../const';
-import { withStore } from '../../utils/mock-component';
+import { renderWithStore } from '../../utils/mock-component';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import ProtectedRoute from './protected-route';
@@ -34,7 +34,7 @@ describe('Component: ProtectedRoute', () => {
       initialEntries: [AppRoute.Login],
     });
 
-    withStore(<RouterProvider router={router} />, {
+    renderWithStore(<RouterProvider router={router} />, {
       preloadedState: {
         auth: {
           userData: makeFakeUser(),
@@ -51,7 +51,7 @@ describe('Component: ProtectedRoute', () => {
       initialEntries: [AppRoute.Login],
     });
 
-    withStore(<RouterProvider router={router} />, {
+    renderWithStore(<RouterProvider router={router} />, {
       preloadedState: {
         auth: {
           userData: null,
@@ -68,7 +68,7 @@ describe('Component: ProtectedRoute', () => {
       initialEntries: [AppRoute.Favorites],
     });
 
-    withStore(<RouterProvider router={router} />, {
+    renderWithStore(<RouterProvider router={router} />, {
       preloadedState: {
         auth: {
           userData: null,
@@ -85,7 +85,7 @@ describe('Component: ProtectedRoute', () => {
       initialEntries: [AppRoute.Favorites],
     });
 
-    withStore(<RouterProvider router={router} />, {
+    renderWithStore(<RouterProvider router={router} />, {
       preloadedState: {
         auth: {
           userData: makeFakeUser(),

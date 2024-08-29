@@ -52,7 +52,7 @@ export const makeFakeOffer = (): OfferDetail => ({
   rating: Math.floor(Math.random() * 5) + 1,
   isFavorite: true,
   isPremium: false,
-  images: [internet.url()],
+  images: Array.from({ length: 8 }, () => internet.url()),
   bedrooms: Math.floor(Math.random() * 4) + 1,
   maxAdults: Math.floor(Math.random() * 10) + 1,
   goods: [lorem.word()],

@@ -38,8 +38,8 @@ export default function ReviewForm() {
     const review = form.review.value;
     const rating = form.rating.value;
     setSubmitDisabled(
-      review.length < ReviewValidationRule.MinLength ||
-        review.length > ReviewValidationRule.MaxLength ||
+      review.length < ReviewValidationRule.MaxLength ||
+        review.length > ReviewValidationRule.MinLength ||
         !rating
     );
   }

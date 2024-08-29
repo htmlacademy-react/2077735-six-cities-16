@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Avatar from './avatar';
 
-describe('Component: Footer', () => {
+describe('Component: Avatar', () => {
   const user = {
     name: 'John Doe',
     avatarUrl: 'testAvatarUrl',

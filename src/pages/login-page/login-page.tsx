@@ -5,7 +5,7 @@ import RandomCity from '../../components/random-city/random-city';
 export default function Login() {
   return (
     <Layout pageClassName="page page--gray page--login" isLoginPage>
-      <main className="page__main page__main--login">
+      <main className="page__main page__main--login" data-testid="login-page">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
